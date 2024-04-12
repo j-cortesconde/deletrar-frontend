@@ -1,12 +1,13 @@
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
+import UserHeader from "./UserHeader";
 
 function Header() {
   return (
-    <header>
+    <header className="flex items-center justify-between bg-slate-200 p-3">
       <Logo />
       <SearchBar />
-      User
+      <UserHeader />
     </header>
   );
 }
