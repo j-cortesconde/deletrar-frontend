@@ -4,7 +4,7 @@ function UserHeader() {
   const queryClient = useQueryClient();
   const { user } = queryClient.getQueryData(["user"]);
 
-  return <div className="">{user.name}</div>;
+  return <div className="">{user?.name}</div>;
 }
 
 export default UserHeader;

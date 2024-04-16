@@ -7,7 +7,7 @@ function Header() {
     <header className="flex items-center justify-between bg-slate-200 p-3">
       <Logo />
       <SearchBar />
-      <UserHeader />
+      {/* <UserHeader /> */}
     </header>
   );
 }

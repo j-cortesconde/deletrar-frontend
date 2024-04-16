@@ -1,12 +1,8 @@
-import axios from "axios";
-import { API_URL } from "../utils/constants";
+import axiosService from "./axiosService";
 
 // Shouldn't catch errors here?
 
-export async function getUser(UserId) {
-  const response = await axios({
-    method: "GET",
-    url: `${API_URL}/users/id/${UserId}`,
-  });
+export async function getUser(userId) {
+  const response = await axiosService.getUser(userId);
   return response.data.data;
 }

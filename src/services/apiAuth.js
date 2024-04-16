@@ -1,13 +1,8 @@
-import axios from "axios";
-import { API_URL } from "../utils/constants";
+import axiosService from "./axiosService";
 
 export async function login({ email, password }) {
   try {
-    const response = await axios({
-      method: "POST",
-      url: `${API_URL}/users/login`,
-      data: { email, password },
-    });
+    const response = await axiosService.login({ email, password });
 
     localStorage.setItem("jwt", response.data.token);
 
@@ -17,19 +12,19 @@ export async function login({ email, password }) {
   }
 }
 
-export async function getCurrentUser() {
-  const token = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("jwt="))
-    .split("=")[1];
+// export async function getCurrentUser() {
+//   const token = document.cookie
+//     .split("; ")
+//     .find((row) => row.startsWith("jwt="))
+//     .split("=")[1];
 
-  const response = await axios.get(`${API_URL}/users/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  console.log(response);
-}
+//   const response = await axios.get(`${API_URL}/users/me`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+//   console.log(response);
+// }
 
 // export async function logout() {
 //   const { error } = await supabase.auth.signOut();
