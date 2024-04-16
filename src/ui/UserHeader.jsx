@@ -1,5 +1,10 @@
+import { useQueryClient } from "@tanstack/react-query";
+
 function UserHeader() {
-  return <div className="">Here goes the user image and things</div>;
+  const queryClient = useQueryClient();
+  const { user } = queryClient.getQueryData(["user"]);
+
+  return <div className="">{user.name}</div>;
 }
 
 export default UserHeader;

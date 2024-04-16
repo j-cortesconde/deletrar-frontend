@@ -2,9 +2,13 @@ function Logo() {
   const src = "/logo-light.jpg";
 
   return (
-    <div className="flex items-center">
-      <img src={src} alt="Logo" className="h-12 w-12" />
-      <p>Deletrar</p>
+    <div className="text-center">
+      <img
+        src={src}
+        alt="Logo"
+        className="inline-block h-44 w-auto rounded-full"
+      />
+      {/* <p className="text-4xl font-bold">DELETRAR</p> */}
     </div>
   );
 }

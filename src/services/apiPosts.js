@@ -11,3 +11,11 @@ export async function searchPosts(query) {
   });
   return response.data.data;
 }
+
+export async function getPost(postId) {
+  const response = await axios({
+    method: "GET",
+    url: `${API_URL}/posts/${postId}`,
+  });
+  return response.data.data;
+}

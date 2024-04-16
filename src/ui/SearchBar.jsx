@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchPosts } from "../features/posts/useSearchPosts";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 function SearchBar() {
+  const queryClient = useQueryClient;
   const [query, setQuery] = useState("");
   const { isLoading, posts, error, refetch } = useSearchPosts(query);
   const searchContainerRef = useRef(null);
@@ -37,8 +39,9 @@ function SearchBar() {
   };
 
   return (
-    <div className="relative" ref={searchContainerRef}>
+    <div className="relative">
       <input
+        ref={searchContainerRef}
         type="text"
         placeholder="Search posts..."
         value={query}
@@ -51,7 +54,7 @@ function SearchBar() {
           {posts.map((result) => (
             <li
               key={result._id}
-              onClick={() => navigate("/post/banana")}
+              onClick={() => navigate(`/post/${result._id}`)}
               className="border-stone-300 p-0.5"
             >
               {result.title}

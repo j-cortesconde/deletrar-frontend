@@ -1,4 +1,28 @@
 @tailwind base;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    transition:
+      background-color 0.3s,
+      border 0.3s;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+  body {
+    @apply text-[#374151];
+    /* transition:
+      color 0.3s,
+      background-color 0.3s; */
+    min-height: 100vh;
+    line-height: 1.5;
+    font-size: 1.6rem;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 

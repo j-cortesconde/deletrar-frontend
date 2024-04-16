@@ -3,6 +3,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import AppLayout from "./ui/AppLayout";
+import { Home } from "./pages/Home";
+import { Post } from "./pages/Post";
+import { User } from "./pages/User";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,8 +22,13 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route index element={<Navigate replace to="home" />} />
-          <Route path="home" element={<AppLayout />} />
+          <Route element={<AppLayout />}>
+            <Route index element={<Navigate replace to="home" />} />
+            <Route path="home" element={<Home />} />
+            <Route path="post/:postId" element={<Post />} />
+            <Route path="user/:userId" element={<User />} />
+          </Route>
+          <Route path="login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
