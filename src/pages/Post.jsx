@@ -28,7 +28,7 @@ export function Post() {
             Written by{" "}
             <span
               onClick={() => navigate(`/user/${post.author._id}`)}
-              className="font-bold text-yellow-900 hover:cursor-pointer"
+              className="font-bold text-stone-900 hover:cursor-pointer"
             >
               {post.author.name}
             </span>

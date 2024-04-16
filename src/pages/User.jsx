@@ -35,7 +35,7 @@ export function User() {
             <li key={post._id}>
               <p
                 onClick={() => navigate(`/post/${post._id}`)}
-                className="font-bold text-yellow-900 hover:cursor-pointer"
+                className="font-bold text-stone-900 hover:cursor-pointer"
               >
                 {post.title}
               </p>

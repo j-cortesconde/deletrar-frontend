@@ -3,7 +3,7 @@ import Header from "./Header";
 
 function AppLayout() {
   return (
-    <div className="text-center text-yellow-600">
+    <div className="text-center">
       <Header />
       <main>
         <div>

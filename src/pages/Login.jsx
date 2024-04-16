@@ -14,7 +14,7 @@ import Logo from "../ui/Logo";
 function Login() {
   return (
     <main className="grid min-h-screen grid-cols-1 content-center justify-center gap-14 bg-stone-200 sm:grid-cols-[648px]">
-      <Logo />
+      <Logo size="large" />
       <h4 className="text-center text-5xl font-semibold">
         Log in to your account
       </h4>
