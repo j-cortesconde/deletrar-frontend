@@ -14,7 +14,7 @@ class AxiosService {
 
   #setAuthHeader() {
     axios.interceptors.request.use(
-      function (config) {
+      (config) => {
         config.headers.Authorization = `Bearer ${this.#jwt}`;
         return config;
       },
@@ -33,6 +33,8 @@ class AxiosService {
     });
 
     this.#jwt = response.data.token;
+
+    this.#setAuthHeader();
 
     return response;
   }
@@ -56,6 +58,10 @@ class AxiosService {
       method: "GET",
       url: `${API_URL}/users/id/${userId}`,
     });
+  }
+
+  getCurrentUser() {
+    return axios.get(`${API_URL}/users/me`);
   }
 }
 

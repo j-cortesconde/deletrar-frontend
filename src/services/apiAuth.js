@@ -12,19 +12,14 @@ export async function login({ email, password }) {
   }
 }
 
-// export async function getCurrentUser() {
-//   const token = document.cookie
-//     .split("; ")
-//     .find((row) => row.startsWith("jwt="))
-//     .split("=")[1];
-
-//   const response = await axios.get(`${API_URL}/users/me`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   console.log(response);
-// }
+export async function getCurrentUser() {
+  try {
+    const response = await axiosService.getCurrentUser();
+    return response.data.data;
+  } catch (err) {
+    throw new Error("You don't seem to be logged in");
+  }
+}
 
 // export async function logout() {
 //   const { error } = await supabase.auth.signOut();
