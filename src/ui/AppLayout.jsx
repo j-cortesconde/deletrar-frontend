@@ -5,10 +5,8 @@ function AppLayout() {
   return (
     <div className="text-center">
       <Header />
-      <main>
-        <div>
-          <Outlet />
-        </div>
+      <main className="m-4">
+        <Outlet />
       </main>
     </div>
   );

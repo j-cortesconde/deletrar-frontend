@@ -3,7 +3,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../features/users/useUser";
 
-export function User() {
+export function UserDetail() {
   const { userId } = useParams();
 
   const { isLoading, user, error } = useUser(userId);

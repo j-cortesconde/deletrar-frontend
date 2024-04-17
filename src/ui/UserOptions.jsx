@@ -1,6 +1,6 @@
 import { HiChevronDown } from "react-icons/hi";
 
-function UserHeader({ user }) {
+function UserOptions({ user }) {
   return (
     <div className="flex items-center justify-between gap-5">
       <img
@@ -16,4 +16,4 @@ function UserHeader({ user }) {
   );
 }
 
-export default UserHeader;
+export default UserOptions;

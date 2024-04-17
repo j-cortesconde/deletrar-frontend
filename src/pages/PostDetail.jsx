@@ -3,7 +3,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { usePost } from "../features/posts/usePost";
 
-export function Post() {
+export function PostDetail() {
   const { postId } = useParams();
 
   const { isLoading, post, error } = usePost(postId);
@@ -14,15 +14,13 @@ export function Post() {
 
   return (
     <>
-      <div className="flex items-center justify-center">
-        <div>
-          <img
-            src={`/public/posts/${post.coverImage}`}
-            alt="Post Cover"
-            className="w-40"
-          />
-        </div>
-        <div className="flex-col">
+      <div className="flex items-end justify-center gap-10">
+        <img
+          src={`/public/posts/${post.coverImage}`}
+          alt="Post Cover"
+          className="w-40"
+        />
+        <div className="flex-col text-left">
           <p>{post.title}</p>
           <p>
             Written by{" "}
@@ -35,7 +33,7 @@ export function Post() {
           </p>
         </div>
       </div>
-      <p>{post.content}</p>
+      <p className="m-10">{post.content}</p>
     </>
   );
 }
