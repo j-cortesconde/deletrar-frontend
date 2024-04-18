@@ -29,6 +29,9 @@ function SearchResultList({ posts, setQuery }) {
             setQuery("");
           }
           break;
+        case "Escape":
+          setQuery("");
+          break;
         default:
           break;
       }
@@ -38,10 +41,10 @@ function SearchResultList({ posts, setQuery }) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [navigate, posts, selectedIndex]);
+  }, [navigate, posts, selectedIndex, setQuery]);
 
   return (
-    <ul className="absolute top-[110%] w-[100%] gap-1 rounded-xl bg-slate-200 p-1">
+    <ul className="absolute top-[110%] z-50 w-[100%] gap-1 rounded-xl bg-slate-200  p-1">
       {posts.map((result, index) => (
         <SearchResult
           key={result._id}

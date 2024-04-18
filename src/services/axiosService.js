@@ -39,6 +39,17 @@ class AxiosService {
     return response;
   }
 
+  getUser(userId) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/id/${userId}`,
+    });
+  }
+
+  getCurrentUser() {
+    return axios.get(`${API_URL}/users/me`);
+  }
+
   searchPosts(query) {
     return axios({
       method: "GET",
@@ -53,15 +64,12 @@ class AxiosService {
     });
   }
 
-  getUser(userId) {
+  createPost(post) {
     return axios({
-      method: "GET",
-      url: `${API_URL}/users/id/${userId}`,
+      method: "POST",
+      url: `${API_URL}/posts`,
+      data: post,
     });
-  }
-
-  getCurrentUser() {
-    return axios.get(`${API_URL}/users/me`);
   }
 }
 
