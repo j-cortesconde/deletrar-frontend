@@ -2,6 +2,7 @@
 
 import { useNavigate, useParams } from "react-router-dom";
 import { usePost } from "../features/posts/usePost";
+import HTMLParser from "../features/posts/HTMLParser";
 
 export function PostDetail() {
   const { postId } = useParams();
@@ -13,14 +14,14 @@ export function PostDetail() {
   if (error) return <div>{error}</div>;
 
   return (
-    <>
+    <div className="mx-auto w-3/4">
       <div className="flex items-end justify-center gap-10">
         <img
           src={`/public/posts/${post.coverImage}`}
           alt="Post Cover"
           className="w-40"
         />
-        <div className="flex-col text-left">
+        <div className="w-1/2 flex-col text-left">
           <p>{post.title}</p>
           <p>
             Written by{" "}
@@ -31,9 +32,10 @@ export function PostDetail() {
               {post.author.name}
             </span>
           </p>
+          <p className="flex-wrap">{post.summary}</p>
         </div>
       </div>
-      <p className="m-10">{post.content}</p>
-    </>
+      <HTMLParser delta={post.content} />
+    </div>
   );
 }

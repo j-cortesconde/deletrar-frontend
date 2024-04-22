@@ -1,6 +1,6 @@
 import ReactQuill from "react-quill";
 
-function PostEditor({ value, handleChange, className }) {
+function PostEditor({ value, quillRef, handleChange, className }) {
   const modules = {
     toolbar: [
       [{ font: [] }],
@@ -9,10 +9,6 @@ function PostEditor({ value, handleChange, className }) {
       ["bold", "italic", "underline", "strike"], // toggled buttons
       [{ color: [] }, { background: [] }], // dropdown with defaults from theme
       [{ align: [] }],
-
-      ["blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link"], // link and image, video
 
       [{ script: "sub" }, { script: "super" }], // superscript/subscript
       [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
@@ -40,6 +36,7 @@ function PostEditor({ value, handleChange, className }) {
 
   return (
     <ReactQuill
+      ref={quillRef}
       style={{ flex: "1 1 0%" }}
       theme="snow"
       value={value}

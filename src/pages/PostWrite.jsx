@@ -1,5 +1,5 @@
 import "react-quill/dist/quill.snow.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
@@ -8,6 +8,8 @@ import { useCurrentUser } from "../features/users/useCurrentUser";
 import { useCreatePost } from "../features/posts/useCreatePost";
 
 export function PostWrite() {
+  const quillRef = useRef();
+
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
@@ -26,6 +28,12 @@ export function PostWrite() {
     createPost(post);
   }
 
+  function handleChange() {
+    if (quillRef.current) {
+      const delta = quillRef.current.getEditor().getContents();
+      setContent(delta);
+    }
+  }
   return (
     <>
       {isCreating && <Loader />}
@@ -48,8 +56,10 @@ export function PostWrite() {
         />
 
         <PostEditor
+          quillRef={quillRef}
           value={content}
-          handleChange={setContent}
+          // handleChange={setContent}
+          handleChange={handleChange}
           className="m-2 flex h-full w-3/4 flex-1 flex-col"
         />
 
