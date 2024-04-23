@@ -4,6 +4,8 @@ import { API_URL } from "../utils/constants";
 
 class AxiosService {
   #jwt;
+  #requestInterceptor;
+
   constructor() {
     this.#jwt = localStorage.getItem("jwt");
 
@@ -13,7 +15,7 @@ class AxiosService {
   }
 
   #setAuthHeader() {
-    axios.interceptors.request.use(
+    this.#requestInterceptor = axios.interceptors.request.use(
       (config) => {
         config.headers.Authorization = `Bearer ${this.#jwt}`;
         return config;
@@ -23,6 +25,10 @@ class AxiosService {
         return Promise.reject(error);
       },
     );
+  }
+
+  #clearAuthHeader() {
+    axios.interceptors.request.eject(this.#requestInterceptor);
   }
 
   async login({ email, password }) {
@@ -35,6 +41,19 @@ class AxiosService {
     this.#jwt = response.data.token;
 
     this.#setAuthHeader();
+
+    return response;
+  }
+
+  async logout() {
+    const response = await axios({
+      method: "GET",
+      url: `${API_URL}/users/logout`,
+    });
+
+    this.#jwt = undefined;
+
+    this.#clearAuthHeader();
 
     return response;
   }

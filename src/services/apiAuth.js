@@ -12,6 +12,16 @@ export async function login({ email, password }) {
   }
 }
 
+export async function logout() {
+  try {
+    await axiosService.logout();
+
+    localStorage.removeItem("jwt");
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
 export async function getCurrentUser() {
   try {
     const response = await axiosService.getCurrentUser();

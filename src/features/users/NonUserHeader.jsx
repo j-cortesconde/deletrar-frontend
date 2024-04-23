@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import Button from "./Button";
+import Button from "../../ui/Button";
 
-function NonUserOptions() {
+function NonUserHeader() {
   const navigate = useNavigate();
   return (
     <div className="flex items-center gap-10">
@@ -15,4 +15,4 @@ function NonUserOptions() {
   );
 }
 
-export default NonUserOptions;
+export default NonUserHeader;
