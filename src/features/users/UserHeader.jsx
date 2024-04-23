@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { HiChevronDown } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import UserOptions from "./UserOptions";
+import { useClickOutsideDropdown } from "../../hooks/useClickOutsideDropdown";
 
 function UserHeader({ user }) {
   const [displayOptions, setDisplayOptions] = useState(false);
+  const userNameRef = useRef();
 
   function handleCloseDisplayOptions() {
     setDisplayOptions(false);
   }
 
-  const userNameRef = useRef();
+  useClickOutsideDropdown(userNameRef, handleCloseDisplayOptions);
 
   useEffect(() => {
     function toggleDisplayOptions(e) {
@@ -18,18 +20,11 @@ function UserHeader({ user }) {
         setDisplayOptions((previous) => !previous);
       }
     }
-    function handleClickOutside(e) {
-      if (userNameRef.current && !userNameRef.current.contains(e.target)) {
-        setDisplayOptions(false);
-      }
-    }
 
     document.addEventListener("click", toggleDisplayOptions);
-    document.addEventListener("click", handleClickOutside);
 
     return () => {
       document.removeEventListener("click", toggleDisplayOptions);
-      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 

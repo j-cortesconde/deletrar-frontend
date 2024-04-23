@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchPosts } from "./useSearchPosts";
 import SearchResultList from "./SearchResultList";
+import { useClickOutsideDropdown } from "../../hooks/useClickOutsideDropdown";
 
 function SearchBar() {
   const [query, setQuery] = useState("");
@@ -11,29 +12,11 @@ function SearchBar() {
     setQuery("");
   }
 
+  useClickOutsideDropdown(searchContainerRef, handleCloseResults);
+
   useEffect(() => {
     refetch();
   }, [query, refetch]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        searchContainerRef.current &&
-        !searchContainerRef.current.contains(event.target)
-      ) {
-        // Click occurred outside of the search container, close the search results
-        setQuery("");
-      }
-    };
-
-    // Attach event listener to detect clicks outside of the search container
-    document.addEventListener("click", handleClickOutside);
-
-    // Cleanup function to remove event listener
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
 
   const handleSearchTermChange = (e) => {
     setQuery(e.target.value);
