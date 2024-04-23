@@ -1,44 +1,45 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-export function useScrollList(listObj) {
-  const [selectedIndex, setSelectedIndex] = useState(0); // Track selected index
-  const navigate = useNavigate();
+export function useScrollList(listRef, onExit) {
+  const [selectedIndex, setSelectedIndex] = useState(0); // Tracks the selected child element in the list
 
-  // Add event listener for keyboard navigation
+  // Adds an event listener for keyboard navigation
   useEffect(() => {
-    // Handle keyboard navigation
-    const handleKeyDown = (event) => {
-      switch (event.key) {
-        case "ArrowUp":
-          setSelectedIndex((prevIndex) => {
-            if (prevIndex - 1 < 0) return posts.length - 1;
-            else return prevIndex - 1;
-          });
-          break;
+    const handleKeyDown = (e) => {
+      switch (e.key) {
         case "ArrowDown":
-          setSelectedIndex((prevIndex) => {
-            if (prevIndex + 1 > posts.length - 1) return 0;
-            else return prevIndex + 1;
-          });
+          e.preventDefault();
+          setSelectedIndex(
+            (prevIndex) => (prevIndex + 1) % listRef.current.children.length,
+          );
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          setSelectedIndex(
+            (prevIndex) =>
+              (prevIndex - 1 + listRef.current.children.length) %
+              listRef.current.children.length,
+          );
           break;
         case "Enter":
-          if (posts[selectedIndex]) {
-            navigate(`/post/${posts[selectedIndex]._id}`);
-            setQuery("");
-          }
+          e.preventDefault();
+          listRef.current.children[selectedIndex].click();
+          console.log(listRef.current.children[selectedIndex]);
           break;
         case "Escape":
-          setQuery("");
+          e.preventDefault();
+          onExit();
           break;
         default:
           break;
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [navigate, posts, selectedIndex, setQuery]);
+  }, [selectedIndex, listRef, onExit]);
+
+  return selectedIndex;
 }

@@ -6,6 +6,10 @@ import UserOptions from "./UserOptions";
 function UserHeader({ user }) {
   const [displayOptions, setDisplayOptions] = useState(false);
 
+  function handleCloseDisplayOptions() {
+    setDisplayOptions(false);
+  }
+
   const userNameRef = useRef();
 
   useEffect(() => {
@@ -49,7 +53,10 @@ function UserHeader({ user }) {
         </div>
 
         {displayOptions && (
-          <UserOptions user={user} setDisplayOptions={setDisplayOptions} />
+          <UserOptions
+            user={user}
+            onCloseDisplayOptions={handleCloseDisplayOptions}
+          />
         )}
       </div>
     </div>

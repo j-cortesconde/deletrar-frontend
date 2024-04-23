@@ -1,48 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import OptionsLink from "../../ui/OptionsLink";
 import { useLogout } from "../authentication/useLogout";
+import { useScrollList } from "../../hooks/useScrollList";
 
-function UserOptions({ user, setDisplayOptions }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+function UserOptions({ user, onCloseDisplayOptions }) {
   const optionsRef = useRef(null);
-  const { logout, isLoading } = useLogout();
-
-  // Adds keyboard navigation to the options list
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      switch (e.key) {
-        case "ArrowDown":
-          e.preventDefault();
-          setSelectedIndex(
-            (prevIndex) => (prevIndex + 1) % optionsRef.current.children.length,
-          );
-          break;
-        case "ArrowUp":
-          e.preventDefault();
-          setSelectedIndex(
-            (prevIndex) =>
-              (prevIndex - 1 + optionsRef.current.children.length) %
-              optionsRef.current.children.length,
-          );
-          break;
-        case "Enter":
-          e.preventDefault();
-          optionsRef.current.children[selectedIndex].click();
-          break;
-        case "Escape":
-          e.preventDefault();
-          setDisplayOptions(false);
-          break;
-        default:
-          break;
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedIndex]);
+  const selectedIndex = useScrollList(optionsRef, onCloseDisplayOptions);
+  const { logout } = useLogout();
 
   return (
     <div

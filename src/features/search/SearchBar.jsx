@@ -7,6 +7,10 @@ function SearchBar() {
   const { isLoading, posts, error, refetch } = useSearchPosts(query);
   const searchContainerRef = useRef(null);
 
+  function handleCloseResults() {
+    setQuery("");
+  }
+
   useEffect(() => {
     refetch();
   }, [query, refetch]);
@@ -47,7 +51,7 @@ function SearchBar() {
       />
 
       {posts?.length > 0 && (
-        <SearchResultList posts={posts} setQuery={setQuery} />
+        <SearchResultList posts={posts} onCloseResults={handleCloseResults} />
       )}
     </div>
   );
