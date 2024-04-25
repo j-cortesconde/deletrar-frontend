@@ -3,7 +3,7 @@ import { searchPosts } from "../../services/apiPosts";
 
 export function useSearchPosts(query) {
   const {
-    isLoading,
+    isFetching,
     data: posts,
     error,
     refetch,
@@ -12,5 +12,5 @@ export function useSearchPosts(query) {
     queryFn: () => searchPosts(query),
   });
 
-  return { isLoading, posts, error, refetch };
+  return { isFetching, posts, error, refetch };
 }

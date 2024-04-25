@@ -1,30 +1,34 @@
 import { useEffect, useState } from "react";
 
 export function useScrollList(listRef, onExit) {
-  const [selectedIndex, setSelectedIndex] = useState(0); // Tracks the selected child element in the list
+  const [selectedIndex, setSelectedIndex] = useState(-1); // Tracks the selected child element in the list
 
   // Adds an event listener for keyboard navigation
   useEffect(() => {
+    if (!listRef.current) return;
     const handleKeyDown = (e) => {
+      const childLiElements = Array.from(listRef.current.children).filter(
+        (child) => child.tagName === "LI",
+      );
       switch (e.key) {
         case "ArrowDown":
           e.preventDefault();
           setSelectedIndex(
-            (prevIndex) => (prevIndex + 1) % listRef.current.children.length,
+            (prevIndex) => (prevIndex + 1) % (childLiElements.length + 1),
           );
           break;
         case "ArrowUp":
           e.preventDefault();
           setSelectedIndex(
             (prevIndex) =>
-              (prevIndex - 1 + listRef.current.children.length) %
-              listRef.current.children.length,
+              (prevIndex - 1 + (childLiElements.length + 1)) %
+              (childLiElements.length + 1),
           );
           break;
         case "Enter":
           e.preventDefault();
-          listRef.current.children[selectedIndex].click();
-          console.log(listRef.current.children[selectedIndex]);
+          if (selectedIndex !== childLiElements.length && selectedIndex !== -1)
+            childLiElements[selectedIndex].click();
           break;
         case "Escape":
           e.preventDefault();

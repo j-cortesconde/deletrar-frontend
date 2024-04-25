@@ -76,6 +76,13 @@ class AxiosService {
     });
   }
 
+  searchUsers(query) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/search/${query}`,
+    });
+  }
+
   getPost(postId) {
     return axios({
       method: "GET",
