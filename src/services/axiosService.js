@@ -72,7 +72,7 @@ class AxiosService {
   searchPosts(query) {
     return axios({
       method: "GET",
-      url: `${API_URL}/posts?title[regex]=${query}`,
+      url: `${API_URL}/posts/search/${query}`,
     });
   }
 
