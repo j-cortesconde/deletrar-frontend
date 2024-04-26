@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useSearchPosts } from "./useSearchPosts";
-import SearchResultList from "./SearchResultList";
+import GeneralResultList from "./GeneralResultList";
 import { useClickOutsideDropdown } from "../../hooks/useClickOutsideDropdown";
 import { useSearchUsers } from "./useSearchUsers";
 import { SEARCH_RESULTS } from "../../utils/constants";
@@ -25,10 +25,6 @@ function SearchBar() {
 
   const isFetching = fetchingPosts || fetchingUsers;
 
-  const trimmedPosts = posts?.length > 0 ? posts.slice(0, SEARCH_RESULTS) : [];
-  const trimmedUsers = users?.length > 0 ? users.slice(0, SEARCH_RESULTS) : [];
-  const listResults = [...trimmedPosts, ...trimmedUsers];
-
   const querySlug = slugify(debouncedQuery, {
     lower: true,
     remove: /[*+~.,:;()'"¡!¿?@]/g,
@@ -39,11 +35,6 @@ function SearchBar() {
   }
 
   useClickOutsideDropdown(searchContainerRef, handleCloseResults);
-
-  // useEffect(() => {
-  //   refetchPosts();
-  //   refetchUsers();
-  // }, [query, refetchPosts, refetchUsers]);
 
   const handleSearchTermChange = (e) => {
     setQuery(e.target.value);
@@ -61,10 +52,9 @@ function SearchBar() {
       />
 
       {debouncedQuery !== "" && (
-        <SearchResultList
-          results={listResults}
-          postsAmount={posts?.length}
-          usersAmount={users?.length}
+        <GeneralResultList
+          posts={posts}
+          users={users}
           onCloseResults={handleCloseResults}
           isFetching={isFetching}
           query={querySlug}
