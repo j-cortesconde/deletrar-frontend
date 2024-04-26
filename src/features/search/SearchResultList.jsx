@@ -31,6 +31,7 @@ function SearchResultList({
   usersAmount = 0,
   onCloseResults,
   isFetching,
+  query,
 }) {
   const listRef = useRef(null);
   const selectedIndex = useScrollList(listRef, onCloseResults);
@@ -70,6 +71,7 @@ function SearchResultList({
         switch (true) {
           // Case when result is first Post
           case index === 0 && trimmedPostsAmount > 0:
+            console.log("Case 1");
             return (
               <>
                 <p
@@ -89,6 +91,7 @@ function SearchResultList({
           // Case when result is last post & there are more in query
           case index === trimmedPostsAmount - 1 &&
             postsAmount > trimmedPostsAmount:
+            console.log("Case 2");
             return (
               <>
                 <PostResult
@@ -97,13 +100,14 @@ function SearchResultList({
                   to={`/post/${result._id}`}
                   result={result}
                 />
-                <Link key={`posts-link-${index}`} to="/somewhere/post">
+                <Link key={`posts-link-${index}`} to={`/posts/${query}`}>
                   See more
                 </Link>
               </>
             );
           // Case when result is any other post
           case index < trimmedPostsAmount:
+            console.log("Case 3");
             return (
               <PostResult
                 key={result._id}
@@ -114,6 +118,7 @@ function SearchResultList({
             );
           // Case when result is first user
           case index === trimmedPostsAmount:
+            console.log("Case 4");
             return (
               <>
                 <p
@@ -131,8 +136,8 @@ function SearchResultList({
               </>
             );
           // Case when result is last user & there are more in query
-          case index === trimmedUsersAmount + trimmedPostsAmount - 1 &&
-            usersAmount > trimmedUsersAmount:
+          case index === results.length - 1 && usersAmount > trimmedUsersAmount:
+            console.log("Case 5");
             return (
               <>
                 <UserResult
@@ -141,13 +146,14 @@ function SearchResultList({
                   to={`/post/${result._id}`}
                   result={result}
                 />
-                <Link key={`users-link-${index}`} to="/somewhere/user">
+                <Link key={`users-link-${index}`} to={`/users/${query}`}>
                   See more
                 </Link>
               </>
             );
           // Case when result is any other user
           case index > trimmedPostsAmount:
+            console.log("Case 6");
             return (
               <UserResult
                 key={result._id}

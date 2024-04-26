@@ -9,6 +9,8 @@ import { UserDetail } from "./pages/UserDetail";
 import Login from "./pages/Login";
 import { PostWrite } from "./pages/PostWrite";
 import { Toaster } from "react-hot-toast";
+import UserSearchResults from "./pages/UserSearchResults";
+import PostSearchResults from "./pages/PostSearchResults";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +29,8 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />
+            <Route path="users/:searchTerm" element={<UserSearchResults />} />
+            <Route path="posts/:searchTerm" element={<PostSearchResults />} />
             <Route path="post/create" element={<PostWrite />} />
             <Route path="post/:postId" element={<PostDetail />} />
             <Route path="user/:userId" element={<UserDetail />} />

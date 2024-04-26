@@ -6,11 +6,10 @@ export function useSearchUsers(query) {
     isFetching,
     data: users,
     error,
-    refetch,
   } = useQuery({
-    queryKey: ["searchedUsers"],
+    queryKey: ["searchedUsers", query],
     queryFn: () => searchUsers(query),
   });
 
-  return { isFetching, users, error, refetch };
+  return { isFetching, users, error };
 }

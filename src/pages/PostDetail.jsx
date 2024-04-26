@@ -17,7 +17,7 @@ export function PostDetail() {
     <div className="mx-auto w-3/4">
       <div className="flex items-end justify-center gap-10">
         <img
-          src={`/public/posts/${post.coverImage}`}
+          src={`/posts/${post.coverImage}`}
           alt="Post Cover"
           className="w-40"
         />

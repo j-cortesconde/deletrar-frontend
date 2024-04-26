@@ -6,11 +6,10 @@ export function useSearchPosts(query) {
     isFetching,
     data: posts,
     error,
-    refetch,
   } = useQuery({
-    queryKey: ["searchedPosts"],
+    queryKey: ["searchedPosts", query],
     queryFn: () => searchPosts(query),
   });
 
-  return { isFetching, posts, error, refetch };
+  return { isFetching, posts, error };
 }

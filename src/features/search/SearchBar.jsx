@@ -4,21 +4,23 @@ import SearchResultList from "./SearchResultList";
 import { useClickOutsideDropdown } from "../../hooks/useClickOutsideDropdown";
 import { useSearchUsers } from "./useSearchUsers";
 import { SEARCH_RESULTS } from "../../utils/constants";
+import slugify from "slugify";
+import { useDebounce } from "../../hooks/useDebounce";
 
 function SearchBar() {
   const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 250);
+
   const {
     isFetching: fetchingPosts,
     posts,
     error: postsError,
-    refetch: refetchPosts,
-  } = useSearchPosts(query);
+  } = useSearchPosts(debouncedQuery);
   const {
     isFetching: fetchingUsers,
     users,
     error: usersError,
-    refetch: refetchUsers,
-  } = useSearchUsers(query);
+  } = useSearchUsers(debouncedQuery);
   const searchContainerRef = useRef(null);
 
   const isFetching = fetchingPosts || fetchingUsers;
@@ -27,16 +29,21 @@ function SearchBar() {
   const trimmedUsers = users?.length > 0 ? users.slice(0, SEARCH_RESULTS) : [];
   const listResults = [...trimmedPosts, ...trimmedUsers];
 
+  const querySlug = slugify(debouncedQuery, {
+    lower: true,
+    remove: /[*+~.,:;()'"¡!¿?@]/g,
+  });
+
   function handleCloseResults() {
     setQuery("");
   }
 
   useClickOutsideDropdown(searchContainerRef, handleCloseResults);
 
-  useEffect(() => {
-    refetchPosts();
-    refetchUsers();
-  }, [query, refetchPosts, refetchUsers]);
+  // useEffect(() => {
+  //   refetchPosts();
+  //   refetchUsers();
+  // }, [query, refetchPosts, refetchUsers]);
 
   const handleSearchTermChange = (e) => {
     setQuery(e.target.value);
@@ -53,13 +60,14 @@ function SearchBar() {
         className="w-48 rounded-full bg-white px-4 py-2 text-2xl transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-stone-500 focus:ring-opacity-50 sm:w-80 sm:focus:w-96 md:w-[40rem] md:focus:w-[46rem]"
       />
 
-      {query !== "" && (
+      {debouncedQuery !== "" && (
         <SearchResultList
           results={listResults}
           postsAmount={posts?.length}
           usersAmount={users?.length}
           onCloseResults={handleCloseResults}
           isFetching={isFetching}
+          query={querySlug}
         />
       )}
     </div>

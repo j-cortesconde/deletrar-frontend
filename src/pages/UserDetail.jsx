@@ -15,11 +15,7 @@ export function UserDetail() {
     <>
       <div className="flex items-center justify-center">
         <div>
-          <img
-            src={`/public/users/${user.photo}`}
-            alt={user.name}
-            className="w-40"
-          />
+          <img src={`/users/${user.photo}`} alt={user.name} className="w-40" />
         </div>
         <div className="flex-col">
           <p>
