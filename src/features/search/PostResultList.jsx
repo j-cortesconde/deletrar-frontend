@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { SEARCH_RESULTS } from "../../utils/constants";
 import PostResult from "./PostResult";
-import SearchLi from "../../ui/SearchLi";
+import ScrollableLi from "../../ui/ScrollableLi";
 
 function PostResultList({ posts, query, selectedIndex }) {
   const navigate = useNavigate();
@@ -29,13 +29,13 @@ function PostResultList({ posts, query, selectedIndex }) {
           />
         ))}
         {trimmedPostsAmount < postsAmount && (
-          <SearchLi
+          <ScrollableLi
             key={`posts-link-${query}`}
             selected={SEARCH_RESULTS === selectedIndex}
             onClick={() => navigate(`/posts/${query}`)}
           >
             See more...
-          </SearchLi>
+          </ScrollableLi>
         )}
       </ul>
     </li>

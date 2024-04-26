@@ -58,7 +58,6 @@ export function PostWrite() {
         <PostEditor
           quillRef={quillRef}
           value={content}
-          // handleChange={setContent}
           handleChange={handleChange}
           className="m-2 flex h-full w-3/4 flex-1 flex-col"
         />

@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import SearchLi from "../../ui/SearchLi";
+import ScrollableLi from "../../ui/ScrollableLi";
 
 function UserResult({ selected = false, to, result }) {
   const navigate = useNavigate();
 
   return (
-    <SearchLi selected={selected} onClick={() => navigate(to)}>
+    <ScrollableLi selected={selected} onClick={() => navigate(to)}>
       <Link to={to} className="m-2 flex items-center gap-3 align-middle">
         <img
           src={`/users/${result.photo}`}
@@ -18,7 +18,7 @@ function UserResult({ selected = false, to, result }) {
           <p className="text-lg">- {result.username}</p>
         </div>
       </Link>
-    </SearchLi>
+    </ScrollableLi>
   );
 }
 

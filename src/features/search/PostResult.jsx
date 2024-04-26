@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import SearchLi from "../../ui/SearchLi";
+import ScrollableLi from "../../ui/ScrollableLi";
 
 function PostResult({ selected = false, to, result }) {
   const navigate = useNavigate();
@@ -9,13 +9,13 @@ function PostResult({ selected = false, to, result }) {
   const pStyle = selected ? baseP + selectedP : baseP;
 
   return (
-    <SearchLi selected={selected} onClick={() => navigate(to)}>
+    <ScrollableLi selected={selected} onClick={() => navigate(to)}>
       <Link to={to} className="mx-2 align-middle">
         <span>{result.title}</span>
         <span className="text-lg"> - {result.author.name}</span>
       </Link>
       <p className={pStyle}>{result.summary}</p>
-    </SearchLi>
+    </ScrollableLi>
   );
 }
 

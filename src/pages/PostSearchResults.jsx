@@ -11,11 +11,13 @@ function PostSearchResults() {
   } = useSearchPosts(searchTerm);
 
   return (
-    <ul className="w-7/12">
-      {posts?.map((post) => (
-        <PostCard key={post._id} post={post} />
-      ))}
-    </ul>
+    <div className="flex justify-center">
+      <ul className="w-7/12">
+        {posts?.map((post) => (
+          <PostCard key={post._id} post={post} />
+        ))}
+      </ul>
+    </div>
   );
 }
 

@@ -9,7 +9,7 @@ function AppLayout() {
   return (
     <div className="flex h-screen flex-col">
       <Header user={user} />
-      <main className="m-4 flex flex-1 justify-center">
+      <main className="m-4  flex-1 text-center">
         <Outlet />
         {user ? <CreatePost /> : ""}
       </main>

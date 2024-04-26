@@ -11,11 +11,13 @@ function UserSearchResults() {
   } = useSearchUsers(searchTerm);
 
   return (
-    <ul className="w-7/12">
-      {users?.map((user) => (
-        <UserCard key={user._id} user={user} />
-      ))}
-    </ul>
+    <div className="flex justify-center">
+      <ul className="w-7/12">
+        {users?.map((user) => (
+          <UserCard key={user._id} user={user} />
+        ))}
+      </ul>
+    </div>
   );
 }
 

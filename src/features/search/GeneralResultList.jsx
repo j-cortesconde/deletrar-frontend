@@ -1,22 +1,3 @@
-//TODO: Maybe make this list include different lists inside it instead of this top level mess of ps, Links and lis. So you get something like:
-/*  <ul>
-      <li>
-        <h2>Header for First Section</h2>
-        <ul>
-          <li>Item 1</li>
-          <li>Item 2</li>
-        </ul>
-      </li>
-      <li>
-        <h2>Header for Second Section</h2>
-        <ul>
-          <li>Item 3</li>
-          <li>Item 4</li>
-        </ul>
-      </li>
-    </ul> */
-// TODO: Must format the Link and create it's page
-
 import { useRef } from "react";
 import { useScrollList } from "../../hooks/useScrollList";
 import { BiLoaderAlt } from "react-icons/bi";

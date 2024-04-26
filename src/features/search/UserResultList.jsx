@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { SEARCH_RESULTS } from "../../utils/constants";
 import UserResult from "./UserResult";
-import SearchLi from "../../ui/SearchLi";
+import ScrollableLi from "../../ui/ScrollableLi";
 
 function UserResultList({
   users,
@@ -34,13 +34,13 @@ function UserResultList({
           />
         ))}
         {trimmedUsersAmount < usersAmount && (
-          <SearchLi
+          <ScrollableLi
             key={`users-link-${query}`}
             selected={countBeforeUserResults + SEARCH_RESULTS === selectedIndex}
             onClick={() => navigate(`/users/${query}`)}
           >
             See more...
-          </SearchLi>
+          </ScrollableLi>
         )}
       </ul>
     </li>
