@@ -1,23 +1,15 @@
+import { Link } from "react-router-dom";
 import LoginForm from "../features/authentication/LoginForm";
 import Logo from "../ui/Logo";
 
-// const LoginLayout = styled.main`
-//   min-height: 100vh;
-//   display: grid;
-//   grid-template-columns: 48rem;
-//   align-content: center;
-//   justify-content: center;
-//   gap: 3.2rem;
-//   background-color: var(--color-grey-50);
-// `;
-
 function Login() {
   return (
-    <main className="grid min-h-screen grid-cols-1 content-center justify-center gap-14 bg-stone-200 sm:grid-cols-[648px]">
+    <main className="grid min-h-screen grid-cols-1 content-center justify-center gap-14 bg-stone-200 p-10 sm:grid-cols-[648px]">
       <Logo size="large" />
-      <h4 className="text-center text-5xl font-semibold">
-        Log in to your account
-      </h4>
+      <h4 className="text-center text-5xl font-semibold">Iniciá sesión</h4>
+      <Link to={"/forgot-password"} className="mx-16 text-right underline">
+        ¿Olvidaste tu contraseña?
+      </Link>
       <LoginForm />
     </main>
   );

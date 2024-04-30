@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLogin } from "./useLogin";
 
-import FormRowVertical from "../../ui/FormRowVertical";
+import FormRow from "../../ui/FormRow";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
@@ -27,7 +27,7 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRowVertical label="Email address">
+      <FormRow label="Correo electrónico">
         <Input
           type="email"
           id="email"
@@ -37,8 +37,8 @@ function LoginForm() {
           onChange={(e) => setEmail(e.target.value)}
           disabled={isLoading}
         />
-      </FormRowVertical>
-      <FormRowVertical label="Password">
+      </FormRow>
+      <FormRow label="Contraseña">
         <Input
           type="password"
           id="password"
@@ -47,12 +47,12 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           disabled={isLoading}
         />
-      </FormRowVertical>
-      <FormRowVertical>
+      </FormRow>
+      <FormRow>
         <Button size="large" disabled={isLoading}>
-          {!isLoading ? "Log in" : "Wait"}
+          {!isLoading ? "Iniciar Sesión" : "Esperá"}
         </Button>
-      </FormRowVertical>
+      </FormRow>
     </Form>
   );
 }

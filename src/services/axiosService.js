@@ -31,6 +31,22 @@ class AxiosService {
     axios.interceptors.request.eject(this.#requestInterceptor);
   }
 
+  requestAccount({ email, name, request, toWhom }) {
+    return axios({
+      method: "POST",
+      url: `${API_URL}/users/requestInvite`,
+      data: { email, name, request, toWhom },
+    });
+  }
+
+  inviteFriend({ email, name }) {
+    return axios({
+      method: "POST",
+      url: `${API_URL}/users/invite`,
+      data: { email, name },
+    });
+  }
+
   async login({ email, password }) {
     const response = await axios({
       method: "POST",

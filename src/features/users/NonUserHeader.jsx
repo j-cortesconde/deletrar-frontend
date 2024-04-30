@@ -5,7 +5,7 @@ function NonUserHeader() {
   const navigate = useNavigate();
   return (
     <div className="flex items-center gap-10">
-      <Link to="/request" className="text-center text-2xl">
+      <Link to="/account-request" className="text-center text-2xl">
         Request account
       </Link>
       <Button size="medium" onClick={() => navigate("/login")}>

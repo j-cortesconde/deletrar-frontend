@@ -11,6 +11,8 @@ import { PostWrite } from "./pages/PostWrite";
 import { Toaster } from "react-hot-toast";
 import UserSearchResults from "./pages/UserSearchResults";
 import PostSearchResults from "./pages/PostSearchResults";
+import RequestAccount from "./pages/RequestAccount";
+import InviteFriend from "./pages/InviteFriend";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,13 +31,17 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />
+            <Route path="users/invite" element={<InviteFriend />} />
             <Route path="users/:searchTerm" element={<UserSearchResults />} />
             <Route path="posts/:searchTerm" element={<PostSearchResults />} />
             <Route path="post/create" element={<PostWrite />} />
             <Route path="post/:postId" element={<PostDetail />} />
             <Route path="user/:userId" element={<UserDetail />} />
           </Route>
+          <Route path="account-request" element={<RequestAccount />} />
           <Route path="login" element={<Login />} />
+          <Route path="forgot-password" />
+          <Route path="reset-password/:resetToken" />
         </Routes>
       </BrowserRouter>
 

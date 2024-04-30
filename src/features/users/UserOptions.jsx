@@ -28,7 +28,7 @@ function UserOptions({ user, onCloseDisplayOptions }) {
         Settings
       </ScrollableLi>
       <ScrollableLi
-        onClick={() => navigate(`/invite`)}
+        onClick={() => navigate(`/users/invite`)}
         selected={selectedIndex === 2}
       >
         Invite

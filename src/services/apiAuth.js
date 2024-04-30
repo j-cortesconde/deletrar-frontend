@@ -31,6 +31,39 @@ export async function getCurrentUser() {
   }
 }
 
+export async function requestAccount({ name, email, request, friendUsername }) {
+  try {
+    const toWhom = {
+      isUser: friendUsername !== "",
+      username: friendUsername,
+    };
+
+    const response = await axiosService.requestAccount({
+      name,
+      email,
+      request,
+      toWhom,
+    });
+
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
+
+export async function inviteFriend({ name, email }) {
+  try {
+    const response = await axiosService.inviteFriend({
+      name,
+      email,
+    });
+
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
+
 // export async function logout() {
 //   const { error } = await supabase.auth.signOut();
 
