@@ -29,7 +29,7 @@ function InviteForm() {
   }
 
   return (
-    <Form type="inAppLayout" onSubmit={handleSubmit(onSubmit)}>
+    <Form type="inAppLayoutInt" onSubmit={handleSubmit(onSubmit)}>
       <FormRow
         orientation="horizontal"
         label="Nombre"

@@ -3,7 +3,7 @@ import Header from "./Header";
 import { useCurrentUser } from "../features/users/useCurrentUser";
 import CreatePost from "../features/posts/CreatePost";
 
-function AppLayout() {
+function AppLayoutInt() {
   const { user } = useCurrentUser();
 
   return (
@@ -17,4 +17,4 @@ function AppLayout() {
   );
 }
 
-export default AppLayout;
+export default AppLayoutInt;

@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import AppLayout from "./ui/AppLayout";
+import AppLayoutInt from "./ui/AppLayoutInt";
 import { Home } from "./pages/Home";
 import { PostDetail } from "./pages/PostDetail";
 import { UserDetail } from "./pages/UserDetail";
@@ -13,6 +13,7 @@ import UserSearchResults from "./pages/UserSearchResults";
 import PostSearchResults from "./pages/PostSearchResults";
 import RequestAccount from "./pages/RequestAccount";
 import InviteFriend from "./pages/InviteFriend";
+import AppLayoutExt from "./ui/AppLayoutExt";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,7 +29,7 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route element={<AppLayoutInt />}>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />
             <Route path="users/invite" element={<InviteFriend />} />
@@ -38,10 +39,12 @@ function App() {
             <Route path="post/:postId" element={<PostDetail />} />
             <Route path="user/:userId" element={<UserDetail />} />
           </Route>
-          <Route path="account-request" element={<RequestAccount />} />
-          <Route path="login" element={<Login />} />
-          <Route path="forgot-password" />
-          <Route path="reset-password/:resetToken" />
+          <Route element={<AppLayoutExt />}>
+            <Route path="account-request" element={<RequestAccount />} />
+            <Route path="login" element={<Login />} />
+            <Route path="forgot-password" />
+            <Route path="reset-password/:resetToken" />
+          </Route>
         </Routes>
       </BrowserRouter>
 
