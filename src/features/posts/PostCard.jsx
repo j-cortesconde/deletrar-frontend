@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 
 function PostCard({ keyProp, post }) {
   const navigate = useNavigate();
-  console.log(post);
   return (
     <li
       onClick={() => navigate(`/post/${post._id}`)}

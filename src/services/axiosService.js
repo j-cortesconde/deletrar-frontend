@@ -108,7 +108,10 @@ class AxiosService {
   }
 
   getCurrentUser() {
-    return axios.get(`${API_URL}/users/me`);
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/me`,
+    });
   }
 
   searchPosts(query) {

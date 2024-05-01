@@ -16,6 +16,7 @@ import InviteFriend from "./pages/InviteFriend";
 import AppLayoutExt from "./ui/AppLayoutExt";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,10 +35,24 @@ function App() {
           <Route element={<AppLayoutInt />}>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />
-            <Route path="users/invite" element={<InviteFriend />} />
+            <Route
+              path="users/invite"
+              element={
+                <ProtectedRoute>
+                  <InviteFriend />
+                </ProtectedRoute>
+              }
+            />
             <Route path="users/:searchTerm" element={<UserSearchResults />} />
             <Route path="posts/:searchTerm" element={<PostSearchResults />} />
-            <Route path="post/create" element={<PostWrite />} />
+            <Route
+              path="post/create"
+              element={
+                <ProtectedRoute>
+                  <PostWrite />
+                </ProtectedRoute>
+              }
+            />
             <Route path="post/:postId" element={<PostDetail />} />
             <Route path="user/:userId" element={<UserDetail />} />
           </Route>

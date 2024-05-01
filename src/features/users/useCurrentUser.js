@@ -6,12 +6,14 @@ export function useCurrentUser() {
     isLoading,
     data: user,
     isFetching,
-    error,
   } = useQuery({ queryKey: ["user"], queryFn: getCurrentUser, retry: false });
+
+  const isAuthenticated = user ? true : false;
 
   return {
     isLoading,
     user,
     isFetching,
+    isAuthenticated,
   };
 }
