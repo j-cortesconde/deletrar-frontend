@@ -24,7 +24,7 @@ function InviteFriend() {
           a contactarte con un administrador.
         </p>
       </div>
-      <div className="w-2/3 p-10">
+      <div className="w-7/12 p-10">
         <InviteForm />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import FormRow from "../../ui/FormRow";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useInviteFriend } from "./useInviteFriend";
 
 function InviteForm() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { register, handleSubmit, formState, reset } = useForm({
     defaultValues: {
@@ -29,12 +30,8 @@ function InviteForm() {
   }
 
   return (
-    <Form type="inAppLayoutInt" onSubmit={handleSubmit(onSubmit)}>
-      <FormRow
-        orientation="horizontal"
-        label="Nombre"
-        error={errors?.name?.message}
-      >
+    <Form appLayout="internal" onSubmit={handleSubmit(onSubmit)}>
+      <FormRow label="Nombre" error={errors?.name?.message}>
         <Input
           type="text"
           id="name"
@@ -44,11 +41,7 @@ function InviteForm() {
           }}
         />
       </FormRow>
-      <FormRow
-        orientation="horizontal"
-        label="Correo electrónico"
-        error={errors?.email?.message}
-      >
+      <FormRow label="Correo electrónico" error={errors?.email?.message}>
         <Input
           type="email"
           id="email"
@@ -65,8 +58,17 @@ function InviteForm() {
           }}
         />
       </FormRow>
-      <FormRow>
-        <Button disabled={isLoading}>
+      <FormRow orientation="horizontal">
+        <Button
+          type="button"
+          size="large"
+          variation="secondary"
+          disabled={isLoading}
+          onClick={() => navigate(-1)}
+        >
+          Cancelar
+        </Button>
+        <Button size="wide" disabled={isLoading}>
           {!isLoading ? "Enviar Invitación" : "Esperá"}
         </Button>
       </FormRow>

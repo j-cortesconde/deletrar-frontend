@@ -40,6 +40,7 @@ function ForgotPasswordForm() {
       </FormRow>
       <FormRow orientation="horizontal">
         <Button
+          type="button"
           size="large"
           variation="secondary"
           disabled={isLoading}

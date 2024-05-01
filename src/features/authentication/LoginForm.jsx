@@ -5,8 +5,10 @@ import FormRow from "../../ui/FormRow";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("jcortesconde@gmail.com");
   const [password, setPassword] = useState("password1234");
   const { login, isLoading } = useLogin();
@@ -47,8 +49,17 @@ function LoginForm() {
           disabled={isLoading}
         />
       </FormRow>
-      <FormRow>
-        <Button size="large" disabled={isLoading}>
+      <FormRow orientation="horizontal">
+        <Button
+          type="button"
+          size="large"
+          variation="secondary"
+          disabled={isLoading}
+          onClick={() => navigate(-1)}
+        >
+          Cancelar
+        </Button>
+        <Button size="wide" disabled={isLoading}>
           {!isLoading ? "Iniciar Sesión" : "Esperá"}
         </Button>
       </FormRow>

@@ -6,8 +6,10 @@ import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import Textarea from "../../ui/Textarea";
+import { useNavigate } from "react-router-dom";
 
 function RequestAccountForm() {
+  const navigate = useNavigate();
   const { register, formState, handleSubmit } = useForm();
   const { errors } = formState;
 
@@ -77,8 +79,17 @@ function RequestAccountForm() {
           }}
         />
       </FormRow>
-      <FormRow>
-        <Button size="large" disabled={isLoading}>
+      <FormRow orientation="horizontal">
+        <Button
+          type="button"
+          size="large"
+          variation="secondary"
+          disabled={isLoading}
+          onClick={() => navigate(-1)}
+        >
+          Cancelar
+        </Button>
+        <Button size="wide" disabled={isLoading}>
           {!isLoading ? "Solicitar Invitación" : "Esperá"}
         </Button>
       </FormRow>
