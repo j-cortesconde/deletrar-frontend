@@ -79,7 +79,7 @@ function RequestAccountForm() {
       </FormRow>
       <FormRow>
         <Button size="large" disabled={isLoading}>
-          {!isLoading ? "Solicitar Invitación" : "Wait"}
+          {!isLoading ? "Solicitar Invitación" : "Esperá"}
         </Button>
       </FormRow>
     </Form>

@@ -1,4 +1,8 @@
-// TODO: Error handling
+// TODO: Error handling. Ya hay una sugerencia en el comentario de App.js. Hay que sumarle:
+//    1- La forma en que se manejan errores conocidos en frontend en useLogin
+//    2- La forma en que se manejan errores desconocidos en frontend en useInviteFriend
+//    3- Una forma genérica para manejo de errores desconocidos ya desde el backend
+// FIXME: Esta estructura de servicio es inaceptable. Resolver
 import axios from "axios";
 import { API_URL } from "../utils/constants";
 
@@ -72,6 +76,14 @@ class AxiosService {
     this.#clearAuthHeader();
 
     return response;
+  }
+
+  forgotPassword({ email }) {
+    return axios({
+      method: "POST",
+      url: `${API_URL}/users/forgotPassword`,
+      data: { email },
+    });
   }
 
   getUser(userId) {

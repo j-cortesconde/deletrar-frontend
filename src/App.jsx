@@ -14,6 +14,7 @@ import PostSearchResults from "./pages/PostSearchResults";
 import RequestAccount from "./pages/RequestAccount";
 import InviteFriend from "./pages/InviteFriend";
 import AppLayoutExt from "./ui/AppLayoutExt";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,7 +43,7 @@ function App() {
           <Route element={<AppLayoutExt />}>
             <Route path="account-request" element={<RequestAccount />} />
             <Route path="login" element={<Login />} />
-            <Route path="forgot-password" />
+            <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="reset-password/:resetToken" />
           </Route>
         </Routes>

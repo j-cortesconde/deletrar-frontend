@@ -64,6 +64,16 @@ export async function inviteFriend({ name, email }) {
   }
 }
 
+export async function forgotPassword({ email }) {
+  try {
+    const response = await axiosService.forgotPassword({ email });
+
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
+
 // export async function logout() {
 //   const { error } = await supabase.auth.signOut();
 
