@@ -1,3 +1,4 @@
+//TODO: Revisar si esto no abre una vulnerabilidad. Alguien puede GETear todos los usernames y POSTear en bulk requests. Con que uno lo acepte ya puede construir una red de cuentas.
 import { useMutation } from "@tanstack/react-query";
 import { requestAccount as requestAccountApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";

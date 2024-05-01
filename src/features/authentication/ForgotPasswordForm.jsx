@@ -24,7 +24,7 @@ function ForgotPasswordForm() {
         <Input
           type="email"
           id="email"
-          autoComplete="username"
+          autoComplete="email"
           disabled={isLoading}
           register={{
             ...register("email", {

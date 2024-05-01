@@ -65,6 +65,20 @@ class AxiosService {
     return response;
   }
 
+  async resetPassword({ password, passwordConfirm, token }) {
+    const response = await axios({
+      method: "PATCH",
+      url: `${API_URL}/users/resetPassword/${token}`,
+      data: { password, passwordConfirm },
+    });
+
+    this.#jwt = response.data.token;
+
+    this.#setAuthHeader();
+
+    return response;
+  }
+
   async logout() {
     const response = await axios({
       method: "GET",

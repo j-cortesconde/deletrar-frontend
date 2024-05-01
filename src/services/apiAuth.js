@@ -74,6 +74,22 @@ export async function forgotPassword({ email }) {
   }
 }
 
+export async function resetPassword({ password, passwordConfirm, token }) {
+  try {
+    const response = await axiosService.resetPassword({
+      password,
+      passwordConfirm,
+      token,
+    });
+
+    localStorage.setItem("jwt", response.data.token);
+
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
+
 // export async function logout() {
 //   const { error } = await supabase.auth.signOut();
 
