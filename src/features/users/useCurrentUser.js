@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCurrentUser } from "../../services/apiAuth";
+import { getCurrentUser } from "../../services/apiUsers";
 
 export function useCurrentUser() {
   const {
@@ -8,6 +8,9 @@ export function useCurrentUser() {
     isFetching,
   } = useQuery({ queryKey: ["user"], queryFn: getCurrentUser, retry: false });
 
+  const isRequestor = user?.role === "requestor";
+  const isActive = user?.active;
+  const isInitialized = user?.role === "user" || user?.role === "admin";
   const isAuthenticated = user ? true : false;
 
   return {
@@ -15,5 +18,8 @@ export function useCurrentUser() {
     user,
     isFetching,
     isAuthenticated,
+    isInitialized,
+    isActive,
+    isRequestor,
   };
 }

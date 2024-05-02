@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 function useForgotPassword() {
   const navigate = useNavigate();
 
-  const { isLoading, mutate: forgotPassword } = useMutation({
+  const { isPending, mutate: forgotPassword } = useMutation({
     mutationFn: ({ email }) => forgotPasswordApi({ email }),
     onSuccess: (data) => {
       toast.success(data.message);
@@ -17,7 +17,7 @@ function useForgotPassword() {
     },
   });
 
-  return { isLoading, forgotPassword };
+  return { isPending, forgotPassword };
 }
 
 export default useForgotPassword;

@@ -12,7 +12,7 @@ function ForgotPasswordForm() {
   const { register, formState, handleSubmit } = useForm();
   const { errors } = formState;
 
-  const { forgotPassword, isLoading } = useForgotPassword();
+  const { forgotPassword, isPending } = useForgotPassword();
 
   function onSubmit({ email }) {
     forgotPassword({ email });
@@ -25,7 +25,7 @@ function ForgotPasswordForm() {
           type="email"
           id="email"
           autoComplete="email"
-          disabled={isLoading}
+          disabled={isPending}
           register={{
             ...register("email", {
               required: "Este campo es obligatorio",
@@ -43,13 +43,13 @@ function ForgotPasswordForm() {
           type="button"
           size="large"
           variation="secondary"
-          disabled={isLoading}
+          disabled={isPending}
           onClick={() => navigate(-1)}
         >
           Cancelar
         </Button>
-        <Button size="wide" disabled={isLoading}>
-          {!isLoading ? "Solicitar Reinicio" : "Esperá"}
+        <Button size="wide" disabled={isPending}>
+          {!isPending ? "Solicitar Reinicio" : "Esperá"}
         </Button>
       </FormRow>
     </Form>

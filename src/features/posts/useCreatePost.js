@@ -7,7 +7,7 @@ export function useCreatePost() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { mutate: createPost, isLoading: isCreating } = useMutation({
+  const { mutate: createPost, isPending: isCreating } = useMutation({
     mutationFn: createPostAPI,
     onSuccess: (data) => {
       toast.success("El texto fue guardado exitosamente");

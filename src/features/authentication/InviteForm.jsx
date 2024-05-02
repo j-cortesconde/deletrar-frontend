@@ -16,7 +16,7 @@ function InviteForm() {
   });
   const { errors } = formState;
 
-  const { inviteFriend, isLoading } = useInviteFriend();
+  const { inviteFriend, isPending } = useInviteFriend();
 
   function onSubmit({ name, email }) {
     inviteFriend(
@@ -35,7 +35,7 @@ function InviteForm() {
         <Input
           type="text"
           id="name"
-          disabled={isLoading}
+          disabled={isPending}
           register={{
             ...register("name", { required: "Este campo es obligatorio" }),
           }}
@@ -45,7 +45,7 @@ function InviteForm() {
         <Input
           type="email"
           id="email"
-          disabled={isLoading}
+          disabled={isPending}
           register={{
             ...register("email", {
               required: "Este campo es obligatorio",
@@ -63,13 +63,13 @@ function InviteForm() {
           type="button"
           size="large"
           variation="secondary"
-          disabled={isLoading}
+          disabled={isPending}
           onClick={() => navigate(-1)}
         >
           Cancelar
         </Button>
-        <Button size="wide" disabled={isLoading}>
-          {!isLoading ? "Enviar Invitación" : "Esperá"}
+        <Button size="wide" disabled={isPending}>
+          {!isPending ? "Enviar Invitación" : "Esperá"}
         </Button>
       </FormRow>
     </Form>

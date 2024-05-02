@@ -100,6 +100,13 @@ class AxiosService {
     });
   }
 
+  searchUsers(query) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/search/${query}`,
+    });
+  }
+
   getUser(userId) {
     return axios({
       method: "GET",
@@ -114,17 +121,17 @@ class AxiosService {
     });
   }
 
+  reactivateAccount() {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/reactivateMe`,
+    });
+  }
+
   searchPosts(query) {
     return axios({
       method: "GET",
       url: `${API_URL}/posts/search/${query}`,
-    });
-  }
-
-  searchUsers(query) {
-    return axios({
-      method: "GET",
-      url: `${API_URL}/users/search/${query}`,
     });
   }
 

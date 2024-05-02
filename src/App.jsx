@@ -16,12 +16,14 @@ import InviteFriend from "./pages/InviteFriend";
 import AppLayoutExt from "./ui/AppLayoutExt";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import ProtectedRoute from "./ui/ProtectedRoute";
+import LoginProtection from "./ui/LoginProtection";
+import AccountStatusProtection from "./ui/AccountStatusProtection";
+import ReactivateAccount from "./pages/ReactivateAccount";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: 2000,
     },
   },
 });
@@ -32,36 +34,37 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayoutInt />}>
+          <Route
+            element={
+              <AccountStatusProtection>
+                <AppLayoutInt />
+              </AccountStatusProtection>
+            }
+          >
+            <Route element={<LoginProtection />}>
+              <Route path="users/invite" element={<InviteFriend />} />
+              <Route path="post/create" element={<PostWrite />} />
+            </Route>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />
-            <Route
-              path="users/invite"
-              element={
-                <ProtectedRoute>
-                  <InviteFriend />
-                </ProtectedRoute>
-              }
-            />
             <Route path="users/:searchTerm" element={<UserSearchResults />} />
             <Route path="posts/:searchTerm" element={<PostSearchResults />} />
-            <Route
-              path="post/create"
-              element={
-                <ProtectedRoute>
-                  <PostWrite />
-                </ProtectedRoute>
-              }
-            />
             <Route path="post/:postId" element={<PostDetail />} />
             <Route path="user/:userId" element={<UserDetail />} />
           </Route>
           <Route element={<AppLayoutExt />}>
-            <Route path="account-request" element={<RequestAccount />} />
-            <Route path="login" element={<Login />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route element={<LoginProtection />}>
+              <Route
+                path="account/reactivate"
+                element={<ReactivateAccount />}
+              />
+              <Route path="account/initialize" element={<AppLayoutInt />} />
+            </Route>
+            <Route path="account/request" element={<RequestAccount />} />
+            <Route path="account/login" element={<Login />} />
+            <Route path="password/forgot" element={<ForgotPassword />} />
             <Route
-              path="reset-password/:resetToken"
+              path="password/reset/:resetToken"
               element={<ResetPassword />}
             />
           </Route>

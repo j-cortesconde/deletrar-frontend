@@ -1,22 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { login as loginApi } from "../../services/apiAuth";
+import { reactivateAccount as reactivateAccountApi } from "../../services/apiUsers";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-export function useLogin() {
+export function useReactivateAccount() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { isPending, mutate: login } = useMutation({
-    mutationFn: ({ email, password }) => loginApi({ email, password }),
+  const { isPending, mutate: reactivateAccount } = useMutation({
+    mutationFn: () => reactivateAccountApi(),
     onSuccess: (data) => {
       queryClient.setQueryData(["user"], data);
+      toast.success("Tu cuenta fue reactivada.");
       navigate("/home", { replace: true });
     },
     onError: (err) => {
-      toast.error("Tus credenciales de inicio de sesión son incorrectas.");
+      toast.error(err.message);
     },
   });
 
-  return { isPending, login };
+  return { isPending, reactivateAccount };
 }

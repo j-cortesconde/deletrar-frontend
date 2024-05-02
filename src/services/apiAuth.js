@@ -22,15 +22,6 @@ export async function logout() {
   }
 }
 
-export async function getCurrentUser() {
-  try {
-    const response = await axiosService.getCurrentUser();
-    return response.data.data;
-  } catch (err) {
-    throw new Error("You don't seem to be logged in");
-  }
-}
-
 export async function requestAccount({ name, email, request, friendUsername }) {
   try {
     const toWhom = {

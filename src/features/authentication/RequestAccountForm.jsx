@@ -13,7 +13,7 @@ function RequestAccountForm() {
   const { register, formState, handleSubmit } = useForm();
   const { errors } = formState;
 
-  const { requestAccount, isLoading } = useRequestAccount();
+  const { requestAccount, isPending } = useRequestAccount();
 
   function onSubmit({ name, email, request, friendUsername }) {
     requestAccount({ name, email, request, friendUsername });
@@ -26,7 +26,7 @@ function RequestAccountForm() {
           type="text"
           id="name"
           autoComplete="name"
-          disabled={isLoading}
+          disabled={isPending}
           register={{
             ...register("name", { required: "Este campo es obligatorio" }),
           }}
@@ -37,7 +37,7 @@ function RequestAccountForm() {
           type="email"
           id="email"
           autoComplete="username"
-          disabled={isLoading}
+          disabled={isPending}
           register={{
             ...register("email", {
               required: "Este campo es obligatorio",
@@ -53,7 +53,7 @@ function RequestAccountForm() {
       <FormRow label="Mensaje de solicitud" error={errors?.request?.message}>
         <Textarea
           id="request"
-          disabled={isLoading}
+          disabled={isPending}
           register={{
             ...register("request", {
               required: "Este campo es obligatorio",
@@ -68,7 +68,7 @@ function RequestAccountForm() {
         <Input
           type="text"
           id="friendUsername"
-          disabled={isLoading}
+          disabled={isPending}
           register={{
             ...register("friendUsername", {
               pattern: {
@@ -84,13 +84,13 @@ function RequestAccountForm() {
           type="button"
           size="large"
           variation="secondary"
-          disabled={isLoading}
+          disabled={isPending}
           onClick={() => navigate(-1)}
         >
           Cancelar
         </Button>
-        <Button size="wide" disabled={isLoading}>
-          {!isLoading ? "Solicitar Invitación" : "Esperá"}
+        <Button size="wide" disabled={isPending}>
+          {!isPending ? "Solicitar Invitación" : "Esperá"}
         </Button>
       </FormRow>
     </Form>

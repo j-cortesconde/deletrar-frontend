@@ -7,7 +7,7 @@ export function useResetPassword() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { isLoading, mutate: resetPassword } = useMutation({
+  const { isPending, mutate: resetPassword } = useMutation({
     mutationFn: ({ password, passwordConfirm, token }) =>
       resetPasswordApi({ password, passwordConfirm, token }),
     onSuccess: (data) => {
@@ -20,5 +20,5 @@ export function useResetPassword() {
     },
   });
 
-  return { isLoading, resetPassword };
+  return { isPending, resetPassword };
 }

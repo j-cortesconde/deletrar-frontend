@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 export function useRequestAccount() {
   const navigate = useNavigate();
 
-  const { isLoading, mutate: requestAccount } = useMutation({
+  const { isPending, mutate: requestAccount } = useMutation({
     mutationFn: ({ name, email, request, friendUsername }) =>
       requestAccountApi({ name, email, request, friendUsername }),
     onSuccess: (data) => {
@@ -19,5 +19,5 @@ export function useRequestAccount() {
     },
   });
 
-  return { isLoading, requestAccount };
+  return { isPending, requestAccount };
 }

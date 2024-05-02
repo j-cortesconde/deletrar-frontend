@@ -11,7 +11,7 @@ function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("jcortesconde@gmail.com");
   const [password, setPassword] = useState("password1234");
-  const { login, isLoading } = useLogin();
+  const { login, isPending } = useLogin();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -36,7 +36,7 @@ function LoginForm() {
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          disabled={isLoading}
+          disabled={isPending}
         />
       </FormRow>
       <FormRow label="Contraseña">
@@ -46,7 +46,7 @@ function LoginForm() {
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          disabled={isLoading}
+          disabled={isPending}
         />
       </FormRow>
       <FormRow orientation="horizontal">
@@ -54,13 +54,13 @@ function LoginForm() {
           type="button"
           size="large"
           variation="secondary"
-          disabled={isLoading}
+          disabled={isPending}
           onClick={() => navigate(-1)}
         >
           Cancelar
         </Button>
-        <Button size="wide" disabled={isLoading}>
-          {!isLoading ? "Iniciar Sesión" : "Esperá"}
+        <Button size="wide" disabled={isPending}>
+          {!isPending ? "Iniciar Sesión" : "Esperá"}
         </Button>
       </FormRow>
     </Form>

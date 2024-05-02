@@ -13,7 +13,7 @@ function ResetPasswordForm() {
   const { register, formState, handleSubmit } = useForm();
   const { errors } = formState;
 
-  const { resetPassword, isLoading } = useResetPassword();
+  const { resetPassword, isPending } = useResetPassword();
 
   function onSubmit({ password, passwordConfirm }) {
     resetPassword({ password, passwordConfirm, token: resetToken });
@@ -26,7 +26,7 @@ function ResetPasswordForm() {
           type="password"
           id="password"
           autoComplete="password"
-          disabled={isLoading}
+          disabled={isPending}
           register={{
             ...register("password", {
               required: "Este campo es obligatorio",
@@ -41,7 +41,7 @@ function ResetPasswordForm() {
         <Input
           type="password"
           id="passwordConfirm"
-          disabled={isLoading}
+          disabled={isPending}
           register={{
             ...register("passwordConfirm", {
               required: "Este campo es obligatorio",
@@ -57,13 +57,13 @@ function ResetPasswordForm() {
           type="button"
           size="large"
           variation="secondary"
-          disabled={isLoading}
+          disabled={isPending}
           onClick={() => navigate("/home")}
         >
           Cancelar
         </Button>
-        <Button size="wide" disabled={isLoading}>
-          {!isLoading ? "Confirmar Nueva Contraseña" : "Esperá"}
+        <Button size="wide" disabled={isPending}>
+          {!isPending ? "Confirmar Nueva Contraseña" : "Esperá"}
         </Button>
       </FormRow>
     </Form>
