@@ -1,6 +1,17 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import InitializeAccountForm from "../features/users/InitializeAccountForm";
 
 function InitializeAccount() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { role } = queryClient.getQueryData(["user"]);
+
+  useEffect(() => {
+    if (role !== "invitee") navigate("/home", { replace: true });
+  }, [role, navigate]);
+
   return (
     <>
       <h4 className="text-center text-5xl font-semibold">Activar Cuenta</h4>

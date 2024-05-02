@@ -1,7 +1,20 @@
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+
 import { useReactivateAccount } from "../features/users/useReactivateAccount";
+
 import Button from "../ui/Button";
 
 function ReactivateAccount() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { active } = queryClient.getQueryData(["user"]);
+
+  useEffect(() => {
+    if (active) navigate("/home", { replace: true });
+  }, [active, navigate]);
+
   const { isPending, reactivateAccount } = useReactivateAccount();
 
   return (
