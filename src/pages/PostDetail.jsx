@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { usePost } from "../features/posts/usePost";
 import HTMLParser from "../features/posts/HTMLParser";
 
-export function PostDetail() {
+function PostDetail() {
   const { postId } = useParams();
 
   const { isLoading, post, error } = usePost(postId);
@@ -39,3 +39,5 @@ export function PostDetail() {
     </div>
   );
 }
+
+export default PostDetail;

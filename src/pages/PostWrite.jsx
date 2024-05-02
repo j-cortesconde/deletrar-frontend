@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useCurrentUser } from "../features/users/useCurrentUser";
 import { useCreatePost } from "../features/posts/useCreatePost";
 
-export function PostWrite() {
+function PostWrite() {
   const quillRef = useRef();
 
   const [title, setTitle] = useState("");
@@ -86,3 +86,5 @@ export function PostWrite() {
     </>
   );
 }
+
+export default PostWrite;

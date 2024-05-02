@@ -3,7 +3,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../features/users/useUser";
 
-export function UserDetail() {
+function UserDetail() {
   const { userId } = useParams();
 
   const { isLoading, user, error } = useUser(userId);
@@ -43,3 +43,5 @@ export function UserDetail() {
     </>
   );
 }
+
+export default UserDetail;

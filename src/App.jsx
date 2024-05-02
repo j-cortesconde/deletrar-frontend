@@ -1,24 +1,25 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-import AppLayoutInt from "./ui/AppLayoutInt";
-import { Home } from "./pages/Home";
-import { PostDetail } from "./pages/PostDetail";
-import { UserDetail } from "./pages/UserDetail";
-import Login from "./pages/Login";
-import { PostWrite } from "./pages/PostWrite";
 import { Toaster } from "react-hot-toast";
+
+import AppLayoutExt from "./ui/AppLayoutExt";
+import AppLayoutInt from "./ui/AppLayoutInt";
+import AccountStatusProtection from "./ui/AccountStatusProtection";
+import LoginProtection from "./ui/LoginProtection";
+import Home from "./pages/Home";
+import PostDetail from "./pages/PostDetail";
+import UserDetail from "./pages/UserDetail";
+import Login from "./pages/Login";
+import PostWrite from "./pages/PostWrite";
 import UserSearchResults from "./pages/UserSearchResults";
 import PostSearchResults from "./pages/PostSearchResults";
 import RequestAccount from "./pages/RequestAccount";
 import InviteFriend from "./pages/InviteFriend";
-import AppLayoutExt from "./ui/AppLayoutExt";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import LoginProtection from "./ui/LoginProtection";
-import AccountStatusProtection from "./ui/AccountStatusProtection";
 import ReactivateAccount from "./pages/ReactivateAccount";
+import InitializeAccount from "./pages/InitializeAccount";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,7 +59,10 @@ function App() {
                 path="account/reactivate"
                 element={<ReactivateAccount />}
               />
-              <Route path="account/initialize" element={<AppLayoutInt />} />
+              <Route
+                path="account/initialize"
+                element={<InitializeAccount />}
+              />
             </Route>
             <Route path="account/request" element={<RequestAccount />} />
             <Route path="account/login" element={<Login />} />
