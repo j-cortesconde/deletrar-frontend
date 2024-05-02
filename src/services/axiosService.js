@@ -123,8 +123,16 @@ class AxiosService {
 
   reactivateAccount() {
     return axios({
-      method: "GET",
+      method: "PATCH",
       url: `${API_URL}/users/reactivateMe`,
+    });
+  }
+
+  initializeAccount({ username }) {
+    return axios({
+      method: "PATCH",
+      url: `${API_URL}/users/initializeMe`,
+      data: { username },
     });
   }
 

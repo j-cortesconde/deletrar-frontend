@@ -1,30 +1,23 @@
-import { useReactivateAccount } from "../features/users/useReactivateAccount";
-import Button from "../ui/Button";
+import InitializeAccountForm from "../features/users/InitializeAccountForm";
 
 function InitializeAccount() {
-  const { isPending, reactivateAccount } = useReactivateAccount();
-
   return (
     <>
-      <h4 className="text-center text-5xl font-semibold">Cuenta Desactivada</h4>
-      <>
-        <p className="text-justify">¡Qué bueno que volviste!</p>
-        <p className="text-justify">
-          Parece que en algún momento decidiste desactivar tu cuenta, pero nos
-          alegra que hayas vuelto a la comunidad. Si tu regreso fue accidental y
-          querés que tu cuenta siga desactivada, no te preocupes: de momento tu
-          cuenta y todo su contenido asociado sigue siendo invisible a todos los
-          usuarios. Si, en cambio, quisieras reactivarla, sólo basta con que
-          hagas click en el botón que aparece abajo.
-        </p>
-      </>
-      <Button
-        size="large"
-        onClick={() => reactivateAccount()}
-        disabled={isPending}
-      >
-        {!isPending ? "Reactivar Cuenta" : "Esperá"}
-      </Button>
+      <h4 className="text-center text-5xl font-semibold">Activar Cuenta</h4>
+
+      <p className="text-justify">¡Bienvenido a Deletrar!</p>
+      <p className="text-justify">
+        Si estás leyendo este mensaje es porque alguien te invitó a unirte a
+        Deletrar. Quizás haya sido algún amigo o quizás un administrador, pero
+        en todo caso estamos todos contentos de tenerte acá.
+      </p>
+      <p className="text-justify">
+        Si no leiste todavía las políticas y las recomendaciones de uso de
+        Deletrar, te invitamos a que lo hagas. Si ya lo hiciste sólo queda un
+        paso antes de que puedas empezar a usar tu nueva cuenta: ¡elegir un
+        nombre de usuario!
+      </p>
+      <InitializeAccountForm />
     </>
   );
 }

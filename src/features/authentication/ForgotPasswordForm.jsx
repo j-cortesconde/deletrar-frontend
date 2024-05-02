@@ -49,7 +49,7 @@ function ForgotPasswordForm() {
           Cancelar
         </Button>
         <Button size="wide" disabled={isPending}>
-          {!isPending ? "Solicitar Reinicio" : "Esperá"}
+          {!isPending ? "Solicitar Reinicio" : "Esperar"}
         </Button>
       </FormRow>
     </Form>

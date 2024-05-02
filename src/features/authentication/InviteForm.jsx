@@ -69,7 +69,7 @@ function InviteForm() {
           Cancelar
         </Button>
         <Button size="wide" disabled={isPending}>
-          {!isPending ? "Enviar Invitación" : "Esperá"}
+          {!isPending ? "Enviar Invitación" : "Esperar"}
         </Button>
       </FormRow>
     </Form>

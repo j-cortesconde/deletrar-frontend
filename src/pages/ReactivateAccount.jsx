@@ -23,7 +23,7 @@ function ReactivateAccount() {
         onClick={() => reactivateAccount()}
         disabled={isPending}
       >
-        {!isPending ? "Reactivar Cuenta" : "Esperá"}
+        {!isPending ? "Reactivar Cuenta" : "Esperar"}
       </Button>
     </>
   );

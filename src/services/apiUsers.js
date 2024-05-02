@@ -32,3 +32,14 @@ export async function reactivateAccount() {
     );
   }
 }
+
+export async function initializeAccount({ username }) {
+  try {
+    const response = await axiosService.initializeAccount({ username });
+    return response.data.data;
+  } catch (err) {
+    throw new Error(
+      "Error inesperado. Por favor vuelva a intentarlo más tarde.",
+    );
+  }
+}

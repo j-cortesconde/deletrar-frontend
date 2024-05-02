@@ -60,7 +60,7 @@ function LoginForm() {
           Cancelar
         </Button>
         <Button size="wide" disabled={isPending}>
-          {!isPending ? "Iniciar Sesión" : "Esperá"}
+          {!isPending ? "Iniciar Sesión" : "Esperar"}
         </Button>
       </FormRow>
     </Form>

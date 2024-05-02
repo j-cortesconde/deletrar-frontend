@@ -63,7 +63,7 @@ function ResetPasswordForm() {
           Cancelar
         </Button>
         <Button size="wide" disabled={isPending}>
-          {!isPending ? "Confirmar Nueva Contraseña" : "Esperá"}
+          {!isPending ? "Confirmar Nueva Contraseña" : "Esperar"}
         </Button>
       </FormRow>
     </Form>

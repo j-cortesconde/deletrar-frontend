@@ -36,7 +36,7 @@ function RequestAccountForm() {
         <Input
           type="email"
           id="email"
-          autoComplete="username"
+          autoComplete="email"
           disabled={isPending}
           register={{
             ...register("email", {
@@ -73,7 +73,8 @@ function RequestAccountForm() {
             ...register("friendUsername", {
               pattern: {
                 value: /^[a-zA-Z0-9._]+$/,
-                message: "Por favor ingresá una nombre de usuario válido",
+                message:
+                  "Por favor ingresá una nombre de usuario válido (sólo puede contener letras, numeros, puntos y guiones bajos).",
               },
             }),
           }}
@@ -90,7 +91,7 @@ function RequestAccountForm() {
           Cancelar
         </Button>
         <Button size="wide" disabled={isPending}>
-          {!isPending ? "Solicitar Invitación" : "Esperá"}
+          {!isPending ? "Solicitar Invitación" : "Esperar"}
         </Button>
       </FormRow>
     </Form>
