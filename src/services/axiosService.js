@@ -3,6 +3,7 @@
 //    2- La forma en que se manejan errores desconocidos en frontend en useInviteFriend
 //    3- Una forma genérica para manejo de errores desconocidos ya desde el backend
 // FIXME: Esta estructura de servicio es inaceptable. Resolver
+// TODO: Un logic delete, va como PATCH o como qué?
 import axios from "axios";
 import { API_URL } from "../utils/constants";
 
@@ -159,11 +160,17 @@ class AxiosService {
   }
 
   updatePost(postId, post) {
-    console.log(post);
     return axios({
       method: "PATCH",
       url: `${API_URL}/posts/id/${postId}`,
       data: post,
+    });
+  }
+
+  deletePost(postId) {
+    return axios({
+      method: "PATCH",
+      url: `${API_URL}/posts/delete/${postId}`,
     });
   }
 }

@@ -25,3 +25,8 @@ export async function updatePost(postId, post) {
   const response = await axiosService.updatePost(postId, post);
   return response.data.data;
 }
+
+export async function deletePost(postId) {
+  const response = await axiosService.deletePost(postId);
+  return response.data.data;
+}

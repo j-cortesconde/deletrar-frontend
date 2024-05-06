@@ -22,6 +22,7 @@ function PostDetail() {
           className="w-40"
         />
         <div className="w-1/2 flex-col text-left">
+          <p>{post.status}</p>
           <p>{post.title}</p>
           <p>
             Written by{" "}

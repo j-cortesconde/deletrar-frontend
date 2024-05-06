@@ -2,7 +2,7 @@ import "react-quill/dist/quill.snow.css";
 import toast from "react-hot-toast";
 import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useCreatePost } from "../features/posts/useCreatePost";
 import { useUpdatePost } from "../features/posts/useUpdatePost";
@@ -10,11 +10,13 @@ import { useUpdatePost } from "../features/posts/useUpdatePost";
 import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
+import { useDeletePost } from "../features/posts/useDeletePost";
 
 function PostWrite() {
   const quillRef = useRef();
   const { createPost, isCreating } = useCreatePost();
   const { updatePost, isUpdating } = useUpdatePost();
+  const { deletePost, isDeleting } = useDeletePost();
 
   const { postId } = useParams();
 
@@ -25,7 +27,24 @@ function PostWrite() {
   const [summary, setSummary] = useState(post?.summary || "");
   const [content, setContent] = useState(post?.content || "");
 
-  const isLoading = isUpdating || isCreating;
+  const isLoading = isUpdating || isCreating || isDeleting;
+
+  function handleChange() {
+    if (quillRef.current) {
+      const delta = quillRef.current.getEditor().getContents();
+      setContent(delta);
+    }
+  }
+
+  function handleDelete() {
+    if (postId) {
+      deletePost(postId);
+    } else {
+      setTitle("");
+      setSummary("");
+      setContent("");
+    }
+  }
 
   function handleSave(isPosting = false) {
     if (title === "" || summary === "") {
@@ -42,12 +61,6 @@ function PostWrite() {
     }
   }
 
-  function handleChange() {
-    if (quillRef.current) {
-      const delta = quillRef.current.getEditor().getContents();
-      setContent(delta);
-    }
-  }
   return (
     <>
       {isLoading && <Loader />}
@@ -77,7 +90,11 @@ function PostWrite() {
         />
 
         <div className="my-1 flex w-3/4 justify-between">
-          <Button variation="danger" disabled={isLoading}>
+          <Button
+            onClick={handleDelete}
+            variation="danger"
+            disabled={isLoading}
+          >
             Eliminar
           </Button>
 
@@ -87,10 +104,10 @@ function PostWrite() {
               disabled={isLoading}
               variation="secondary"
             >
-              {postId ? "Guardar y Dejar de Publicar" : "Guardar"}
+              Guardar y Ocultar
             </Button>
             <Button onClick={() => handleSave(true)} disabled={isLoading}>
-              {postId ? "Guardar y Seguir Publicando" : "Guardar y Publicar"}
+              Guardar y Publicar
             </Button>
           </div>
         </div>
