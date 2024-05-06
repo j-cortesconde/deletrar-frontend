@@ -48,7 +48,7 @@ function AccountStatusProtection({ children }) {
   );
 
   // 5. While loading, show a spinner
-  if (isLoading || isFetching)
+  if (isLoading)
     return (
       <div className="flex h-full items-center justify-center bg-slate-50">
         <Loader />

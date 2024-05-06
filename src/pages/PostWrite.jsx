@@ -1,31 +1,45 @@
 import "react-quill/dist/quill.snow.css";
+import toast from "react-hot-toast";
 import { useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+
+import { useCreatePost } from "../features/posts/useCreatePost";
+import { useUpdatePost } from "../features/posts/useUpdatePost";
+
 import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
-import toast from "react-hot-toast";
-import { useCurrentUser } from "../features/users/useCurrentUser";
-import { useCreatePost } from "../features/posts/useCreatePost";
 
 function PostWrite() {
   const quillRef = useRef();
-
-  const [title, setTitle] = useState("");
-  const [summary, setSummary] = useState("");
-  const [content, setContent] = useState("");
-
   const { createPost, isCreating } = useCreatePost();
-  const { user } = useCurrentUser();
-  const author = user?._id;
+  const { updatePost, isUpdating } = useUpdatePost();
+
+  const { postId } = useParams();
+
+  const queryClient = useQueryClient();
+  const post = queryClient.getQueryData(["post", postId]);
+
+  const [title, setTitle] = useState(post?.title || "");
+  const [summary, setSummary] = useState(post?.summary || "");
+  const [content, setContent] = useState(post?.content || "");
+
+  const isLoading = isUpdating || isCreating;
 
   function handleSave(isPosting = false) {
     if (title === "" || summary === "") {
       return toast.error("El texto debe tener un título y un resumen");
     }
-    const post = { title, summary, content, author };
-    if (isPosting) post.status = "posted";
+    const newPost = { title, summary, content };
 
-    createPost(post);
+    newPost.status = isPosting ? "posted" : "editing";
+
+    if (postId) {
+      updatePost({ postId, newPost });
+    } else {
+      createPost(newPost);
+    }
   }
 
   function handleChange() {
@@ -36,7 +50,7 @@ function PostWrite() {
   }
   return (
     <>
-      {isCreating && <Loader />}
+      {isLoading && <Loader />}
       <div className="flex h-full flex-col items-center">
         <input
           type="text"
@@ -63,22 +77,20 @@ function PostWrite() {
         />
 
         <div className="my-1 flex w-3/4 justify-between">
-          <Button variation="danger" disabled={isCreating}>
+          <Button variation="danger" disabled={isLoading}>
             Eliminar
           </Button>
-
-          <p className="text-2xl">Guardado hace:...</p>
 
           <div className="space-x-5">
             <Button
               onClick={() => handleSave()}
-              disabled={isCreating}
+              disabled={isLoading}
               variation="secondary"
             >
-              Guardar
+              {postId ? "Guardar y Dejar de Publicar" : "Guardar"}
             </Button>
-            <Button onClick={() => handleSave(true)} disabled={isCreating}>
-              Guardar y Publicar
+            <Button onClick={() => handleSave(true)} disabled={isLoading}>
+              {postId ? "Guardar y Seguir Publicando" : "Guardar y Publicar"}
             </Button>
           </div>
         </div>

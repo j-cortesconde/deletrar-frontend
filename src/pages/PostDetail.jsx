@@ -36,6 +36,7 @@ function PostDetail() {
         </div>
       </div>
       <HTMLParser delta={post.content} />
+      <button onClick={() => navigate(`/post/write/${postId}`)}>Edit</button>
     </div>
   );
 }

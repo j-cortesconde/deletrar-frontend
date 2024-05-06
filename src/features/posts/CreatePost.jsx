@@ -9,7 +9,7 @@ function CreatePost() {
       <Button
         size="medium"
         shape="round"
-        onClick={() => navigate("/post/create")}
+        onClick={() => navigate("/post/write")}
       >
         <HiPlus />
       </Button>

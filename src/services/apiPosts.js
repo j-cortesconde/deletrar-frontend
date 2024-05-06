@@ -10,11 +10,18 @@ export async function searchPosts(query) {
 }
 
 export async function getPost(postId) {
+  if (!postId) return null;
+
   const response = await axiosService.getPost(postId);
   return response.data.data;
 }
 
 export async function createPost(post) {
   const response = await axiosService.createPost(post);
+  return response.data.data;
+}
+
+export async function updatePost(postId, post) {
+  const response = await axiosService.updatePost(postId, post);
   return response.data.data;
 }

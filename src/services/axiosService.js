@@ -157,6 +157,15 @@ class AxiosService {
       data: post,
     });
   }
+
+  updatePost(postId, post) {
+    console.log(post);
+    return axios({
+      method: "PATCH",
+      url: `${API_URL}/posts/id/${postId}`,
+      data: post,
+    });
+  }
 }
 
 const axiosService = new AxiosService();
