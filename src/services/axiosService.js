@@ -146,7 +146,7 @@ class AxiosService {
   getPost(postId) {
     return axios({
       method: "GET",
-      url: `${API_URL}/posts/${postId}`,
+      url: `${API_URL}/posts/id/${postId}`,
     });
   }
 

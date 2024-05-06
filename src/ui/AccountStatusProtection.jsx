@@ -27,10 +27,12 @@ function AccountStatusProtection({ children }) {
         if (isRequestor) return logout();
 
         // 3. If authenticated user account is inactive, redirect to account reactivation
-        if (!isActive) return navigate("/account/reactivate");
+        if (!isActive)
+          return navigate("/account/reactivate", { replace: true });
 
         // 4. If authenticated user account isn't initialized, redirect to account initialization
-        if (!isInitialized) return navigate("/account/initialize");
+        if (!isInitialized)
+          return navigate("/account/initialize", { replace: true });
       }
     },
     [
