@@ -10,6 +10,7 @@ export function useAutoSave(
 ) {
   const prevState = useRef(autoSaveEnabled ? newPost : null);
   const [postHasChanged, setPostHasChanged] = useState(false);
+  const [saveStatus, setSaveStatus] = useState("Guardado");
   const { updatePost, isUpdating } = useAutoSaveUpdatePost();
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export function useAutoSave(
     if (prevState.current && !equal(prevState.current, newPost)) {
       prevState.current = newPost;
       setPostHasChanged(true);
+      setSaveStatus("Esperando a guardar");
     }
 
     if (!prevState.current) {
@@ -38,5 +40,10 @@ export function useAutoSave(
     }
   }, [autoSaveEnabled, updatePost, postHasChanged, postId, newPost, saveDelay]);
 
-  return isUpdating;
+  useEffect(() => {
+    if (isUpdating) setSaveStatus("Guardando");
+    if (!isUpdating) setSaveStatus("Guardado");
+  }, [isUpdating]);
+
+  return saveStatus;
 }

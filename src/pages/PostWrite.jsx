@@ -8,11 +8,12 @@ import { useParams } from "react-router-dom";
 import { usePost } from "../features/posts/usePost";
 import { useUpdatePost } from "../features/posts/useUpdatePost";
 import { useDeletePost } from "../features/posts/useDeletePost";
+import { useAutoSave } from "../features/posts/useAutoSave";
 
 import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
-import { useAutoSave } from "../features/posts/useAutoSave";
+import { useCreatePost } from "../features/posts/useCreatePost";
 
 function PostWrite() {
   const quillRef = useRef();
@@ -22,6 +23,7 @@ function PostWrite() {
   const { post, isLoading: isGetting } = usePost(postId);
   const { updatePost, isUpdating } = useUpdatePost();
   const { deletePost, isDeleting } = useDeletePost();
+  const { createPost, isCreating } = useCreatePost();
 
   const [title, setTitle] = useState(post?.title || "");
   const [summary, setSummary] = useState(post?.summary || "");
@@ -29,15 +31,15 @@ function PostWrite() {
   const [autoSaveEnabled, setAutoSaveEnabled] = useState(false);
 
   const newPost = {
-    title,
-    summary,
+    title: title || "Texto sin título",
+    summary: summary || "Resumen...",
     content: { ...content },
     status: "editing",
   };
 
-  const isLoading = isUpdating || isDeleting || isGetting;
+  const isLoading = isGetting || isUpdating || isDeleting || isCreating;
 
-  const isAutoSaving = useAutoSave(autoSaveEnabled, postId, newPost);
+  const autoSaveStatus = useAutoSave(autoSaveEnabled, postId, newPost);
 
   useEffect(() => {
     if (!isGetting) {
@@ -63,6 +65,20 @@ function PostWrite() {
     if (isPosting) newPost.status = "posted";
 
     updatePost({ postId, newPost });
+  }
+
+  function handleCopy() {
+    const copyTitle = title ? "Copia de " + title : "Texto sin título";
+    const copySummary = summary || "Resumen...";
+
+    const copyPost = {
+      title: copyTitle,
+      summary: copySummary,
+      content,
+      status: "editing",
+    };
+
+    createPost(copyPost);
   }
 
   return (
@@ -104,14 +120,18 @@ function PostWrite() {
             Eliminar
           </Button>
 
-          {autoSaveEnabled && (
-            <p className="text-2xl">
-              {isAutoSaving ? "Guardando automáticamente" : "Guardado"}
-            </p>
-          )}
+          {autoSaveEnabled && <p className="text-2xl">{autoSaveStatus}</p>}
 
           <div className="space-x-5">
-            {post?.status !== "posted" && (
+            {post?.status === "posted" ? (
+              <Button
+                onClick={() => handleCopy()}
+                disabled={isLoading}
+                variation="secondary"
+              >
+                Crear Copia
+              </Button>
+            ) : (
               <Button
                 onClick={() => handleSave()}
                 disabled={isLoading}
