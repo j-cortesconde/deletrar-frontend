@@ -5,15 +5,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { usePost } from "../features/posts/usePost";
 import HTMLParser from "../features/posts/HTMLParser";
-import { usePrivatePost } from "../features/posts/usePrivatePost";
 
 function PostDetail() {
   const navigate = useNavigate();
   const { postId } = useParams();
 
   const { isLoading, post, error } = usePost(postId);
-
-  usePrivatePost(post);
 
   if (isLoading) return <div>Wait</div>;
   if (error) return <div>{error.message}</div>;

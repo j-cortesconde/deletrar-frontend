@@ -14,6 +14,7 @@ import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
 import { useCreatePost } from "../features/posts/useCreatePost";
+import { useIsOwnPost } from "../features/posts/useIsOwnPost";
 
 function PostWrite() {
   const quillRef = useRef();
@@ -40,6 +41,8 @@ function PostWrite() {
   const isLoading = isGetting || isUpdating || isDeleting || isCreating;
 
   const autoSaveStatus = useAutoSave(autoSaveEnabled, postId, newPost);
+
+  useIsOwnPost(post);
 
   useEffect(() => {
     if (!isGetting) {
