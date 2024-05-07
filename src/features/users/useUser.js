@@ -6,7 +6,6 @@ export function useUser(userId) {
     isLoading,
     data: user,
     error,
-    refetch,
   } = useQuery({
     queryKey: ["user", userId],
     queryFn: () => getUser(userId),

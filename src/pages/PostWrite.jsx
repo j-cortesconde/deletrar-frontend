@@ -20,7 +20,7 @@ function PostWrite() {
 
   const { postId } = useParams();
 
-  const { post, isLoading: isGetting } = usePost(postId);
+  const { post, isLoading: isGetting, error } = usePost(postId);
   const { updatePost, isUpdating } = useUpdatePost();
   const { deletePost, isDeleting } = useDeletePost();
   const { createPost, isCreating } = useCreatePost();
@@ -80,6 +80,8 @@ function PostWrite() {
 
     createPost(copyPost);
   }
+
+  if (error) return <div>{error.message}</div>;
 
   return (
     <>

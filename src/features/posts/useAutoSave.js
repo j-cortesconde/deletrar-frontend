@@ -6,7 +6,7 @@ export function useAutoSave(
   autoSaveEnabled,
   postId,
   newPost,
-  saveDelay = 3000,
+  saveDelay = 1500,
 ) {
   const prevState = useRef(autoSaveEnabled ? newPost : null);
   const [postHasChanged, setPostHasChanged] = useState(false);

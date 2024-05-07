@@ -10,10 +10,14 @@ export async function searchPosts(query) {
 }
 
 export async function getPost(postId) {
-  if (!postId) return null;
+  try {
+    if (!postId) return null;
 
-  const response = await axiosService.getPost(postId);
-  return response.data.data;
+    const response = await axiosService.getPost(postId);
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
 }
 
 export async function createPost(post) {

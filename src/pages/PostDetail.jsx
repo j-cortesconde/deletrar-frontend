@@ -1,21 +1,26 @@
 //FIXME: How does one connect the images from the frontend to the backend?
+// TODO: Should redirect to an error page that recieves as a prop an error message
+// TODO: Should do this not only here. Also in other "if (error)" and many navigates that redirect home or elsewhere
 
 import { useNavigate, useParams } from "react-router-dom";
 import { usePost } from "../features/posts/usePost";
 import HTMLParser from "../features/posts/HTMLParser";
+import { usePrivatePost } from "../features/posts/usePrivatePost";
 
 function PostDetail() {
+  const navigate = useNavigate();
   const { postId } = useParams();
 
   const { isLoading, post, error } = usePost(postId);
-  const navigate = useNavigate();
+
+  usePrivatePost(post);
 
   if (isLoading) return <div>Wait</div>;
-  if (error) return <div>{error}</div>;
+  if (error) return <div>{error.message}</div>;
 
   return (
     <div className="mx-auto w-3/4">
-      <div className="flex items-end justify-center gap-10">
+      <div className="mt-4 flex items-end justify-center gap-10">
         <img
           src={`/posts/${post.coverImage}`}
           alt="Post Cover"
