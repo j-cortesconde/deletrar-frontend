@@ -10,11 +10,11 @@ export function useCreatePost() {
   const { mutate: createPost, isPending: isCreating } = useMutation({
     mutationFn: (newPost) => createPostAPI(newPost),
     onSuccess: (data) => {
-      toast.success("El texto fue creado exitosamente");
       queryClient.setQueryData(["post", data._id], data);
-      navigate(`/post/${data._id}`);
+      navigate(`/post/write/${data._id}`);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) =>
+      toast.error("Hubo algún problema. Volvé a intentarlo más tarde."),
   });
 
   return { createPost, isCreating };

@@ -1,33 +1,52 @@
+// TODO: Must reject (redirect) any posts with status === "deleted" to wherever they are reactivated (postDetail probably)
+
 import "react-quill/dist/quill.snow.css";
 import toast from "react-hot-toast";
-import { useRef, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import { useCreatePost } from "../features/posts/useCreatePost";
+import { usePost } from "../features/posts/usePost";
 import { useUpdatePost } from "../features/posts/useUpdatePost";
+import { useDeletePost } from "../features/posts/useDeletePost";
 
 import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
-import { useDeletePost } from "../features/posts/useDeletePost";
+import { useAutoSave } from "../features/posts/useAutoSave";
 
 function PostWrite() {
   const quillRef = useRef();
-  const { createPost, isCreating } = useCreatePost();
-  const { updatePost, isUpdating } = useUpdatePost();
-  const { deletePost, isDeleting } = useDeletePost();
 
   const { postId } = useParams();
 
-  const queryClient = useQueryClient();
-  const post = queryClient.getQueryData(["post", postId]);
+  const { post, isLoading: isGetting } = usePost(postId);
+  const { updatePost, isUpdating } = useUpdatePost();
+  const { deletePost, isDeleting } = useDeletePost();
 
   const [title, setTitle] = useState(post?.title || "");
   const [summary, setSummary] = useState(post?.summary || "");
   const [content, setContent] = useState(post?.content || "");
+  const [autoSaveEnabled, setAutoSaveEnabled] = useState(false);
 
-  const isLoading = isUpdating || isCreating || isDeleting;
+  const newPost = {
+    title,
+    summary,
+    content: { ...content },
+    status: "editing",
+  };
+
+  const isLoading = isUpdating || isDeleting || isGetting;
+
+  const isAutoSaving = useAutoSave(autoSaveEnabled, postId, newPost);
+
+  useEffect(() => {
+    if (!isGetting) {
+      setTitle(post?.title || "");
+      setSummary(post?.summary || "");
+      setContent(post?.content || "");
+      setAutoSaveEnabled(post?.status !== "posted");
+    }
+  }, [post, isGetting]);
 
   function handleChange() {
     if (quillRef.current) {
@@ -36,29 +55,14 @@ function PostWrite() {
     }
   }
 
-  function handleDelete() {
-    if (postId) {
-      deletePost(postId);
-    } else {
-      setTitle("");
-      setSummary("");
-      setContent("");
-    }
-  }
-
   function handleSave(isPosting = false) {
     if (title === "" || summary === "") {
       return toast.error("El texto debe tener un título y un resumen");
     }
-    const newPost = { title, summary, content };
 
-    newPost.status = isPosting ? "posted" : "editing";
+    if (isPosting) newPost.status = "posted";
 
-    if (postId) {
-      updatePost({ postId, newPost });
-    } else {
-      createPost(newPost);
-    }
+    updatePost({ postId, newPost });
   }
 
   return (
@@ -91,23 +95,34 @@ function PostWrite() {
 
         <div className="my-1 flex w-3/4 justify-between">
           <Button
-            onClick={handleDelete}
+            onClick={() => {
+              deletePost(postId);
+            }}
             variation="danger"
             disabled={isLoading}
           >
             Eliminar
           </Button>
 
+          {autoSaveEnabled && (
+            <p className="text-2xl">
+              {isAutoSaving ? "Guardando automáticamente" : "Guardado"}
+            </p>
+          )}
+
           <div className="space-x-5">
-            <Button
-              onClick={() => handleSave()}
-              disabled={isLoading}
-              variation="secondary"
-            >
-              Guardar y Ocultar
-            </Button>
+            {post?.status !== "posted" && (
+              <Button
+                onClick={() => handleSave()}
+                disabled={isLoading}
+                variation="secondary"
+              >
+                Guardar sin Publicar
+              </Button>
+            )}
+
             <Button onClick={() => handleSave(true)} disabled={isLoading}>
-              Guardar y Publicar
+              {post?.status === "posted" ? "Guardar" : "Guardar y Publicar"}
             </Button>
           </div>
         </div>

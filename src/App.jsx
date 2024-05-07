@@ -45,7 +45,7 @@ function App() {
             <Route element={<LoginProtection />}>
               <Route path="users/invite" element={<InviteFriend />} />
               <Route path="user/settings" />
-              <Route path="post/write/:postId?" element={<PostWrite />} />
+              <Route path="post/write/:postId" element={<PostWrite />} />
             </Route>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />

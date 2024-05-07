@@ -13,7 +13,7 @@ export function useDeletePost() {
     onSuccess: (data) => {
       toast.success("El texto fue eliminado exitosamente");
       queryClient.removeQueries(["post", data._id]);
-      navigate("/post/write", { replace: true });
+      navigate("/home", { replace: true });
     },
     onError: (err) => toast.error(err.message),
   });
