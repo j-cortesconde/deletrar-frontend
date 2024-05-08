@@ -3,20 +3,21 @@
 import "react-quill/dist/quill.snow.css";
 import toast from "react-hot-toast";
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { usePost } from "../features/posts/usePost";
 import { useUpdatePost } from "../features/posts/useUpdatePost";
 import { useDeletePost } from "../features/posts/useDeletePost";
+import { useCreatePost } from "../features/posts/useCreatePost";
 import { useAutoSave } from "../features/posts/useAutoSave";
+import { useIsntOwnPost } from "../features/posts/useIsntOwnPost";
 
 import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
-import { useCreatePost } from "../features/posts/useCreatePost";
-import { useIsOwnPost } from "../features/posts/useIsOwnPost";
 
 function PostWrite() {
+  const navigate = useNavigate();
   const quillRef = useRef();
 
   const { postId } = useParams();
@@ -42,16 +43,23 @@ function PostWrite() {
 
   const autoSaveStatus = useAutoSave(autoSaveEnabled, postId, newPost);
 
-  useIsOwnPost(post);
+  const isntOwnPost = useIsntOwnPost(post);
 
   useEffect(() => {
+    if (isntOwnPost) navigate("/home", { replace: true });
+  }, [isntOwnPost, navigate]);
+
+  useEffect(() => {
+    if (post?.status === "deleted")
+      navigate(`/post/${post._id}`, { replace: true });
+
     if (!isGetting) {
       setTitle(post?.title || "");
       setSummary(post?.summary || "");
       setContent(post?.content || "");
       setAutoSaveEnabled(post?.status !== "posted");
     }
-  }, [post, isGetting]);
+  }, [post, isGetting, navigate]);
 
   function handleChange() {
     if (quillRef.current) {
@@ -125,7 +133,9 @@ function PostWrite() {
             Eliminar
           </Button>
 
-          {autoSaveEnabled && <p className="text-2xl">{autoSaveStatus}</p>}
+          <p className="text-2xl">
+            {autoSaveEnabled ? autoSaveStatus : "Autoguardado desactivado"}
+          </p>
 
           <div className="space-x-5">
             {post?.status === "posted" ? (
