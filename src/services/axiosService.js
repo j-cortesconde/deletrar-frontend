@@ -166,13 +166,6 @@ class AxiosService {
       data: post,
     });
   }
-
-  deletePost(postId) {
-    return axios({
-      method: "PATCH",
-      url: `${API_URL}/posts/delete/${postId}`,
-    });
-  }
 }
 
 const axiosService = new AxiosService();
