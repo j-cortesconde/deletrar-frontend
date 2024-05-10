@@ -1,8 +1,10 @@
+// FIXME: Aun no resolvi como voy a hacer para traer solo los textos autorizados (ni como distinguir la info que traigo de otros de la mia)
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import PostCardList from "../posts/PostCardList";
-import SortBy from "../../ui/SortBy";
 import { useCallback, useEffect, useState } from "react";
+
+import SortBy from "../../ui/SortBy";
+import CardList from "../../ui/CardList";
 
 function UserPosts() {
   const { userId } = useParams();
@@ -65,7 +67,7 @@ function UserPosts() {
   ];
 
   return (
-    <div className="border-t-2 border-stone-300 pt-4">
+    <div>
       {sortedPosts?.length > 0 ? (
         <>
           <div className="flex justify-between px-5 ">
@@ -73,7 +75,7 @@ function UserPosts() {
             <SortBy options={sortOptions} />
           </div>
 
-          <PostCardList posts={sortedPosts} />
+          <CardList posts={sortedPosts} columns={2} />
         </>
       ) : (
         <p className="m-12 text-4xl">{user.name} aún no publicó ningún texto</p>

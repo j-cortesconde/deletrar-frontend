@@ -11,8 +11,8 @@ function UserMenu() {
   const activeStyle = optionStyle + " border-slate-500";
 
   return (
-    <div className="border-t-2 border-stone-300 pt-2">
-      <ul className="flex justify-center gap-28 pb-3">
+    <>
+      <ul className="my-4 flex justify-center gap-28 border-y-2 border-stone-300 pb-3 pt-2">
         {options.map((option) => (
           <li
             key={option}
@@ -25,7 +25,7 @@ function UserMenu() {
       </ul>
 
       {selectedOption === "publicaciones" && <UserPosts />}
-    </div>
+    </>
   );
 }
 

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSearchPosts } from "../features/search/useSearchPosts";
 
-import PostCardList from "../features/posts/PostCardList";
+import CardList from "../ui/CardList";
 
 function PostSearchResults() {
   const { searchTerm } = useParams();
@@ -12,8 +12,8 @@ function PostSearchResults() {
   } = useSearchPosts(searchTerm);
 
   return (
-    <div className="flex justify-center">
-      <PostCardList posts={posts} />
+    <div className="mx-auto flex w-3/4 justify-center">
+      <CardList posts={posts} columns={2} />
     </div>
   );
 }

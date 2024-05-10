@@ -22,20 +22,19 @@ function UserInfo({ user }) {
   }
 
   return (
-    <div className="mb-8 mt-4 flex items-start justify-between gap-4">
+    <div className="my-4 flex items-start justify-between gap-4">
       <div className="flex flex-grow items-end justify-start gap-8">
         <div className="w-52 flex-shrink-0">
           <img src={`/users/${user.photo}`} alt={user.name} className="w-52" />
         </div>
 
         <div className="flex flex-col flex-wrap items-start text-left">
-          <p className="text-4xl font-semibold">{user.name}</p>
-          <p className="text-xl">488 suscriptores</p>
-          <p className="text-3xl">
-            Aqui me pongo a cnatar al compas de la viguela quel homrbo que lo
-            desvela una pena straordinaria comol ave solitaria con el cantar se
-            consuela
+          <p className="text-6xl font-semibold">{user.name}</p>
+          {/* // TODO: .followers not yet implemented at backend */}
+          <p className="text-xl">
+            {user.followers?.length || "Aún no tiene"} suscriptores
           </p>
+          <p className="text-3xl">{user.description}</p>
         </div>
       </div>
 

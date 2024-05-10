@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-function UserCard({ keyProp, user }) {
+function UserCard({ user }) {
   const navigate = useNavigate();
   return (
     <li
