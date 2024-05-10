@@ -1,46 +1,27 @@
-//FIXME: How does one connect the images from the frontend to the backend?
+// FIXME: How does one connect the images from the frontend to the backend?
+// TODO: Instead of userId this should be using username (must also change useUser [and probably useCurrentUser])
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUser } from "../features/users/useUser";
+
+import Loader from "../ui/Loader";
+import UserInfo from "../features/users/UserInfo";
+import UserMenu from "../features/users/UserMenu";
 
 function UserDetail() {
   const { userId } = useParams();
 
   const { isLoading, user, error } = useUser(userId);
-  const navigate = useNavigate();
 
-  if (isLoading) return <div>Wait</div>;
+  if (isLoading) return <Loader />;
+  if (error) return <p>{error.message}</p>;
 
   return (
-    <>
-      <div className="flex items-center justify-center">
-        <div>
-          <img src={`/users/${user.photo}`} alt={user.name} className="w-40" />
-        </div>
-        <div className="flex-col">
-          <p>
-            {user.name} - {user.username}
-          </p>
-          <p>Member since {user.createdAt}</p>
-          <p>{user.description}</p>
-        </div>
-      </div>
-      {user.posts?.length > 0 && (
-        <ul>
-          {user.posts.map((post) => (
-            <li key={post._id}>
-              <p
-                onClick={() => navigate(`/post/${post._id}`)}
-                className="font-bold text-stone-900 hover:cursor-pointer"
-              >
-                {post.title}
-              </p>
-              <p>{post.summary}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
+    <div className="mx-auto w-3/4">
+      <UserInfo user={user} />
+
+      <UserMenu />
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useSearchPosts } from "../features/search/useSearchPosts";
-import PostCard from "../features/posts/PostCard";
+
+import PostCardList from "../features/posts/PostCardList";
 
 function PostSearchResults() {
   const { searchTerm } = useParams();
@@ -12,11 +13,7 @@ function PostSearchResults() {
 
   return (
     <div className="flex justify-center">
-      <ul className="w-7/12">
-        {posts?.map((post) => (
-          <PostCard key={post._id} post={post} />
-        ))}
-      </ul>
+      <PostCardList posts={posts} />
     </div>
   );
 }

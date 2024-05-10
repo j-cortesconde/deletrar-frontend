@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { HiChevronDown } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import UserOptions from "./UserOptions";
+import UserHeaderOptions from "./UserHeaderOptions";
 import { useClickOutsideDropdown } from "../../hooks/useClickOutsideDropdown";
 
 function UserHeader({ user }) {
@@ -48,7 +48,7 @@ function UserHeader({ user }) {
         </div>
 
         {displayOptions && (
-          <UserOptions
+          <UserHeaderOptions
             user={user}
             onCloseDisplayOptions={handleCloseDisplayOptions}
           />

@@ -17,7 +17,8 @@ function Button({
       "border-indigo-600 text-indigo-50 bg-indigo-600 hover:bg-indigo-700 hover:border-indigo-700",
     secondary:
       "border-stone-400 border-2 text-stone-600 bg-stone-300 hover:bg-stone-400",
-    danger: "border-red-700 bg-red-700 text-red-100 hover:bg-red-800",
+    danger:
+      "border-red-700 bg-red-700 text-red-100 hover:bg-red-800 hover:border-red-800",
   };
   const shapes = {
     square: "rounded-md",

@@ -4,7 +4,7 @@ import { useLogout } from "../authentication/useLogout";
 import { useScrollList } from "../../hooks/useScrollList";
 import { useNavigate } from "react-router-dom";
 
-function UserOptions({ user, onCloseDisplayOptions }) {
+function UserHeaderOptions({ user, onCloseDisplayOptions }) {
   const optionsRef = useRef(null);
   const selectedIndex = useScrollList(optionsRef, onCloseDisplayOptions);
   const navigate = useNavigate();
@@ -46,4 +46,4 @@ function UserOptions({ user, onCloseDisplayOptions }) {
   );
 }
 
-export default UserOptions;
+export default UserHeaderOptions;
