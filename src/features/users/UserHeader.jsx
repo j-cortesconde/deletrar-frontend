@@ -30,7 +30,7 @@ function UserHeader({ user }) {
 
   return (
     <div className="flex items-center justify-between gap-5">
-      <Link to={`/user/${user._id}`}>
+      <Link to={`/user/${user.username}`}>
         <img
           src={`/users/${user.photo}`}
           alt={user.name}

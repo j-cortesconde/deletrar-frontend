@@ -4,7 +4,7 @@ function UserCard({ user }) {
   const navigate = useNavigate();
   return (
     <li
-      onClick={() => navigate(`/user/${user._id}`)}
+      onClick={() => navigate(`/user/${user.username}`)}
       className="m-5 rounded-md border-2 border-slate-400 bg-slate-300 hover:cursor-pointer"
     >
       <div className="my-14 flex items-center justify-end gap-10">

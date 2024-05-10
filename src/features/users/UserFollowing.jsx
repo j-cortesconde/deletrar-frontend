@@ -1,27 +1,24 @@
-// FIXME: Aun no resolvi como voy a hacer para traer solo los textos autorizados (ni como distinguir la info que traigo de otros de la mia)
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 
 import SortBy from "../../ui/SortBy";
 import CardList from "../../ui/CardList";
-import { usePosts } from "../posts/usePosts";
-import Loader from "../../ui/Loader";
 
-function UserPosts() {
+function UserFollowing() {
   const { username } = useParams();
   const queryClient = useQueryClient();
 
   const user = queryClient.getQueryData(["user", username]);
-  const { posts, isLoading } = usePosts(username);
+  const [sortedUsers, setSortedUsers] = useState(user.following?.slice());
 
-  const [sortedPosts, setSortedPosts] = useState(posts?.slice());
+  console.log(user.following);
 
   // order = 1 for ascending, -1 for descending
   const handleSort = useCallback(
     (field, order = 1) => {
-      setSortedPosts(
-        posts?.slice().sort((a, b) => {
+      setSortedUsers(
+        user.following?.slice().sort((a, b) => {
           const valueA = a[field] || 0;
           const valueB = b[field] || 0;
 
@@ -30,7 +27,7 @@ function UserPosts() {
         }),
       );
     },
-    [posts],
+    [user.following],
   );
 
   useEffect(() => {
@@ -70,19 +67,16 @@ function UserPosts() {
     },
   ];
 
-  // This should return a spinner Loader instead of this one that veils the screen so the user can see the rest of the page as this loads
-  if (isLoading) return <Loader />;
-
   return (
     <div>
-      {sortedPosts?.length > 0 ? (
+      {sortedUsers?.length > 0 ? (
         <>
           <div className="flex justify-between px-5 ">
-            <p>{sortedPosts.length} textos publicados</p>
+            <p>{sortedUsers.length} textos publicados</p>
             <SortBy options={sortOptions} />
           </div>
 
-          <CardList posts={sortedPosts} columns={2} />
+          <CardList users={sortedUsers} columns={2} />
         </>
       ) : (
         <p className="m-12 text-4xl">{user.name} aún no publicó ningún texto</p>
@@ -91,4 +85,4 @@ function UserPosts() {
   );
 }
 
-export default UserPosts;
+export default UserFollowing;

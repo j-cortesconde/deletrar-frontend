@@ -1,5 +1,6 @@
 import { useState } from "react";
 import UserPosts from "./UserPosts";
+import UserFollowing from "./UserFollowing";
 
 function UserMenu() {
   const options = ["publicaciones", "colecciones", "suscriptores", "suscripto"];
@@ -25,6 +26,7 @@ function UserMenu() {
       </ul>
 
       {selectedOption === "publicaciones" && <UserPosts />}
+      {selectedOption === "suscripto" && <UserFollowing />}
     </>
   );
 }

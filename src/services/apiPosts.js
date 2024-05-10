@@ -20,6 +20,15 @@ export async function getPost(postId) {
   }
 }
 
+export async function getPosts(authorUsername) {
+  try {
+    const response = await axiosService.getPosts(authorUsername);
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
+
 export async function createPost(post) {
   const response = await axiosService.createPost(post);
   return response.data.data;

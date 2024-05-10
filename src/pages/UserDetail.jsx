@@ -1,5 +1,4 @@
 // FIXME: How does one connect the images from the frontend to the backend?
-// TODO: Instead of userId this should be using username (must also change useUser [and probably useCurrentUser])
 
 import { useParams } from "react-router-dom";
 import { useUser } from "../features/users/useUser";
@@ -9,9 +8,9 @@ import UserInfo from "../features/users/UserInfo";
 import UserMenu from "../features/users/UserMenu";
 
 function UserDetail() {
-  const { userId } = useParams();
+  const { username } = useParams();
 
-  const { isLoading, user, error } = useUser(userId);
+  const { isLoading, user, error } = useUser(username);
 
   if (isLoading) return <Loader />;
   if (error) return <p>{error.message}</p>;

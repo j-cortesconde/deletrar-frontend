@@ -31,10 +31,10 @@ function UserInfo({ user }) {
         <div className="flex flex-col flex-wrap items-start text-left">
           <p className="text-6xl font-semibold">{user.name}</p>
           {/* // TODO: .followers not yet implemented at backend */}
-          <p className="text-xl">
+          <p className="mt-1 text-xl">
             {user.followers?.length || "Aún no tiene"} suscriptores
           </p>
-          <p className="text-3xl">{user.description}</p>
+          <p className="mt-1 text-3xl">{user.description}</p>
         </div>
       </div>
 

@@ -16,7 +16,7 @@ function UserHeaderOptions({ user, onCloseDisplayOptions }) {
       className="absolute top-[110%] z-50 flex w-full flex-col gap-1 rounded-xl  bg-slate-200 text-right "
     >
       <ScrollableLi
-        onClick={() => navigate(`/user/${user._id}`)}
+        onClick={() => navigate(`/user/${user.username}`)}
         selected={selectedIndex === 0}
       >
         Profile

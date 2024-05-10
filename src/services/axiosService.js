@@ -108,10 +108,10 @@ class AxiosService {
     });
   }
 
-  getUser(userId) {
+  getUser(username) {
     return axios({
       method: "GET",
-      url: `${API_URL}/users/id/${userId}`,
+      url: `${API_URL}/users/username/${username}`,
     });
   }
 
@@ -148,6 +148,13 @@ class AxiosService {
     return axios({
       method: "GET",
       url: `${API_URL}/posts/id/${postId}`,
+    });
+  }
+
+  getPosts(authorUsername) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/posts/user/${authorUsername}`,
     });
   }
 

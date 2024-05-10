@@ -52,7 +52,7 @@ function App() {
             <Route path="users/:searchTerm" element={<UserSearchResults />} />
             <Route path="posts/:searchTerm" element={<PostSearchResults />} />
             <Route path="post/:postId" element={<PostDetail />} />
-            <Route path="user/:userId" element={<UserDetail />} />
+            <Route path="user/:username" element={<UserDetail />} />
           </Route>
           <Route element={<AppLayoutExt />}>
             <Route element={<LoginProtection />}>

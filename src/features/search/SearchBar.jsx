@@ -3,7 +3,6 @@ import { useSearchPosts } from "./useSearchPosts";
 import GeneralResultList from "./GeneralResultList";
 import { useClickOutsideDropdown } from "../../hooks/useClickOutsideDropdown";
 import { useSearchUsers } from "./useSearchUsers";
-import { SEARCH_RESULTS } from "../../utils/constants";
 import slugify from "slugify";
 import { useDebounce } from "../../hooks/useDebounce";
 

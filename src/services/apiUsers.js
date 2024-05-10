@@ -8,8 +8,8 @@ export async function searchUsers(query) {
   return response.data.data;
 }
 
-export async function getUser(userId) {
-  const response = await axiosService.getUser(userId);
+export async function getUser(username) {
+  const response = await axiosService.getUser(username);
   return response.data.data;
 }
 

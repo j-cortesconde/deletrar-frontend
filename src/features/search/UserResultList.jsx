@@ -27,9 +27,9 @@ function UserResultList({
       <ul>
         {trimmedUsers.map((result, index) => (
           <UserResult
-            key={result._id}
+            key={result.username}
             selected={countBeforeUserResults + index === selectedIndex}
-            to={`/user/${result._id}`}
+            to={`/user/${result.username}`}
             result={result}
           />
         ))}

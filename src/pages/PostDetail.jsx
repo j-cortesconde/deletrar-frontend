@@ -35,7 +35,7 @@ function PostDetail() {
             <div>
               <span>Publicado por </span>
               <span
-                onClick={() => navigate(`/user/${post?.author._id}`)}
+                onClick={() => navigate(`/user/${post?.author.username}`)}
                 className="font-bold text-stone-900 hover:cursor-pointer"
               >
                 {post?.author.name}

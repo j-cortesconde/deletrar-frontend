@@ -5,7 +5,8 @@ function CardList({ posts, users, columns = 1 }) {
   return (
     <ul className={`grid grid-cols-${columns}`}>
       {posts && posts.map((post) => <PostCard key={post._id} post={post} />)}
-      {users && users.map((user) => <UserCard key={user._id} user={user} />)}
+      {users &&
+        users.map((user) => <UserCard key={user.username} user={user} />)}
     </ul>
   );
 }
