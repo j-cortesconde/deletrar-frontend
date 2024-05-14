@@ -2,8 +2,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 
-import SortBy from "../../ui/SortBy";
 import CardList from "../../ui/CardList";
+import Pagination from "../../ui/Pagination";
+import TableOperations from "../../ui/TableOperations";
+import { POST_SORT_OPTIONS } from "../../utils/constants";
 
 function UserFollowing() {
   const { username } = useParams();
@@ -35,52 +37,23 @@ function UserFollowing() {
     handleSort("postedAt", -1);
   }, [handleSort]);
 
-  const sortOptions = [
-    {
-      value: "postedDate-desc",
-      label: "Fecha de publicación (nuevo)",
-      action: () => handleSort("postedAt", -1),
-    },
-    {
-      value: "postedDate-asc",
-      label: "Fecha de publicación (viejo)",
-      action: () => handleSort("postedAt", 1),
-    },
-    {
-      value: "updateDate-desc",
-      label: "Fecha de actualización (nuevo)",
-      action: () => handleSort("updatedAt", -1),
-    },
-    {
-      value: "updateDate-asc",
-      label: "Fecha de actualización (viejo)",
-      action: () => handleSort("updatedAt", 1),
-    },
-    {
-      value: "title-asc",
-      label: "Título (A-Z)",
-      action: () => handleSort("title", 1),
-    },
-    {
-      value: "title-desc",
-      label: "Título (Z-A)",
-      action: () => handleSort("title", -1),
-    },
-  ];
+  // TODO: This should return a spinner Loader instead of this one that veils the screen so the user can see the rest of the page as this loads
 
   return (
     <div>
       {sortedUsers?.length > 0 ? (
         <>
-          <div className="flex justify-between px-5 ">
-            <p>{sortedUsers.length} textos publicados</p>
-            <SortBy options={sortOptions} />
-          </div>
+          <TableOperations
+            totalAmount={sortedUsers.length}
+            sortOptions={POST_SORT_OPTIONS}
+          />
 
           <CardList users={sortedUsers} />
+
+          <Pagination totalAmount={sortedUsers.length} />
         </>
       ) : (
-        <p className="m-12 text-4xl">{user.name} aún no publicó ningún texto</p>
+        <p className="m-12 text-4xl">{user.name} aún no tiene seguidores</p>
       )}
     </div>
   );

@@ -16,12 +16,11 @@ function UserLayout() {
   const inactiveStyle = navLinkStyle + " border-transparent";
   const activeStyle = navLinkStyle + " border-slate-500";
 
-  if (isLoading) return <Loader />;
   if (error) return <p>{error.message}</p>;
 
   return (
     <div className="mx-auto w-3/4">
-      <UserInfo user={user} />
+      {!isLoading ? <UserInfo user={user} /> : <Loader />}
 
       <ul className="my-4 flex justify-center gap-28 border-y-2 border-stone-300 pb-3 pt-2">
         <NavLink
