@@ -20,9 +20,10 @@ export async function getPost(postId) {
   }
 }
 
-export async function getPosts(authorUsername) {
+export async function getPosts(authorUsername, queryString) {
   try {
-    const response = await axiosService.getPosts(authorUsername);
+    const response = await axiosService.getPosts(authorUsername, queryString);
+
     return response.data.data;
   } catch (err) {
     throw new Error(err.response.data.message);

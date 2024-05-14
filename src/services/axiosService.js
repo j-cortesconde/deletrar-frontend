@@ -151,10 +151,10 @@ class AxiosService {
     });
   }
 
-  getPosts(authorUsername) {
+  getPosts(authorUsername, queryString) {
     return axios({
       method: "GET",
-      url: `${API_URL}/posts/user/${authorUsername}`,
+      url: `${API_URL}/posts/user/${authorUsername}?${queryString}`,
     });
   }
 

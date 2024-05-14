@@ -1,12 +1,15 @@
-import { useState } from "react";
 import Select from "./Select";
+import { useSearchParams } from "react-router-dom";
 
 function SortBy({ options }) {
-  const [sortBy, setSortBy] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortBy = searchParams.get("sortBy") || "";
 
   function handleChange(e) {
-    setSortBy(e.target.value);
-    options.filter((option) => option.value === e.target.value)[0].action();
+    searchParams.set("sortBy", e.target.value);
+    if (searchParams.get("page")) searchParams.set("page", 1);
+
+    setSearchParams(searchParams);
   }
 
   return <Select options={options} value={sortBy} onChange={handleChange} />;

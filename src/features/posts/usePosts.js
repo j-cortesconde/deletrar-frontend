@@ -1,16 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "../../services/apiPosts";
+import { useSearchParams } from "react-router-dom";
 
 export function usePosts(authorUsername) {
-  const {
-    isLoading,
-    data: posts,
-    error,
-  } = useQuery({
-    queryKey: ["posts", authorUsername],
-    queryFn: () => getPosts(authorUsername),
+  const [searchParams] = useSearchParams();
+
+  const sortBy = searchParams.get("sortBy") || "postedAt-desc";
+  const page = Number(searchParams.get("page")) || 1;
+
+  const queryString = `sortBy=${sortBy}&page=${page}`;
+
+  const { isLoading, data, error } = useQuery({
+    queryKey: ["posts", authorUsername, sortBy, page],
+    queryFn: () => getPosts(authorUsername, queryString),
     retry: false,
   });
 
-  return { isLoading, posts, error };
+  const posts = data?.docs;
+  const count = data?.count;
+
+  return { isLoading, posts, count, error };
 }

@@ -9,7 +9,7 @@ import AccountStatusProtection from "./ui/AccountStatusProtection";
 import LoginProtection from "./ui/LoginProtection";
 import Home from "./pages/Home";
 import PostDetail from "./pages/PostDetail";
-import UserDetail from "./pages/UserDetail";
+import UserLayout from "./pages/UserLayout";
 import Login from "./pages/Login";
 import PostWrite from "./pages/PostWrite";
 import UserSearchResults from "./pages/UserSearchResults";
@@ -20,6 +20,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ReactivateAccount from "./pages/ReactivateAccount";
 import InitializeAccount from "./pages/InitializeAccount";
+import UserPosts from "./features/users/UserPosts";
+import UserFollowing from "./features/users/UserFollowing";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,7 +54,13 @@ function App() {
             <Route path="users/:searchTerm" element={<UserSearchResults />} />
             <Route path="posts/:searchTerm" element={<PostSearchResults />} />
             <Route path="post/:postId" element={<PostDetail />} />
-            <Route path="user/:username" element={<UserDetail />} />
+            <Route path="user/:username" element={<UserLayout />}>
+              <Route index element={<Navigate replace to="posts" />} />
+              <Route path="posts" element={<UserPosts />} />
+              <Route path="collections" element={<UserLayout />} />
+              <Route path="subscribers" element={<UserFollowing />} />
+              <Route path="subscribed" element={<UserLayout />} />
+            </Route>
           </Route>
           <Route element={<AppLayoutExt />}>
             <Route element={<LoginProtection />}>

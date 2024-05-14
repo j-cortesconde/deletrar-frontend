@@ -10,9 +10,10 @@ function UserFollowing() {
   const queryClient = useQueryClient();
 
   const user = queryClient.getQueryData(["user", username]);
-  const [sortedUsers, setSortedUsers] = useState(user.following?.slice());
 
-  console.log(user.following);
+  // TODO: Instead of getting them by user.following it should have a specific useFollowing hook that queries a route in the backend that somehow returns an array of user documents including ony id, name, username and photo (no summary, thus would need a different card instead of UserCard [smth like FollowingCard which should also be added to CardList]). [Maybe should even have a different approach altogether, not cards.]
+  // This should include pagination and sorting.
+  const [sortedUsers, setSortedUsers] = useState(user.following?.slice());
 
   // order = 1 for ascending, -1 for descending
   const handleSort = useCallback(
@@ -76,7 +77,7 @@ function UserFollowing() {
             <SortBy options={sortOptions} />
           </div>
 
-          <CardList users={sortedUsers} columns={2} />
+          <CardList users={sortedUsers} />
         </>
       ) : (
         <p className="m-12 text-4xl">{user.name} aún no publicó ningún texto</p>

@@ -13,7 +13,7 @@ function PostSearchResults() {
 
   return (
     <div className="mx-auto flex w-3/4 justify-center">
-      <CardList posts={posts} columns={2} />
+      <CardList posts={posts} />
     </div>
   );
 }

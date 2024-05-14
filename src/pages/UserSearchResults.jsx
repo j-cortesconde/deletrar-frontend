@@ -13,7 +13,7 @@ function UserSearchResults() {
 
   return (
     <div className="mx-auto flex w-3/4 justify-center">
-      <CardList users={users} columns={2} />
+      <CardList users={users}/>
     </div>
   );
 }
