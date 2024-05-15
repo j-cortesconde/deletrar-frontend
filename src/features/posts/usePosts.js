@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getPosts } from "../../services/apiPosts";
 import { useSearchParams } from "react-router-dom";
+
+import { getPosts } from "../../services/apiPosts";
 import { PAGE_SIZE, POST_SORT_OPTIONS } from "../../utils/constants";
 
 export function usePosts(authorUsername) {

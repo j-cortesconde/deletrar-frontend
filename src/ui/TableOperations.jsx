@@ -10,7 +10,7 @@ function ResultsOperations({ totalAmount, sortOptions }) {
 
       {totalAmount > 1 && (
         <div className="place-self-end">
-          <SortBy options={sortOptions} />
+          {sortOptions && <SortBy options={sortOptions} />}
         </div>
       )}
     </div>

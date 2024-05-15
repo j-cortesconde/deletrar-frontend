@@ -173,6 +173,13 @@ class AxiosService {
       data: post,
     });
   }
+
+  getFollowers(followedUsername, queryString) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/followers/${followedUsername}?${queryString}`,
+    });
+  }
 }
 
 const axiosService = new AxiosService();

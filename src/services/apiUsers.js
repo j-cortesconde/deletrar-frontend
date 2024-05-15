@@ -43,3 +43,11 @@ export async function initializeAccount({ username }) {
     );
   }
 }
+
+export async function getFollowers(followedUsername, queryString) {
+  const response = await axiosService.getFollowers(
+    followedUsername,
+    queryString,
+  );
+  return response.data.data;
+}

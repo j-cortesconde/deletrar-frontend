@@ -21,5 +21,5 @@ export const POST_SORT_OPTIONS = [
   },
 ];
 
-// IMPORTANT. This must only be changed in accordance to the change of the POST_LIMIT constant in backend
+// IMPORTANT. This must only be changed in accordance to the change of the AGGREGATION_LIMIT constant in backend
 export const PAGE_SIZE = 10;
