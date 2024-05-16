@@ -180,6 +180,13 @@ class AxiosService {
       url: `${API_URL}/users/followers/${followedUsername}?${queryString}`,
     });
   }
+
+  getFollowing(followerUsername, queryString) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/following/${followerUsername}?${queryString}`,
+    });
+  }
 }
 
 const axiosService = new AxiosService();

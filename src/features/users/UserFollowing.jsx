@@ -1,17 +1,17 @@
 import { useParams } from "react-router-dom";
 
-import { useFollowers } from "./useFollowers";
+import { useFollowing } from "./useFollowing";
 
 import CardList from "../../ui/CardList";
 import Pagination from "../../ui/Pagination";
 import TableOperations from "../../ui/TableOperations";
 import Loader from "../../ui/Loader";
 
-function UserFollowers() {
+function UserFollowing() {
   const { username } = useParams();
 
-  const { followers, count, isLoading } = useFollowers(username);
-  console.log(followers);
+  const { following, count, isLoading } = useFollowing(username);
+
   // TODO: This should return a spinner Loader instead of this one that veils the screen so the user can see the rest of the page as this loads
   if (isLoading) return <Loader />;
 
@@ -21,17 +21,17 @@ function UserFollowers() {
         <>
           <TableOperations totalAmount={count} />
 
-          <CardList users={followers} />
+          <CardList users={following} />
 
           <Pagination totalAmount={count} />
         </>
       ) : (
         <p className="m-12 text-4xl first-letter:uppercase">
-          {username} aún no tiene suscriptores
+          {username} aún no está suscripto a nadie.
         </p>
       )}
     </div>
   );
 }
 
-export default UserFollowers;
+export default UserFollowing;

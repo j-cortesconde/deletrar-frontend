@@ -51,3 +51,11 @@ export async function getFollowers(followedUsername, queryString) {
   );
   return response.data.data;
 }
+
+export async function getFollowing(followerUsername, queryString) {
+  const response = await axiosService.getFollowing(
+    followerUsername,
+    queryString,
+  );
+  return response.data.data;
+}
