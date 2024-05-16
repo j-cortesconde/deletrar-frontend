@@ -6,8 +6,8 @@ function UserInfo({ user }) {
   const queryClient = useQueryClient();
   const ownUser = queryClient.getQueryData(["user"]);
 
-  const isOwnUser = user._id === ownUser?._id;
-  const isFollowing = ownUser?.following?.includes(user._id);
+  const isOwnUser = user.username === ownUser?.username;
+  const isFollowing = ownUser?.following?.includes(user.username);
   const isLoggedIn = !!ownUser;
 
   function handleMessage() {

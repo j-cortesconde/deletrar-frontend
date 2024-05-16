@@ -19,8 +19,8 @@ export function useFollowing(followerUsername) {
     retry: false,
   });
 
-  const following = data?.[0]?.followingUsers;
-  const count = data?.[0]?.totalAmount;
+  const following = data?.docs;
+  const count = data?.count;
 
   // PRE-FETCHING of next and previous pages
   const pageCount = Math.ceil(count / PAGE_SIZE);
