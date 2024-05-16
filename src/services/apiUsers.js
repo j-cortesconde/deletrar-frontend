@@ -59,3 +59,17 @@ export async function getFollowing(followerUsername, queryString) {
   );
   return response.data.data;
 }
+
+export async function isFollowing(ownUsername, otherUsername) {
+  if (!ownUsername) return null;
+  const response = await axiosService.isFollowing(ownUsername, otherUsername);
+
+  return response.data.data;
+}
+
+export async function isFollower(ownUsername, otherUsername) {
+  if (!ownUsername) return null;
+  const response = await axiosService.isFollower(ownUsername, otherUsername);
+
+  return response.data.data;
+}

@@ -187,6 +187,20 @@ class AxiosService {
       url: `${API_URL}/users/following/${followerUsername}?${queryString}`,
     });
   }
+
+  isFollowing(ownUsername, otherUsername) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/isFollowing/${ownUsername}/${otherUsername}`,
+    });
+  }
+
+  isFollower(ownUsername, otherUsername) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/isFollower/${ownUsername}/${otherUsername}`,
+    });
+  }
 }
 
 const axiosService = new AxiosService();
