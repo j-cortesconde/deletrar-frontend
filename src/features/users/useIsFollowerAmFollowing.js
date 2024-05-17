@@ -1,10 +1,10 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  isFollowing as isFollowingAPI,
-  isFollower as isFollowerAPI,
+  amFollowing as amFollowingApi,
+  isFollower as isFollowerApi,
 } from "../../services/apiUsers";
 
-export function useIsFollowingIsFollower(otherUsername) {
+export function useIsFollowerAmFollowing(otherUsername) {
   const queryClient = useQueryClient();
   const ownUser = queryClient.getQueryData(["user"]);
 
@@ -12,24 +12,24 @@ export function useIsFollowingIsFollower(otherUsername) {
 
   const {
     isLoading: isLoading1,
-    data: isFollowing,
+    data: isFollower,
     error: error1,
   } = useQuery({
-    queryKey: ["isFollowing", ownUsername, otherUsername],
-    queryFn: () => isFollowingAPI(ownUsername, otherUsername),
+    queryKey: ["isFollower", otherUsername],
+    queryFn: () => isFollowerApi(ownUsername, otherUsername),
   });
 
   const {
     isLoading: isLoading2,
-    data: isFollower,
+    data: amFollowing,
     error: error2,
   } = useQuery({
-    queryKey: ["isFollower", ownUsername, otherUsername],
-    queryFn: () => isFollowerAPI(ownUsername, otherUsername),
+    queryKey: ["amFollowing", otherUsername],
+    queryFn: () => amFollowingApi(ownUsername, otherUsername),
   });
 
   const error = error1 || error2;
   const isLoading = isLoading1 || isLoading2;
 
-  return { isLoading, error, isFollowing, isFollower };
+  return { isLoading, error, amFollowing, isFollower };
 }

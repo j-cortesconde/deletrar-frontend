@@ -60,16 +60,22 @@ export async function getFollowing(followerUsername, queryString) {
   return response.data.data;
 }
 
-export async function isFollowing(ownUsername, otherUsername) {
+export async function isFollower(ownUsername, otherUsername) {
   if (!ownUsername) return null;
-  const response = await axiosService.isFollowing(ownUsername, otherUsername);
+  const response = await axiosService.isFollower(ownUsername, otherUsername);
 
   return response.data.data;
 }
 
-export async function isFollower(ownUsername, otherUsername) {
+export async function amFollowing(ownUsername, otherUsername) {
   if (!ownUsername) return null;
-  const response = await axiosService.isFollower(ownUsername, otherUsername);
+  const response = await axiosService.amFollowing(ownUsername, otherUsername);
+
+  return response.data.data;
+}
+
+export async function followUnfollowUser({ username, unfollow = false }) {
+  const response = await axiosService.followUnfollowUser(username, unfollow);
 
   return response.data.data;
 }

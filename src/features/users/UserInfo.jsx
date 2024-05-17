@@ -1,11 +1,13 @@
-// TODO: Handler Functions
 // TODO: Improve error handling (actually in all the app)
 import { useQueryClient } from "@tanstack/react-query";
-import Button from "../../ui/Button";
-import { useIsFollowingIsFollower } from "./useIsFollowerIsFollowing";
-import Loader from "../../ui/Loader";
 import { useParams } from "react-router-dom";
+
 import { useUser } from "./useUser";
+import { useIsFollowerAmFollowing } from "./useIsFollowerAmFollowing";
+import { useFollowUnfollowUser } from "./useFollowUnfollowUser";
+
+import Button from "../../ui/Button";
+import Loader from "../../ui/Loader";
 
 function UserInfo() {
   const { username } = useParams();
@@ -17,15 +19,14 @@ function UserInfo() {
     user,
     error: userError,
   } = useUser(username);
+  const { isPending, followUnfollowUser } = useFollowUnfollowUser();
 
   const {
     isLoading: isLoadingFollowStatus,
     error: followStatusError,
-    isFollowing,
+    amFollowing,
     isFollower,
-  } = useIsFollowingIsFollower(username);
-
-  //TODO: What can we do if the user is a follower?
+  } = useIsFollowerAmFollowing(username);
 
   const isOwnUser = username === ownUser?.username;
   const isLoggedIn = !!ownUser;
@@ -34,9 +35,9 @@ function UserInfo() {
   function handleMessage() {
     console.log("Message Action Triggered");
   }
-  function handleFollow() {
-    if (isFollowing) console.log("Unfollow Action Triggered");
-    else console.log("Follow Action Triggered");
+  function handleFollowUnfollow() {
+    if (amFollowing) followUnfollowUser({ username, unfollow: true });
+    else followUnfollowUser({ username, unfollow: false });
   }
   function handleEdit() {
     console.log("Edit Action Triggered");
@@ -82,12 +83,13 @@ function UserInfo() {
                       Contactar
                     </Button>
                     <Button
-                      onClick={handleFollow}
-                      variation={isFollowing ? "danger" : "primary"}
+                      onClick={handleFollowUnfollow}
+                      variation={amFollowing ? "danger" : "primary"}
+                      disabled={isPending}
                     >
-                      {isLoadingFollowStatus
+                      {isLoadingFollowStatus || isPending
                         ? "Esperá"
-                        : isFollowing
+                        : amFollowing
                           ? "Desuscribirse"
                           : "Suscribirse"}
                     </Button>
