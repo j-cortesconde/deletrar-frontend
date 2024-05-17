@@ -11,7 +11,6 @@ function AccountStatusProtection({ children }) {
 
   // 1. Load the authenticated user
   const {
-    user,
     isLoading,
     isAuthenticated,
     isInitialized,
@@ -20,10 +19,6 @@ function AccountStatusProtection({ children }) {
     isFetching,
   } = useCurrentUser();
   const navigate = useNavigate();
-
-  console.log("isLoading:", isLoading, "isFetching:", isFetching);
-  console.log("user:", user);
-  console.log("isActive:", isActive);
 
   useEffect(
     function () {

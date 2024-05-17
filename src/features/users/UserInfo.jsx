@@ -56,9 +56,9 @@ function UserInfo() {
           <div className="flex flex-grow justify-start">
             <div className="flex flex-col flex-wrap items-start text-left">
               <p className="text-6xl font-semibold">{user.name}</p>
-              {/* // TODO: .followers not yet implemented at backend */}
               <p className="mt-1 text-xl">
-                {user.followers?.length || "Aún no tiene"} suscriptores
+                {user.followerAmount || "Aún no tiene"} suscriptor
+                {user.followerAmount > 1 && "es"}
                 {isLoggedIn && isFollower && <span> | Es un suscriptor</span>}
               </p>
             </div>

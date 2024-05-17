@@ -9,13 +9,16 @@ export function useFollowUnfollowUser() {
     mutationFn: ({ username, unfollow }) =>
       followUnfollowUserApi({ username, unfollow }),
     onSuccess: (data) => {
-      console.log(data);
       queryClient.invalidateQueries({
         queryKey: ["followers", data.otherUsername],
         refetchType: "all",
       });
       queryClient.invalidateQueries({
         queryKey: ["amFollowing", data.otherUsername],
+        refetchType: "all",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user", data.otherUsername],
         refetchType: "all",
       });
 
