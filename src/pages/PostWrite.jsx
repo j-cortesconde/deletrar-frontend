@@ -123,15 +123,26 @@ function PostWrite() {
         />
 
         <div className="my-1 flex w-3/4 justify-between">
-          <Button
-            onClick={() => {
-              deletePost(postId);
-            }}
-            variation="danger"
-            disabled={isLoading}
-          >
-            Eliminar
-          </Button>
+          <div className="space-x-5">
+            <Button
+              onClick={() => {
+                deletePost(postId);
+              }}
+              variation="danger"
+              disabled={isLoading}
+            >
+              Eliminar
+            </Button>
+            <Button
+              onClick={() => {
+                navigate(-1);
+              }}
+              variation="secondary"
+              disabled={isLoading}
+            >
+              Cancelar
+            </Button>
+          </div>
 
           <p className="text-2xl">
             {autoSaveEnabled ? autoSaveStatus : "Autoguardado desactivado"}
