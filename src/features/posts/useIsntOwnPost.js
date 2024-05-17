@@ -5,7 +5,8 @@ export function useIsntOwnPost(post) {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["user"]);
 
-  const isntOwnPost = post?.author._id && post?.author._id !== user?._id;
+  const isntOwnPost =
+    post?.author.username && post?.author.username !== user?.username;
 
   return isntOwnPost;
 }

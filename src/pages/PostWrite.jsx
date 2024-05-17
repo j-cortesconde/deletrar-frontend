@@ -140,7 +140,7 @@ function PostWrite() {
               variation="secondary"
               disabled={isLoading}
             >
-              Cancelar
+              Salir
             </Button>
           </div>
 

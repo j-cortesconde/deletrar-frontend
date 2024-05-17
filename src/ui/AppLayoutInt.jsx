@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import CreatePost from "../features/posts/CreatePost";
+import CreateNewButton from "./CreateNewButton";
 import { useQueryClient } from "@tanstack/react-query";
 
 function AppLayoutInt() {
@@ -10,9 +10,9 @@ function AppLayoutInt() {
   return (
     <div className="flex h-screen flex-col">
       <Header user={user} />
-      <main className="m-4  flex-1 text-center">
+      <main className="m-4 flex-1 text-center">
         <Outlet />
-        {user ? <CreatePost /> : ""}
+        {user ? <CreateNewButton /> : ""}
       </main>
     </div>
   );

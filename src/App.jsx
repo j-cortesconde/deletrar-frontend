@@ -23,6 +23,7 @@ import InitializeAccount from "./pages/InitializeAccount";
 import UserPosts from "./features/users/UserPosts";
 import UserFollowers from "./features/users/UserFollowers";
 import UserFollowing from "./features/users/UserFollowing";
+import UserCollections from "./features/users/UserCollections";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,7 +59,7 @@ function App() {
             <Route path="user/:username" element={<UserLayout />}>
               <Route index element={<Navigate replace to="posts" />} />
               <Route path="posts" element={<UserPosts />} />
-              <Route path="collections" element={<UserLayout />} />
+              <Route path="collections" element={<UserCollections />} />
               <Route path="subscribers" element={<UserFollowers />} />
               <Route path="subscribed" element={<UserFollowing />} />
             </Route>
