@@ -36,10 +36,26 @@ export async function createCollection(collection) {
 }
 
 export async function updateCollection(collectionId, collection) {
-  console.log(collectionId, collection);
   const response = await axiosService.updateCollection(
     collectionId,
     collection,
+  );
+  return response.data.data;
+}
+
+export async function addCollectionPost(collectionId, postId, position) {
+  const response = await axiosService.addCollectionPost(
+    collectionId,
+    postId,
+    position,
+  );
+  return response.data.data;
+}
+
+export async function removeCollectionPost(collectionId, postId) {
+  const response = await axiosService.removeCollectionPost(
+    collectionId,
+    postId,
   );
   return response.data.data;
 }

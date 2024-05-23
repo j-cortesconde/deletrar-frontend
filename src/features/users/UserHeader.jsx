@@ -1,22 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { HiChevronDown } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import UserHeaderOptions from "./UserHeaderOptions";
-import { useClickOutsideDropdown } from "../../hooks/useClickOutsideDropdown";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 function UserHeader({ user }) {
   const [displayOptions, setDisplayOptions] = useState(false);
-  const userNameRef = useRef();
 
   function handleCloseDisplayOptions() {
     setDisplayOptions(false);
   }
 
-  useClickOutsideDropdown(userNameRef, handleCloseDisplayOptions);
+  const { elementRef } = useClickOutside(handleCloseDisplayOptions);
 
   useEffect(() => {
     function toggleDisplayOptions(e) {
-      if (userNameRef?.current.contains(e.target)) {
+      if (elementRef?.current.contains(e.target)) {
         setDisplayOptions((previous) => !previous);
       }
     }
@@ -26,7 +25,7 @@ function UserHeader({ user }) {
     return () => {
       document.removeEventListener("click", toggleDisplayOptions);
     };
-  }, []);
+  }, [elementRef]);
 
   return (
     <div className="flex items-center justify-between gap-5">
@@ -40,8 +39,8 @@ function UserHeader({ user }) {
 
       <div className="relative">
         <div
-          ref={userNameRef}
-          className="flex w-60 items-start gap-3 hover:cursor-pointer"
+          ref={elementRef}
+          className="flex w-60 select-none items-start gap-3 hover:cursor-pointer"
         >
           <p className="flex text-right">{user.name}</p>
           <HiChevronDown className="my-1" />

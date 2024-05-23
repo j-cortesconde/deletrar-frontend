@@ -12,7 +12,7 @@ function CollectionPost({ post, index }) {
         <p className="text-left">Escrito por {post?.author?.name}</p>
       </div>
 
-      <CollectionPostButtons index={index} />
+      <CollectionPostButtons postId={post?.id} index={index} />
     </div>
   );
 }

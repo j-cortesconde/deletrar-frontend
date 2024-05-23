@@ -101,7 +101,7 @@ function CollectionCreate() {
 
     createCollection(copyCollection);
   }
-
+  console.log(posts);
   if (error) return <div>{error.message}</div>;
 
   return (

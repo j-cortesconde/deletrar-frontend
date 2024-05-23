@@ -52,7 +52,7 @@ function App() {
               <Route path="user/settings" />
               <Route path="post/write/:postId" element={<PostWrite />} />
               <Route
-                path="collection/create/:collectionId?"
+                path="collection/create/:collectionId"
                 element={<CollectionCreate />}
               />
             </Route>

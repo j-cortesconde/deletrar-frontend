@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useSearchPosts } from "./useSearchPosts";
 import GeneralResultList from "./GeneralResultList";
-import { useClickOutsideDropdown } from "../../hooks/useClickOutsideDropdown";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import { useSearchUsers } from "./useSearchUsers";
 import slugify from "slugify";
 import { useDebounce } from "../../hooks/useDebounce";
@@ -20,7 +20,6 @@ function SearchBar() {
     users,
     error: usersError,
   } = useSearchUsers(debouncedQuery);
-  const searchContainerRef = useRef(null);
 
   const isFetching = fetchingPosts || fetchingUsers;
 
@@ -33,7 +32,7 @@ function SearchBar() {
     setQuery("");
   }
 
-  useClickOutsideDropdown(searchContainerRef, handleCloseResults);
+  const { elementRef } = useClickOutside(handleCloseResults);
 
   const handleSearchTermChange = (e) => {
     setQuery(e.target.value);
@@ -42,7 +41,7 @@ function SearchBar() {
   return (
     <div className="relative">
       <input
-        ref={searchContainerRef}
+        ref={elementRef}
         type="text"
         placeholder="Buscar..."
         value={query}

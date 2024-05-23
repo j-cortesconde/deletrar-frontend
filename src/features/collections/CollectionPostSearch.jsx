@@ -1,17 +1,15 @@
 import slugify from "slugify";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import { useDebounce } from "../../hooks/useDebounce";
 import { useSearchPosts } from "../search/useSearchPosts";
-import { useClickOutsideDropdown } from "../../hooks/useClickOutsideDropdown";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 function CollectionPostSearch() {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
 
   const { isFetching, posts, error } = useSearchPosts(debouncedQuery);
-  const searchContainerRef = useRef(null);
-
   const querySlug = slugify(debouncedQuery, {
     lower: true,
     remove: /[*+~.,:;()'"¡!¿?@]/g,
@@ -21,7 +19,7 @@ function CollectionPostSearch() {
     setQuery("");
   }
 
-  useClickOutsideDropdown(searchContainerRef, handleCloseResults);
+  const { elementRef } = useClickOutside(handleCloseResults);
 
   const handleSearchTermChange = (e) => {
     setQuery(e.target.value);
@@ -30,7 +28,7 @@ function CollectionPostSearch() {
   return (
     <div className="relative">
       <input
-        ref={searchContainerRef}
+        ref={elementRef}
         type="text"
         placeholder="Buscar..."
         value={query}

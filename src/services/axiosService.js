@@ -238,6 +238,22 @@ class AxiosService {
       data: collection,
     });
   }
+
+  addCollectionPost(collectionId, postId, position) {
+    return axios({
+      method: "PATCH",
+      url: `${API_URL}/collections/id/${collectionId}/addPost`,
+      data: { postId, position },
+    });
+  }
+
+  removeCollectionPost(collectionId, postId) {
+    return axios({
+      method: "PATCH",
+      url: `${API_URL}/collections/id/${collectionId}/removePost`,
+      data: { postId },
+    });
+  }
 }
 
 const axiosService = new AxiosService();
