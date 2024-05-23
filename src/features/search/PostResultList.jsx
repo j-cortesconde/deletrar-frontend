@@ -17,7 +17,7 @@ function PostResultList({ posts, query, selectedIndex }) {
         key={`posts-title-${query}`}
         className="rounded-t-xl border-b-2 border-slate-300 bg-slate-300 px-2 py-2 font-semibold"
       >
-        Posts
+        Textos
       </p>
       <ul>
         {trimmedPosts.map((result, index) => (
@@ -34,7 +34,7 @@ function PostResultList({ posts, query, selectedIndex }) {
             selected={SEARCH_RESULTS === selectedIndex}
             onClick={() => navigate(`/posts/${query}`)}
           >
-            See more...
+            Ver más...
           </ScrollableLi>
         )}
       </ul>

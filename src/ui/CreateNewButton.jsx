@@ -5,8 +5,11 @@ import Loader from "./Loader";
 import { useState } from "react";
 import { PiPen } from "react-icons/pi";
 import { BiBook } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 function CreateNewButton() {
+  const navigate = useNavigate();
+
   const [isActive, setIsActive] = useState(false);
   const { createPost, isCreating } = useCreatePost();
 
@@ -31,25 +34,23 @@ function CreateNewButton() {
   return (
     <div className="fixed bottom-[5%] right-[5%] flex flex-col items-end">
       <div
-        className={`fixed bottom-[5%] right-[5%] z-0 mr-4 flex items-center gap-2 transition-all duration-300 ${isActive && "mb-40"}`}
+        onClick={() => navigate("collection/create/")}
+        className={`fixed bottom-[5%] right-[5%] z-0 mr-4 flex items-center gap-2 transition-all duration-300 hover:cursor-pointer ${isActive && "mb-40"}`}
       >
         {isActive && (
           <p className="font-bold backdrop-blur-xl">Crear Colección</p>
         )}
-        <Button
-          size="small"
-          shape="round"
-          onClick={() => console.log("Acá botón 1. Estoy siendo clickeado")}
-        >
+        <Button size="small" shape="round">
           <BiBook />
         </Button>
       </div>
 
       <div
-        className={`fixed bottom-[5%] right-[5%] z-0 mr-4 flex items-center gap-2 transition-all duration-300 ${isActive && "mb-24"}`}
+        onClick={handleCreatePost}
+        className={`fixed bottom-[5%] right-[5%] z-0 mr-4 flex items-center gap-2 transition-all duration-300 hover:cursor-pointer ${isActive && "mb-24"}`}
       >
         {isActive && <p className="font-bold backdrop-blur-xl">Crear Texto</p>}
-        <Button size="small" shape="round" onClick={handleCreatePost}>
+        <Button size="small" shape="round">
           <PiPen />
         </Button>
       </div>

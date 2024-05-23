@@ -22,7 +22,7 @@ function UserResultList({
         key={`users-title-${query}`}
         className="rounded-t-xl border-b-2 border-slate-300 bg-slate-300 px-2 py-2 font-semibold"
       >
-        Users
+        Usuarios
       </p>
       <ul>
         {trimmedUsers.map((result, index) => (
@@ -39,7 +39,7 @@ function UserResultList({
             selected={countBeforeUserResults + SEARCH_RESULTS === selectedIndex}
             onClick={() => navigate(`/users/${query}`)}
           >
-            See more...
+            Ver más...
           </ScrollableLi>
         )}
       </ul>

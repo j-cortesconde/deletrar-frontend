@@ -2,7 +2,7 @@ import equal from "fast-deep-equal";
 import { useEffect, useRef, useState } from "react";
 import { useAutoSaveUpdatePost } from "./useUpdatePost";
 
-export function useAutoSave(
+export function useAutoSavePost(
   autoSaveEnabled,
   postId,
   newPost,

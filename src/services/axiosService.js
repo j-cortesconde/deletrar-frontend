@@ -215,6 +215,29 @@ class AxiosService {
       });
     }
   }
+
+  getCollection(collectionId) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/collections/id/${collectionId}`,
+    });
+  }
+
+  createCollection(collection) {
+    return axios({
+      method: "POST",
+      url: `${API_URL}/collections`,
+      data: collection,
+    });
+  }
+
+  updateCollection(collectionId, collection) {
+    return axios({
+      method: "PATCH",
+      url: `${API_URL}/collections/id/${collectionId}`,
+      data: collection,
+    });
+  }
 }
 
 const axiosService = new AxiosService();

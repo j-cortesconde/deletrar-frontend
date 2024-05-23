@@ -24,6 +24,7 @@ import UserPosts from "./features/users/UserPosts";
 import UserFollowers from "./features/users/UserFollowers";
 import UserFollowing from "./features/users/UserFollowing";
 import UserCollections from "./features/users/UserCollections";
+import CollectionCreate from "./pages/CollectionCreate";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,6 +51,10 @@ function App() {
               <Route path="users/invite" element={<InviteFriend />} />
               <Route path="user/settings" />
               <Route path="post/write/:postId" element={<PostWrite />} />
+              <Route
+                path="collection/create/:collectionId?"
+                element={<CollectionCreate />}
+              />
             </Route>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />

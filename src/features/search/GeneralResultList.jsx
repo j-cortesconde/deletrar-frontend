@@ -29,15 +29,11 @@ function GeneralResultList({
     );
 
   // When nothing found
-  if (posts.length === 0 && users.length === 0)
+  if (posts?.length === 0 && users?.length === 0)
     return (
       <div className="absolute top-[110%] z-50 w-[100%]  rounded-xl bg-slate-200">
         <p className="p-4 text-center text-3xl">
           Tu búsqueda no devolvió resultados.
-        </p>
-        <p className="p-4 text-center text-3xl">
-          Recordá que podés buscar textos por título o resumen y autores por
-          nombre, descripción o nombre de usuario
         </p>
       </div>
     );
@@ -48,14 +44,14 @@ function GeneralResultList({
       ref={listRef}
       className="absolute top-[110%] z-50 w-[100%] gap-1 rounded-xl bg-slate-200"
     >
-      {posts.length > 0 && (
+      {posts?.length > 0 && (
         <PostResultList
           posts={posts}
           query={query}
           selectedIndex={selectedIndex}
         />
       )}
-      {users.length > 0 && (
+      {users?.length > 0 && (
         <UserResultList
           users={users}
           query={query}

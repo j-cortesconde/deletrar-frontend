@@ -9,7 +9,7 @@ import { usePost } from "../features/posts/usePost";
 import { useUpdatePost } from "../features/posts/useUpdatePost";
 import { useDeletePost } from "../features/posts/useDeletePost";
 import { useCreatePost } from "../features/posts/useCreatePost";
-import { useAutoSave } from "../features/posts/useAutoSave";
+import { useAutoSavePost } from "../features/posts/useAutoSavePost";
 import { useIsntOwnPost } from "../features/posts/useIsntOwnPost";
 
 import Button from "../ui/Button";
@@ -41,7 +41,7 @@ function PostWrite() {
 
   const isLoading = isGetting || isUpdating || isDeleting || isCreating;
 
-  const autoSaveStatus = useAutoSave(autoSaveEnabled, postId, newPost);
+  const autoSaveStatus = useAutoSavePost(autoSaveEnabled, postId, newPost);
 
   const isntOwnPost = useIsntOwnPost(post);
 
