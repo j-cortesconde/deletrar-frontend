@@ -15,7 +15,7 @@ function UserHeader({ user }) {
 
   useEffect(() => {
     function toggleDisplayOptions(e) {
-      if (elementRef?.current.contains(e.target)) {
+      if (elementRef?.current?.contains(e.target)) {
         setDisplayOptions((previous) => !previous);
       }
     }

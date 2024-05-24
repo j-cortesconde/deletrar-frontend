@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { SEARCH_RESULTS } from "../../utils/constants";
+import { SEARCH_RESULTS } from "../../../utils/constants";
 import UserResult from "./UserResult";
-import ScrollableLi from "../../ui/ScrollableLi";
+import ScrollableLi from "../../../ui/ScrollableLi";
 
 function UserResultList({
   users,

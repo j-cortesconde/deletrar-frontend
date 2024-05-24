@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { SEARCH_RESULTS } from "../../utils/constants";
+import { SEARCH_RESULTS } from "../../../utils/constants";
 import PostResult from "./PostResult";
-import ScrollableLi from "../../ui/ScrollableLi";
+import ScrollableLi from "../../../ui/ScrollableLi";
 
 function PostResultList({ posts, query, selectedIndex }) {
   const navigate = useNavigate();

@@ -1,11 +1,11 @@
 // IMPORTANT. This was meant to work if:
 //  1) Under the GeneralResultList Posts are rendered first and Users second
 //  2) Both Posts and Users are rendered as separate <ul>s with their specific <li>s
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export function useScrollList(listRef, onExit) {
+export function useScrollList(onExit) {
+  const listRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(-1); // Tracks the selected child element in the list
-
   // Adds an event listener for keyboard navigation
   useEffect(() => {
     if (!listRef.current) return;
@@ -70,5 +70,5 @@ export function useScrollList(listRef, onExit) {
     };
   }, [selectedIndex, listRef, onExit]);
 
-  return selectedIndex;
+  return { listRef, selectedIndex };
 }

@@ -8,7 +8,7 @@ function CollectionPost({ post, index }) {
     >
       <p className="text-4xl">{index + 1}</p>
       <div className="flex flex-col items-start">
-        <p className="text-left">{post?.title}</p>
+        <p className="text-left font-semibold">{post?.title}</p>
         <p className="text-left">Escrito por {post?.author?.name}</p>
       </div>
 

@@ -8,7 +8,7 @@ function Modal({ children, handleClose }) {
     <div className="fixed left-0 top-0 z-[1000] h-screen w-screen backdrop-blur-sm transition-all duration-500">
       <div
         ref={elementRef}
-        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-lg bg-slate-400 px-14 py-16 shadow-lg transition-all duration-500"
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-lg bg-slate-400 px-10 py-10 shadow-lg transition-all duration-500"
       >
         <button
           onClick={handleClose}

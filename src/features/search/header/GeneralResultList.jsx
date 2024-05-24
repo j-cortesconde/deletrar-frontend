@@ -1,9 +1,8 @@
-import { useRef } from "react";
-import { useScrollList } from "../../hooks/useScrollList";
+import { useScrollList } from "../../../hooks/useScrollList";
 import { BiLoaderAlt } from "react-icons/bi";
 import PostResultList from "./PostResultList";
 import UserResultList from "./UserResultList";
-import { SEARCH_RESULTS } from "../../utils/constants";
+import { SEARCH_RESULTS } from "../../../utils/constants";
 
 function GeneralResultList({
   posts,
@@ -12,9 +11,8 @@ function GeneralResultList({
   isFetching,
   query,
 }) {
-  const listRef = useRef(null);
   // Might bug. Read alert inside the custom hook's file
-  const selectedIndex = useScrollList(listRef, onCloseResults);
+  const { listRef, selectedIndex } = useScrollList(onCloseResults);
 
   const countBeforeUserResults =
     posts?.length > SEARCH_RESULTS ? SEARCH_RESULTS + 1 : posts?.length;

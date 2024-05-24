@@ -1,32 +1,16 @@
 import { useState } from "react";
-import { useSearchPosts } from "./useSearchPosts";
-import GeneralResultList from "./GeneralResultList";
-import { useClickOutside } from "../../hooks/useClickOutside";
-import { useSearchUsers } from "./useSearchUsers";
-import slugify from "slugify";
-import { useDebounce } from "../../hooks/useDebounce";
 
-function SearchBar() {
+import { useDebounce } from "../../../hooks/useDebounce";
+import { useSearchPosts } from "../useSearchPosts";
+import { useClickOutside } from "../../../hooks/useClickOutside";
+
+import CollectionPostResults from "./CollectionPostResults";
+
+function CollectionPostSearch({ handleSelect }) {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
 
-  const {
-    isFetching: fetchingPosts,
-    posts,
-    error: postsError,
-  } = useSearchPosts(debouncedQuery);
-  const {
-    isFetching: fetchingUsers,
-    users,
-    error: usersError,
-  } = useSearchUsers(debouncedQuery);
-
-  const isFetching = fetchingPosts || fetchingUsers;
-
-  const querySlug = slugify(debouncedQuery, {
-    lower: true,
-    remove: /[*+~.,:;()'"¡!¿?@]/g,
-  });
+  const { isFetching, posts, error } = useSearchPosts(debouncedQuery);
 
   function handleCloseResults() {
     setQuery("");
@@ -50,16 +34,15 @@ function SearchBar() {
       />
 
       {debouncedQuery !== "" && (
-        <GeneralResultList
-          posts={posts}
-          users={users}
-          onCloseResults={handleCloseResults}
+        <CollectionPostResults
+          onSelect={handleSelect}
           isFetching={isFetching}
-          query={querySlug}
+          posts={posts}
+          onCloseResults={handleCloseResults}
         />
       )}
     </div>
   );
 }
 
-export default SearchBar;
+export default CollectionPostSearch;

@@ -29,7 +29,6 @@ export function useAutoSaveUpdateCollection() {
     mutationFn: ({ collectionId, newCollection }) =>
       updateCollectionAPI(collectionId, newCollection),
     onSuccess: (data) => {
-      console.log(data);
       queryClient.setQueryData(["collection", data._id], data);
     },
     onError: (err) => toast.error(err.message),

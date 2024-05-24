@@ -1,18 +1,16 @@
-import { useRef } from "react";
 import ScrollableLi from "../../ui/ScrollableLi";
 import { useLogout } from "../authentication/useLogout";
 import { useScrollList } from "../../hooks/useScrollList";
 import { useNavigate } from "react-router-dom";
 
 function UserHeaderOptions({ user, onCloseDisplayOptions }) {
-  const optionsRef = useRef(null);
-  const selectedIndex = useScrollList(optionsRef, onCloseDisplayOptions);
+  const { listRef, selectedIndex } = useScrollList(onCloseDisplayOptions);
   const navigate = useNavigate();
   const { logout } = useLogout();
 
   return (
     <ul
-      ref={optionsRef}
+      ref={listRef}
       className="absolute top-[110%] z-50 flex w-full flex-col gap-1 rounded-xl  bg-slate-200 text-right "
     >
       <ScrollableLi

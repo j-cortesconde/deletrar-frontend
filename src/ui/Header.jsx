@@ -1,5 +1,5 @@
 import Logo from "./Logo";
-import SearchBar from "../features/search/SearchBar";
+import SearchBar from "../features/search/header/SearchBar";
 import UserHeader from "../features/users/UserHeader";
 import NonUserHeader from "../features/users/NonUserHeader";
 

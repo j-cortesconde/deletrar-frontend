@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import ScrollableLi from "../../ui/ScrollableLi";
+import ScrollableLi from "../../../ui/ScrollableLi";
 
 function PostResult({ selected = false, to, result }) {
   const navigate = useNavigate();
