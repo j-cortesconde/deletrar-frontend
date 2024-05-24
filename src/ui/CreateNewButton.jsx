@@ -1,17 +1,18 @@
-import { HiMinus, HiPlus } from "react-icons/hi";
-import { useCreatePost } from "../features/posts/useCreatePost";
-import Button from "./Button";
-import Loader from "./Loader";
 import { useState } from "react";
+import { HiMinus, HiPlus } from "react-icons/hi";
 import { PiPen } from "react-icons/pi";
 import { BiBook } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+
+import { useCreatePost } from "../features/posts/useCreatePost";
+import { useCreateCollection } from "../features/collections/useCreateCollection";
+
+import Button from "./Button";
+import Loader from "./Loader";
 
 function CreateNewButton() {
-  const navigate = useNavigate();
-
   const [isActive, setIsActive] = useState(false);
-  const { createPost, isCreating } = useCreatePost();
+  const { createPost, isCreating: isCreating1 } = useCreatePost();
+  const { createCollection, isCreating: isCreating2 } = useCreateCollection();
 
   function toggleActivate() {
     setIsActive((prev) => !prev);
@@ -29,12 +30,24 @@ function CreateNewButton() {
     createPost(newPost);
   }
 
-  if (isCreating) return <Loader />;
+  function handleCreateCollection() {
+    setIsActive(false);
+
+    const newCollection = {
+      title: "Colección sin título",
+      summary: "Resumen...",
+      posts: [],
+      status: "saved",
+    };
+    createCollection(newCollection);
+  }
+
+  if (isCreating1 || isCreating2) return <Loader />;
 
   return (
     <div className="fixed bottom-[5%] right-[5%] flex flex-col items-end">
       <div
-        onClick={() => navigate("collection/create/")}
+        onClick={handleCreateCollection}
         className={`fixed bottom-[5%] right-[5%] z-0 mr-4 flex items-center gap-2 transition-all duration-300 hover:cursor-pointer ${isActive && "mb-40"}`}
       >
         {isActive && (
