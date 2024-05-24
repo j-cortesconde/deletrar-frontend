@@ -6,13 +6,13 @@ import CollectionPostSearch from "../search/collection/CollectionPostSearch";
 import Button from "../../ui/Button";
 import Loader from "../../ui/Loader";
 
-function CollectionPostSelect({ newPostPosition, handleClose }) {
+function CollectionPostSelect({ handleClose }) {
   const [selectedPost, setSelectedPost] = useState();
 
   const { addCollectionPost, isAdding } = useAddCollectionPost();
 
   function handleConfirm() {
-    addCollectionPost({ postId: selectedPost?._id, position: newPostPosition });
+    addCollectionPost({ postId: selectedPost?._id });
     handleClose();
   }
 

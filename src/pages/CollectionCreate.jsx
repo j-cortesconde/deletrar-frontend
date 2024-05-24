@@ -14,7 +14,7 @@ import { useIsntOwnCollection } from "../features/collections/useIsntOwnCollecti
 
 import Button from "../ui/Button";
 import Loader from "../ui/Loader";
-import CollectionPost from "../features/collections/CollectionPost";
+import CollectionPosts from "../features/collections/CollectionPosts";
 
 function CollectionCreate() {
   const navigate = useNavigate();
@@ -125,11 +125,7 @@ function CollectionCreate() {
           className="m-2 w-full p-4 text-xl"
         />
 
-        <div className="w-3/4 ">
-          {collection?.posts?.map((post, index) => (
-            <CollectionPost key={post?.id} post={post} index={index} />
-          ))}
-        </div>
+        <CollectionPosts posts={collection?.posts} />
 
         {/* TODO: These buttons (here and in postWrite) should be refactored. If not together, at least to simplify the component structure */}
         <div className="my-1 flex w-full justify-between">

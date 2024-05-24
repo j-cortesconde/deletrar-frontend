@@ -1,18 +1,21 @@
-import CollectionPostButtons from "./CollectionPostButtons";
+import { MdDragIndicator } from "react-icons/md";
+import RemoveCollectionPostButton from "./RemoveCollectionPostButton";
 
-function CollectionPost({ post, index }) {
+function CollectionPost({ post, index, dragHandleProps }) {
   return (
     <div
       key={post?.id}
-      className="my-3 flex cursor-move select-none items-center justify-between gap-6 border-b-2 border-stone-400 p-2"
+      className="flex items-center justify-between gap-6 border-b-2 border-stone-400 p-2 backdrop-blur-sm"
     >
-      <p className="text-4xl">{index + 1}</p>
+      <div {...dragHandleProps}>
+        <MdDragIndicator className="h-10 w-10" />
+      </div>
       <div className="flex flex-col items-start">
         <p className="text-left font-semibold">{post?.title}</p>
         <p className="text-left">Escrito por {post?.author?.name}</p>
       </div>
 
-      <CollectionPostButtons postId={post?.id} index={index} />
+      <RemoveCollectionPostButton postId={post?.id} index={index} />
     </div>
   );
 }

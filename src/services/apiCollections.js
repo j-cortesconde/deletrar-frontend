@@ -43,12 +43,8 @@ export async function updateCollection(collectionId, collection) {
   return response.data.data;
 }
 
-export async function addCollectionPost(collectionId, postId, position) {
-  const response = await axiosService.addCollectionPost(
-    collectionId,
-    postId,
-    position,
-  );
+export async function addCollectionPost(collectionId, postId) {
+  const response = await axiosService.addCollectionPost(collectionId, postId);
   return response.data.data;
 }
 
@@ -56,6 +52,15 @@ export async function removeCollectionPost(collectionId, postId) {
   const response = await axiosService.removeCollectionPost(
     collectionId,
     postId,
+  );
+  return response.data.data;
+}
+
+export async function moveCollectionPost(collectionId, postId, position) {
+  const response = await axiosService.moveCollectionPost(
+    collectionId,
+    postId,
+    position,
   );
   return response.data.data;
 }
