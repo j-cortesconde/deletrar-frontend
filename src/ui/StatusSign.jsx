@@ -1,4 +1,4 @@
-function PostStatus({ status }) {
+function StatusSign({ status }) {
   let estado;
   switch (status) {
     case "posted":
@@ -24,4 +24,4 @@ function PostStatus({ status }) {
   return <p className={styles[status]}>Estado: {estado}</p>;
 }
 
-export default PostStatus;
+export default StatusSign;

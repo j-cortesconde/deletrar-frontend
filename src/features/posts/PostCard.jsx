@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { longDate, shortDate } from "../../utils/dateFormat";
 
-function PostCard({ post }) {
+function PostCard({ post, collectionId }) {
   const navigate = useNavigate();
+
+  const navigateLink = collectionId
+    ? `/collection/${collectionId}/post/${post._id}`
+    : `/post/${post._id}`;
 
   return (
     <li
-      onClick={() => navigate(`/post/${post._id}`)}
+      onClick={() => navigate(navigateLink)}
       className="m-5 rounded-md border-2 border-slate-400 bg-slate-300 hover:cursor-pointer"
     >
       <div className="my-8 flex items-start justify-center">

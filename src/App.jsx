@@ -25,6 +25,7 @@ import UserFollowers from "./features/users/UserFollowers";
 import UserFollowing from "./features/users/UserFollowing";
 import UserCollections from "./features/users/UserCollections";
 import CollectionCreate from "./pages/CollectionCreate";
+import CollectionDetail from "./pages/CollectionDetail";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,6 +62,14 @@ function App() {
             <Route path="users/:searchTerm" element={<UserSearchResults />} />
             <Route path="posts/:searchTerm" element={<PostSearchResults />} />
             <Route path="post/:postId" element={<PostDetail />} />
+            <Route
+              path="collection/:collectionId"
+              element={<CollectionDetail />}
+            />
+            <Route
+              path="collection/:collectionId/post/:postId"
+              element={<PostDetail />}
+            />
             <Route path="user/:username" element={<UserLayout />}>
               <Route index element={<Navigate replace to="posts" />} />
               <Route path="posts" element={<UserPosts />} />

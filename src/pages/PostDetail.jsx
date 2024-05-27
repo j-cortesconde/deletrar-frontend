@@ -4,12 +4,14 @@
 
 import { longDate } from "../utils/dateFormat";
 import { useNavigate, useParams } from "react-router-dom";
+
 import { usePost } from "../features/posts/usePost";
+import { useIsntOwnPost } from "../features/posts/useIsntOwnPost";
 
 import HTMLParser from "../features/posts/HTMLParser";
 import PostOwnerOptions from "../features/posts/PostOwnerOptions";
-import { useIsntOwnPost } from "../features/posts/useIsntOwnPost";
 import Loader from "../ui/Loader";
+import CollectionNavigate from "../features/collections/CollectionNavigate";
 
 function PostDetail() {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ function PostDetail() {
   const { isLoading, post, error } = usePost(postId);
 
   const isntOwnPost = useIsntOwnPost(post);
+
   if (error) return <div>{error.message}</div>;
   if (isLoading) return <Loader />;
 
@@ -50,6 +53,8 @@ function PostDetail() {
         {!isntOwnPost && <PostOwnerOptions post={post} />}
       </div>
       <HTMLParser delta={post?.content} title={post?.title} />
+
+      <CollectionNavigate />
     </div>
   );
 }

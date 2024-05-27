@@ -37,7 +37,7 @@ function CreateNewButton() {
       title: "Colección sin título",
       summary: "Resumen...",
       posts: [],
-      status: "saved",
+      status: "editing",
     };
     createCollection(newCollection);
   }

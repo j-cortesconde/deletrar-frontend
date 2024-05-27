@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useUndeletePost } from "./useUndeletePost";
 
 import Button from "../../ui/Button";
-import PostStatus from "./PostStatus";
+import StatusSign from "../../ui/StatusSign";
 import Loader from "../../ui/Loader";
 
 function PostOwnerOptions({ post }) {
@@ -21,7 +21,7 @@ function PostOwnerOptions({ post }) {
     <>
       {isUndeleting && <Loader />}
       <div className="flex flex-col">
-        <PostStatus status={post?.status} />
+        <StatusSign status={post?.status} />
         <Button size="small" variation="secondary" onClick={handleClick}>
           {post?.status === "deleted" ? "Recuperar" : "Editar"}
         </Button>

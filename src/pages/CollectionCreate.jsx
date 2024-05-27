@@ -44,7 +44,7 @@ function CollectionCreate() {
     summary: summary || "Resumen...",
     subtitle,
     posts,
-    status: "saved",
+    status: "editing",
   };
 
   const isLoading = isGetting || isUpdating || isDeleting || isCreating;
@@ -104,7 +104,7 @@ function CollectionCreate() {
       summary: copySummary,
       subtitle,
       posts,
-      status: "saved",
+      status: "editing",
     };
 
     createCollection(copyCollection);
