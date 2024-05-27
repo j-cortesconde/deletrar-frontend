@@ -15,6 +15,7 @@ import { useIsntOwnPost } from "../features/posts/useIsntOwnPost";
 import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
+import EditorButtons from "../ui/EditorButtons";
 
 function PostWrite() {
   const navigate = useNavigate();
@@ -68,7 +69,11 @@ function PostWrite() {
     }
   }
 
-  function handleSave(isPosting = false) {
+  function onDelete() {
+    deletePost(postId);
+  }
+
+  function onSave(isPosting = false) {
     if (title === "" || summary === "") {
       return toast.error("El texto debe tener un título y un resumen");
     }
@@ -78,7 +83,7 @@ function PostWrite() {
     updatePost({ postId, newPost });
   }
 
-  function handleCopy() {
+  function onCopy() {
     const copyTitle = title ? "Copia de " + title : "Texto sin título";
     const copySummary = summary || "Resumen...";
 
@@ -122,56 +127,16 @@ function PostWrite() {
           className="m-2 flex h-full w-3/4 flex-1 flex-col"
         />
 
-        <div className="my-1 flex w-3/4 justify-between">
-          <div className="space-x-5">
-            <Button
-              onClick={() => {
-                deletePost(postId);
-              }}
-              variation="danger"
-              disabled={isLoading}
-            >
-              Eliminar
-            </Button>
-            <Button
-              onClick={() => {
-                navigate(-1);
-              }}
-              variation="secondary"
-              disabled={isLoading}
-            >
-              Salir
-            </Button>
-          </div>
-
-          <p className="text-2xl">
-            {autoSaveEnabled ? autoSaveStatus : "Autoguardado desactivado"}
-          </p>
-
-          <div className="space-x-5">
-            {post?.status === "posted" ? (
-              <Button
-                onClick={() => handleCopy()}
-                disabled={isLoading}
-                variation="secondary"
-              >
-                Crear Copia
-              </Button>
-            ) : (
-              <Button
-                onClick={() => handleSave()}
-                disabled={isLoading}
-                variation="secondary"
-              >
-                Guardar sin Publicar
-              </Button>
-            )}
-
-            <Button onClick={() => handleSave(true)} disabled={isLoading}>
-              {post?.status === "posted" ? "Guardar" : "Guardar y Publicar"}
-            </Button>
-          </div>
-        </div>
+        <EditorButtons
+          isLoading={isLoading}
+          handleDelete={onDelete}
+          handleSave={() => onSave()}
+          handlePost={() => onSave(true)}
+          handleCopy={onCopy}
+          isPosted={post?.status === "posted"}
+          autoSaveEnabled={autoSaveEnabled}
+          autoSaveStatus={autoSaveStatus}
+        />
       </div>
     </>
   );

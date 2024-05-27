@@ -1,4 +1,5 @@
-// TODO: Must reject (redirect) any posts with status === "deleted" to wherever they are reactivated (postDetail probably)
+// TODO: Must reject (redirect) any collections with status === "deleted" to wherever they are reactivated (collectionDetail probably)
+// TODO: Create a CollectionDetail page
 
 import "react-quill/dist/quill.snow.css";
 import toast from "react-hot-toast";
@@ -12,9 +13,9 @@ import { useUpdateCollection } from "../features/collections/useUpdateCollection
 import { useAutoSaveCollection } from "../features/collections/useAutoSaveCollection";
 import { useIsntOwnCollection } from "../features/collections/useIsntOwnCollection";
 
-import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import CollectionPosts from "../features/collections/CollectionPosts";
+import EditorButtons from "../ui/EditorButtons";
 
 function CollectionCreate() {
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ function CollectionCreate() {
     error,
   } = useCollection(collectionId);
 
-  //TODO: Change all of these
   const { updateCollection, isUpdating } = useUpdateCollection();
   const { deleteCollection, isDeleting } = useDeleteCollection();
   const { createCollection, isCreating } = useCreateCollection();
@@ -49,14 +49,12 @@ function CollectionCreate() {
 
   const isLoading = isGetting || isUpdating || isDeleting || isCreating;
 
-  // TODO: CHANGE
   const autoSaveStatus = useAutoSaveCollection(
     autoSaveEnabled,
     collectionId,
     newCollection,
   );
 
-  // TODO: CHANGE
   const isntOwnCollection = useIsntOwnCollection(collection);
 
   useEffect(() => {
@@ -73,21 +71,31 @@ function CollectionCreate() {
       setSummary(collection?.summary || "");
       setPosts(collection?.posts || []);
 
-      setAutoSaveEnabled(collection?.status !== "shared");
+      setAutoSaveEnabled(collection?.status !== "posted");
     }
   }, [collection, isGetting, navigate]);
 
-  function handleSave(isSharing = false) {
+  function onDelete() {
+    deleteCollection(collectionId);
+  }
+
+  function onSave(isSharing = false) {
     if (title === "" || summary === "") {
       return toast.error("La colección debe tener un título y un resumen");
     }
 
-    if (isSharing) newCollection.status = "shared";
+    if (isSharing) {
+      if (newCollection.posts.length < 2)
+        return toast.error(
+          "La colección debe tener al menos dos textos antes de poder ser compartida",
+        );
+      else newCollection.status = "posted";
+    }
 
     updateCollection({ collectionId, newCollection });
   }
 
-  function handleCopy() {
+  function onCopy() {
     const copyTitle = title ? "Copia de " + title : "Colección sin título";
     const copySummary = summary || "Resumen...";
 
@@ -127,59 +135,16 @@ function CollectionCreate() {
 
         <CollectionPosts posts={collection?.posts} />
 
-        {/* TODO: These buttons (here and in postWrite) should be refactored. If not together, at least to simplify the component structure */}
-        <div className="my-1 flex w-full justify-between">
-          <div className="space-x-5">
-            <Button
-              onClick={() => {
-                deleteCollection(collectionId);
-              }}
-              variation="danger"
-              disabled={isLoading}
-            >
-              Eliminar
-            </Button>
-            <Button
-              onClick={() => {
-                navigate(-1);
-              }}
-              variation="secondary"
-              disabled={isLoading}
-            >
-              Salir
-            </Button>
-          </div>
-
-          <p className="text-2xl">
-            {autoSaveEnabled ? autoSaveStatus : "Autoguardado desactivado"}
-          </p>
-
-          <div className="space-x-5">
-            {collection?.status === "shared" ? (
-              <Button
-                onClick={() => handleCopy()}
-                disabled={isLoading}
-                variation="secondary"
-              >
-                Crear Copia
-              </Button>
-            ) : (
-              <Button
-                onClick={() => handleSave()}
-                disabled={isLoading}
-                variation="secondary"
-              >
-                Guardar sin Publicar
-              </Button>
-            )}
-
-            <Button onClick={() => handleSave(true)} disabled={isLoading}>
-              {collection?.status === "shared"
-                ? "Guardar"
-                : "Guardar y Publicar"}
-            </Button>
-          </div>
-        </div>
+        <EditorButtons
+          isLoading={isLoading}
+          handleDelete={onDelete}
+          handleSave={() => onSave()}
+          handlePost={() => onSave(true)}
+          handleCopy={onCopy}
+          isPosted={collection?.status === "posted"}
+          autoSaveEnabled={autoSaveEnabled}
+          autoSaveStatus={autoSaveStatus}
+        />
       </div>
     </>
   );

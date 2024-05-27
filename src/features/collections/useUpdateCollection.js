@@ -14,7 +14,7 @@ export function useUpdateCollection() {
     onSuccess: (data) => {
       toast.success("La colección fue guardada exitosamente");
       queryClient.setQueryData(["collection", data._id], data);
-      if (data.status === "shared") navigate(`/collection/${data._id}`);
+      if (data.status === "posted") navigate(`/collection/${data._id}`);
     },
     onError: (err) => toast.error(err.message),
   });
