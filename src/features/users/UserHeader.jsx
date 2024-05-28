@@ -11,7 +11,7 @@ function UserHeader({ user }) {
     setDisplayOptions(false);
   }
 
-  const { elementRef } = useClickOutside(handleCloseDisplayOptions);
+  const { elementRef } = useClickOutside(handleCloseDisplayOptions, false);
 
   useEffect(() => {
     function toggleDisplayOptions(e) {

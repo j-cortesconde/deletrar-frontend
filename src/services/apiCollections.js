@@ -20,15 +20,28 @@ export async function getCollection(collectionId) {
   }
 }
 
-// export async function getPosts(authorUsername, queryString) {
-//   try {
-//     const response = await axiosService.getPosts(authorUsername, queryString);
+export async function getCollections(collectorUsername, queryString) {
+  try {
+    const response = await axiosService.getCollections(
+      collectorUsername,
+      queryString,
+    );
 
-//     return response.data.data;
-//   } catch (err) {
-//     throw new Error(err.response.data.message);
-//   }
-// }
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
+
+export async function getOwnHiddenCollections(queryString) {
+  try {
+    const response = await axiosService.getOwnHiddenCollections(queryString);
+
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
 
 export async function createCollection(collection) {
   const response = await axiosService.createCollection(collection);

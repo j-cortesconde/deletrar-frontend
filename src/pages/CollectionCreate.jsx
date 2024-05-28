@@ -1,5 +1,4 @@
 // TODO: Must reject (redirect) any collections with status === "deleted" to wherever they are reactivated (collectionDetail probably)
-// TODO: Create a CollectionDetail page
 
 import "react-quill/dist/quill.snow.css";
 import toast from "react-hot-toast";

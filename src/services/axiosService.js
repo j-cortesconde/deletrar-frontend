@@ -158,6 +158,13 @@ class AxiosService {
     });
   }
 
+  getOwnHiddenPosts(queryString) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/posts/ownHidden?${queryString}`,
+    });
+  }
+
   createPost(post) {
     return axios({
       method: "POST",
@@ -220,6 +227,20 @@ class AxiosService {
     return axios({
       method: "GET",
       url: `${API_URL}/collections/id/${collectionId}`,
+    });
+  }
+
+  getCollections(collectorUsername, queryString) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/collections/user/${collectorUsername}?${queryString}`,
+    });
+  }
+
+  getOwnHiddenCollections(queryString) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/collections/ownHidden?${queryString}`,
     });
   }
 

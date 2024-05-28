@@ -26,6 +26,7 @@ import UserFollowing from "./features/users/UserFollowing";
 import UserCollections from "./features/users/UserCollections";
 import CollectionCreate from "./pages/CollectionCreate";
 import CollectionDetail from "./pages/CollectionDetail";
+import UserHidden from "./features/users/UserHidden";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -74,6 +75,7 @@ function App() {
               <Route index element={<Navigate replace to="posts" />} />
               <Route path="posts" element={<UserPosts />} />
               <Route path="collections" element={<UserCollections />} />
+              <Route path="hidden" element={<UserHidden />} />
               <Route path="subscribers" element={<UserFollowers />} />
               <Route path="subscribed" element={<UserFollowing />} />
             </Route>

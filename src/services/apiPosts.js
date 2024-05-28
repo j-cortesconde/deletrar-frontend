@@ -30,6 +30,16 @@ export async function getPosts(authorUsername, queryString) {
   }
 }
 
+export async function getOwnHiddenPosts(queryString) {
+  try {
+    const response = await axiosService.getOwnHiddenPosts(queryString);
+
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
+
 export async function createPost(post) {
   const response = await axiosService.createPost(post);
   return response.data.data;

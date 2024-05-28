@@ -1,7 +1,7 @@
 // FIXME: Aun no resolvi como voy a hacer para traer solo las colecciones autorizadas (ni cómo distinguir la info que traigo de otros de la mia)
 import { useParams } from "react-router-dom";
 
-import { usePosts } from "../posts/usePosts";
+import { useCollections } from "../collections/useCollections";
 
 import Loader from "../../ui/Loader";
 import CardList from "../../ui/CardList";
@@ -12,8 +12,7 @@ import { POST_SORT_OPTIONS } from "../../utils/constants";
 function UserPosts() {
   const { username } = useParams();
 
-  // TODO: Should actually be a useCollections
-  const { posts, count, isLoading } = usePosts(username);
+  const { collections, count, isLoading } = useCollections(username);
 
   // TODO: This should return a spinner Loader instead of this one that veils the screen so the user can see the rest of the page as this loads
   if (isLoading) return <Loader />;
@@ -30,7 +29,7 @@ function UserPosts() {
 
           <CardList
             // TODO: Should add collections to CardList
-            posts={posts}
+            collections={collections}
           />
 
           <Pagination totalAmount={count} />

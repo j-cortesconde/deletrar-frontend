@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useCollection } from "./useCollection";
-import Button from "../../ui/Button";
 import Loader from "../../ui/Loader";
+import { BiDownArrow, BiLeftArrow, BiRightArrow } from "react-icons/bi";
 
 function CollectionNavigate() {
   const navigate = useNavigate();
@@ -29,38 +29,64 @@ function CollectionNavigate() {
   return (
     <div className="mx-10 mb-5 grid grid-cols-3">
       {previousCollectionPost && (
-        <div className="col-start-1 justify-self-start">
-          <Button
+        // <div className="col-start-1 justify-self-start">
+        //   <Button
+        //     onClick={() =>
+        //       navigate(
+        //         `/collection/${collectionId}/post/${previousCollectionPost}`,
+        //       )
+        //     }
+        //     variation="secondary"
+        //   >
+        //     Anterior
+        //   </Button>
+        // </div>
+        <div className="col-start-1 flex items-center justify-start">
+          <div
+            className="flex items-center gap-1 hover:cursor-pointer"
             onClick={() =>
               navigate(
                 `/collection/${collectionId}/post/${previousCollectionPost}`,
               )
             }
-            variation="secondary"
           >
-            Anterior
-          </Button>
+            <BiLeftArrow />
+            <p>Anterior</p>
+          </div>
         </div>
       )}
-      <div className="col-start-2">
-        <Button
-          onClick={() => navigate(`/collection/${collectionId}`)}
-          variation="secondary"
-        >
-          Colección
-        </Button>
+
+      <div
+        className="col-start-2 flex items-center place-self-center"
+        onClick={() => navigate(`/collection/${collectionId}`)}
+      >
+        <div className="flex items-center gap-1 hover:cursor-pointer">
+          <BiDownArrow />
+          <p>Colección</p>
+        </div>
       </div>
 
       {nextCollectionPost && (
-        <div className="col-start-3 justify-self-end">
-          <Button
+        // <div className="col-start-3 justify-self-end">
+        //   <Button
+        //     onClick={() =>
+        //       navigate(`/collection/${collectionId}/post/${nextCollectionPost}`)
+        //     }
+        //     variation="secondary"
+        //   >
+        //     Próximo
+        //   </Button>
+        // </div>
+        <div className="col-start-3 flex items-center justify-end">
+          <div
+            className="flex items-center gap-1 hover:cursor-pointer"
             onClick={() =>
               navigate(`/collection/${collectionId}/post/${nextCollectionPost}`)
             }
-            variation="secondary"
           >
-            Próximo
-          </Button>
+            <p>Siguiente</p>
+            <BiRightArrow />
+          </div>
         </div>
       )}
     </div>
