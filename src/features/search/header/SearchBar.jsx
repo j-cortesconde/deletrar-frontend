@@ -1,10 +1,14 @@
+// TODO: All search functionality must be revamped (add pagination and sort in backend and in ...SearchResult pages)
+import slugify from "slugify";
 import { useState } from "react";
+
 import { useSearchPosts } from "../useSearchPosts";
-import GeneralResultList from "./GeneralResultList";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { useSearchUsers } from "../useSearchUsers";
-import slugify from "slugify";
 import { useDebounce } from "../../../hooks/useDebounce";
+import { useSearchCollections } from "../useSearchCollections";
+
+import GeneralResultList from "./GeneralResultList";
 
 function SearchBar() {
   const [query, setQuery] = useState("");
@@ -20,8 +24,13 @@ function SearchBar() {
     users,
     error: usersError,
   } = useSearchUsers(debouncedQuery);
+  const {
+    isFetching: fetchingCollections,
+    collections,
+    error: collectionsError,
+  } = useSearchCollections(debouncedQuery);
 
-  const isFetching = fetchingPosts || fetchingUsers;
+  const isFetching = fetchingPosts || fetchingUsers || fetchingCollections;
 
   const querySlug = slugify(debouncedQuery, {
     lower: true,
@@ -53,6 +62,7 @@ function SearchBar() {
         <GeneralResultList
           posts={posts}
           users={users}
+          collections={collections}
           onCloseResults={handleCloseResults}
           isFetching={isFetching}
           query={querySlug}

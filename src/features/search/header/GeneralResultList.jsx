@@ -1,12 +1,16 @@
-import { useScrollList } from "../../../hooks/useScrollList";
 import { BiLoaderAlt } from "react-icons/bi";
+
+import { useScrollList } from "../../../hooks/useScrollList";
+
+import { SEARCH_RESULTS } from "../../../utils/constants";
 import PostResultList from "./PostResultList";
 import UserResultList from "./UserResultList";
-import { SEARCH_RESULTS } from "../../../utils/constants";
+import CollectionResultList from "./CollectionResultList";
 
 function GeneralResultList({
   posts,
   users,
+  collections,
   onCloseResults,
   isFetching,
   query,
@@ -14,8 +18,12 @@ function GeneralResultList({
   // Might bug. Read alert inside the custom hook's file
   const { listRef, selectedIndex } = useScrollList(onCloseResults);
 
-  const countBeforeUserResults =
+  const countBeforeCollectionResults =
     posts?.length > SEARCH_RESULTS ? SEARCH_RESULTS + 1 : posts?.length;
+  const countBeforeUserResults =
+    (collections?.length > SEARCH_RESULTS
+      ? SEARCH_RESULTS + 1
+      : collections?.length) + countBeforeCollectionResults;
 
   // While fetching
   if (isFetching)
@@ -27,7 +35,7 @@ function GeneralResultList({
     );
 
   // When nothing found
-  if (posts?.length === 0 && users?.length === 0)
+  if (posts?.length === 0 && users?.length === 0 && collections?.length === 0)
     return (
       <div className="absolute top-[110%] z-50 w-[100%]  rounded-xl bg-slate-200">
         <p className="p-4 text-center text-3xl">
@@ -46,6 +54,14 @@ function GeneralResultList({
         <PostResultList
           posts={posts}
           query={query}
+          selectedIndex={selectedIndex}
+        />
+      )}
+      {collections?.length > 0 && (
+        <CollectionResultList
+          collections={collections}
+          query={query}
+          countBeforeCollectionResults={countBeforeCollectionResults}
           selectedIndex={selectedIndex}
         />
       )}

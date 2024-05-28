@@ -1,18 +1,14 @@
 // TODO: Improve error handling (actually in all the app)
-import { useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
-
 import { useUser } from "./useUser";
 import { useIsFollowerAmFollowing } from "./useIsFollowerAmFollowing";
 import { useFollowUnfollowUser } from "./useFollowUnfollowUser";
+import { useIsOwnUser } from "./useIsOwnUser";
 
 import Button from "../../ui/Button";
 import Loader from "../../ui/Loader";
 
 function UserInfo() {
-  const { username } = useParams();
-  const queryClient = useQueryClient();
-  const ownUser = queryClient.getQueryData(["user"]);
+  const { isOwnUser, username, ownUser } = useIsOwnUser();
 
   const {
     isLoading: isLoadingUser,
@@ -28,7 +24,6 @@ function UserInfo() {
     isFollower,
   } = useIsFollowerAmFollowing(username);
 
-  const isOwnUser = username === ownUser?.username;
   const isLoggedIn = !!ownUser;
   const error = userError || followStatusError;
 

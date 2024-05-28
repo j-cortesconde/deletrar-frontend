@@ -1,16 +1,11 @@
 // FIXME: How does one connect the images from the frontend to the backend?
+import { NavLink, Outlet } from "react-router-dom";
 
-import { NavLink, Outlet, useParams } from "react-router-dom";
-
+import { useIsOwnUser } from "../features/users/useIsOwnUser";
 import UserInfo from "../features/users/UserInfo";
-import { useQueryClient } from "@tanstack/react-query";
 
 function UserLayout() {
-  const { username } = useParams();
-  const queryClient = useQueryClient();
-  const ownUser = queryClient.getQueryData(["user"]);
-
-  const isOwnUser = ownUser?.username === username;
+  const { isOwnUser, username } = useIsOwnUser();
 
   const navLinkStyle =
     "text-3xl capitalize font-semibold p-4 pb-2 rounded-md hover:cursor-pointer hover:bg-slate-400 border-b-4 mx-auto";

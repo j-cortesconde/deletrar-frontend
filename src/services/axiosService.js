@@ -223,6 +223,13 @@ class AxiosService {
     }
   }
 
+  searchCollections(query) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/collections/search/${query}`,
+    });
+  }
+
   getCollection(collectionId) {
     return axios({
       method: "GET",

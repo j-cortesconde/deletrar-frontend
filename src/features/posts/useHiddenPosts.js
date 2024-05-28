@@ -2,14 +2,15 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
 import { getOwnHiddenPosts } from "../../services/apiPosts";
-import { PAGE_SIZE, POST_SORT_OPTIONS } from "../../utils/constants";
+import { PAGE_SIZE, HIDDEN_POST_SORT_OPTIONS } from "../../utils/constants";
 
 export function useHiddenPosts() {
   const [searchParams] = useSearchParams();
   const queryClient = useQueryClient();
   const ownUser = queryClient.getQueryData(["user"]);
 
-  const sortBy = searchParams.get("sortBy") || POST_SORT_OPTIONS[0].value;
+  const sortBy =
+    searchParams.get("sortBy") || HIDDEN_POST_SORT_OPTIONS[0].value;
   const page = Number(searchParams.get("page")) || 1;
   const limit = PAGE_SIZE;
 

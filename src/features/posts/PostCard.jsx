@@ -8,10 +8,16 @@ function PostCard({ post, collectionId }) {
     ? `/collection/${collectionId}/post/${post._id}`
     : `/post/${post._id}`;
 
+  const statusStyle = {
+    posted: "border-slate-400 bg-slate-300",
+    editing: "border-amber-400 bg-amber-300",
+    deleted: "border-red-400 bg-red-300",
+  };
+
   return (
     <li
       onClick={() => navigate(navigateLink)}
-      className="m-5 rounded-md border-2 border-slate-400 bg-slate-300 hover:cursor-pointer"
+      className={`m-5 rounded-md border-2 hover:cursor-pointer ${statusStyle[post.status || "posted"]}`}
     >
       <div className="my-8 flex items-start justify-center">
         <img

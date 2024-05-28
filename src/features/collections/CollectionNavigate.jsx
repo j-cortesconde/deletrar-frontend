@@ -9,7 +9,7 @@ function CollectionNavigate() {
 
   const { isLoading, collection, error } = useCollection(collectionId);
 
-  const postCollectionIndex = collection?.posts.findIndex(
+  const postCollectionIndex = collection?.posts?.findIndex(
     (post) => post._id === postId,
   );
 
@@ -29,18 +29,6 @@ function CollectionNavigate() {
   return (
     <div className="mx-10 mb-5 grid grid-cols-3">
       {previousCollectionPost && (
-        // <div className="col-start-1 justify-self-start">
-        //   <Button
-        //     onClick={() =>
-        //       navigate(
-        //         `/collection/${collectionId}/post/${previousCollectionPost}`,
-        //       )
-        //     }
-        //     variation="secondary"
-        //   >
-        //     Anterior
-        //   </Button>
-        // </div>
         <div className="col-start-1 flex items-center justify-start">
           <div
             className="flex items-center gap-1 hover:cursor-pointer"
@@ -56,27 +44,19 @@ function CollectionNavigate() {
         </div>
       )}
 
-      <div
-        className="col-start-2 flex items-center place-self-center"
-        onClick={() => navigate(`/collection/${collectionId}`)}
-      >
-        <div className="flex items-center gap-1 hover:cursor-pointer">
-          <BiDownArrow />
-          <p>Colección</p>
+      {collection && (
+        <div
+          className="col-start-2 flex items-center place-self-center"
+          onClick={() => navigate(`/collection/${collectionId}`)}
+        >
+          <div className="flex items-center gap-1 hover:cursor-pointer">
+            <BiDownArrow />
+            <p>Colección</p>
+          </div>
         </div>
-      </div>
+      )}
 
       {nextCollectionPost && (
-        // <div className="col-start-3 justify-self-end">
-        //   <Button
-        //     onClick={() =>
-        //       navigate(`/collection/${collectionId}/post/${nextCollectionPost}`)
-        //     }
-        //     variation="secondary"
-        //   >
-        //     Próximo
-        //   </Button>
-        // </div>
         <div className="col-start-3 flex items-center justify-end">
           <div
             className="flex items-center gap-1 hover:cursor-pointer"

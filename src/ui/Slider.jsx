@@ -1,36 +1,28 @@
-import React, { useState } from "react";
-
-function Slider() {
-  const [isCollections, setIsCollections] = useState(true);
-
-  const handleToggle = () => {
-    setIsCollections(!isCollections);
-  };
-
+function Slider({ toggleState, onToggle, optionTrue, optionFalse }) {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="relative h-16 w-64 rounded-full bg-gray-200 shadow-inner">
+    <div className={`h-16 w-96`}>
+      <div
+        onClick={onToggle}
+        className={`relative h-full w-full rounded-full bg-gray-400 hover:cursor-pointer hover:shadow-lg`}
+      >
         <div
-          className={`absolute top-0 flex h-16 w-1/2 transform cursor-pointer items-center justify-center rounded-full bg-blue-500 text-white transition-all duration-300 ${
-            isCollections ? "left-0" : "left-1/2"
+          className={`absolute top-0 z-50 flex h-16 w-1/2 transform items-center justify-center rounded-full bg-indigo-600 text-indigo-50 transition-all duration-300 ${
+            toggleState ? "left-0" : "left-1/2"
           }`}
-          onClick={handleToggle}
         >
-          {isCollections ? "Collections" : "Texts"}
+          {toggleState ? optionTrue : optionFalse}
         </div>
+
         <div
-          className={`absolute left-0 top-0 flex h-16 w-1/2 items-center justify-center rounded-full ${
-            isCollections ? "text-blue-500" : "text-gray-500"
-          } transition-all duration-300`}
+          className={`absolute left-0 top-0 flex h-16 w-1/2 items-center justify-center rounded-full text-indigo-50 transition-all duration-300`}
         >
-          Collections
+          {optionTrue}
         </div>
+
         <div
-          className={`absolute left-1/2 top-0 flex h-16 w-1/2 items-center justify-center rounded-full ${
-            isCollections ? "text-gray-500" : "text-blue-500"
-          } transition-all duration-300`}
+          className={`absolute left-1/2 top-0 flex h-16 w-1/2 items-center justify-center rounded-full text-indigo-50 transition-all duration-300`}
         >
-          Texts
+          {optionFalse}
         </div>
       </div>
     </div>

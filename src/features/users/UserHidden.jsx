@@ -1,27 +1,30 @@
-// TODO: Solve the issue of sorting hidden posts and hidden collections (in Custom Hooks too) and Collections in UserCollections
-// TODO: Implement redirecting so if anyone not user gets here gets sent out
-// TODO: Add collections to search (in backend and frontend )
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useHiddenPosts } from "../posts/useHiddenPosts";
+import { useHiddenCollections } from "../collections/useHiddenCollections";
+import { useIsOwnUser } from "./useIsOwnUser";
 
+import {
+  HIDDEN_COLLECTION_SORT_OPTIONS,
+  HIDDEN_POST_SORT_OPTIONS,
+} from "../../utils/constants";
 import Loader from "../../ui/Loader";
 import CardList from "../../ui/CardList";
 import TableOperations from "../../ui/TableOperations";
 import Pagination from "../../ui/Pagination";
-import { POST_SORT_OPTIONS } from "../../utils/constants";
-import { useHiddenCollections } from "../collections/useHiddenCollections";
-import { useState } from "react";
-import Button from "../../ui/Button";
 import Slider from "../../ui/Slider";
 
 function UserHidden() {
-  const { username } = useParams();
   const [, setSearchParams] = useSearchParams();
-  // const queryClient = useQueryClient();
-  // const ownUser = queryClient.getQueryData(["user"]);
-  const [toggleCollection, setToggleCollection] = useState(false);
+  const navigate = useNavigate();
+  const [toggleText, setToggleText] = useState(true);
+  const { isOwnUser, username } = useIsOwnUser();
+
+  useEffect(() => {
+    if (isOwnUser) return;
+    navigate(`/user/${username}`);
+  }, [isOwnUser, username, navigate]);
 
   const { posts, count: postsCount, isLoading: isLoading1 } = useHiddenPosts();
   const {
@@ -31,7 +34,7 @@ function UserHidden() {
   } = useHiddenCollections();
 
   function handleToggle() {
-    setToggleCollection((prev) => !prev);
+    setToggleText((prev) => !prev);
     setSearchParams({});
   }
 
@@ -40,21 +43,23 @@ function UserHidden() {
 
   return (
     <div>
-      <Slider />
-      {/* <div className="mx-5 mb-2 flex items-end justify-start gap-5">
-        <p className="text-5xl">
-          {toggleCollection ? "Colecciones" : "Textos"}
-        </p>
-        <p onClick={handleToggle}>
-          (ver {toggleCollection ? "textos" : "colecciones"})
-        </p>
-      </div> */}
-      {!toggleCollection &&
+      <div className="mb-2 flex justify-center">
+        <div>
+          <Slider
+            toggleState={toggleText}
+            onToggle={handleToggle}
+            optionFalse={"Colecciones"}
+            optionTrue={"Textos"}
+          />
+        </div>
+      </div>
+
+      {toggleText &&
         (postsCount > 0 ? (
           <>
             <TableOperations
               totalAmount={postsCount}
-              sortOptions={POST_SORT_OPTIONS}
+              sortOptions={HIDDEN_POST_SORT_OPTIONS}
             />
 
             <CardList posts={posts} />
@@ -63,16 +68,16 @@ function UserHidden() {
           </>
         ) : (
           <p className="m-12 text-4xl first-letter:uppercase">
-            {username} aún no publicó ningún texto
+            No hay ningún texto inédito
           </p>
         ))}
 
-      {toggleCollection &&
+      {!toggleText &&
         (collectionsCount > 0 ? (
           <>
             <TableOperations
               totalAmount={collectionsCount}
-              sortOptions={POST_SORT_OPTIONS}
+              sortOptions={HIDDEN_COLLECTION_SORT_OPTIONS}
             />
 
             <CardList collections={collections} />
@@ -81,7 +86,7 @@ function UserHidden() {
           </>
         ) : (
           <p className="m-12 text-4xl first-letter:uppercase">
-            {username} aún no publicó ningún texto
+            No hay ninguna colección inédita
           </p>
         ))}
     </div>

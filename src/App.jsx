@@ -27,6 +27,7 @@ import UserCollections from "./features/users/UserCollections";
 import CollectionCreate from "./pages/CollectionCreate";
 import CollectionDetail from "./pages/CollectionDetail";
 import UserHidden from "./features/users/UserHidden";
+import CollectionSearchResults from "./pages/CollectionSearchResults";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,6 +63,10 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="users/:searchTerm" element={<UserSearchResults />} />
             <Route path="posts/:searchTerm" element={<PostSearchResults />} />
+            <Route
+              path="collections/:searchTerm"
+              element={<CollectionSearchResults />}
+            />
             <Route path="post/:postId" element={<PostDetail />} />
             <Route
               path="collection/:collectionId"
