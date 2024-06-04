@@ -290,6 +290,14 @@ class AxiosService {
       data: { postId, position },
     });
   }
+
+  createComment(comment) {
+    return axios({
+      method: "POST",
+      url: `${API_URL}/comments`,
+      data: comment,
+    });
+  }
 }
 
 const axiosService = new AxiosService();

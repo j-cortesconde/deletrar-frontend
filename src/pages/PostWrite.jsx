@@ -1,6 +1,5 @@
 // TODO: Must reject (redirect) any posts with status === "deleted" to wherever they are reactivated (postDetail probably)
 
-import "react-quill/dist/quill.snow.css";
 import toast from "react-hot-toast";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -12,7 +11,6 @@ import { useCreatePost } from "../features/posts/useCreatePost";
 import { useAutoSavePost } from "../features/posts/useAutoSavePost";
 import { useIsntOwnPost } from "../features/posts/useIsntOwnPost";
 
-import Button from "../ui/Button";
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
 import EditorButtons from "../ui/EditorButtons";

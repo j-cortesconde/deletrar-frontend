@@ -12,6 +12,7 @@ import HTMLParser from "../features/posts/HTMLParser";
 import PostOwnerOptions from "../features/posts/PostOwnerOptions";
 import Loader from "../ui/Loader";
 import CollectionNavigate from "../features/collections/CollectionNavigate";
+import CommentCreate from "../features/comments/CommentCreate";
 
 function PostDetail() {
   const navigate = useNavigate();
@@ -47,12 +48,14 @@ function PostDetail() {
             </div>
           )}
 
-          <p className="flex-wrap">{post?.summary}</p>
+          <p className="flex-wrap whitespace-pre-wrap">{post?.summary}</p>
         </div>
 
         {!isntOwnPost && <PostOwnerOptions post={post} />}
       </div>
       <HTMLParser delta={post?.content} title={post?.title} />
+
+      <CommentCreate />
 
       <CollectionNavigate />
     </div>
