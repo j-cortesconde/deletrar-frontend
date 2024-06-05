@@ -6,9 +6,8 @@ import { useParams } from "react-router-dom";
 import { useCreateComment } from "./useCreateComment";
 import toast from "react-hot-toast";
 
-function CommentCreate({ replyingTo }) {
+function CommentCreate({ replyingTo, handleClose }) {
   const { collectionId, postId } = useParams();
-  const [isCommenting, setIsCommenting] = useState(false);
   const [content, setContent] = useState();
 
   const { createComment, isCreating } = useCreateComment();
@@ -27,45 +26,34 @@ function CommentCreate({ replyingTo }) {
 
     createComment(newComment, {
       onSuccess: () => {
-        setContent(undefined);
-        setIsCommenting(false);
+        handleClose();
       },
     });
   }
 
-  return (
-    <div className="mx-auto w-3/4">
-      {!isCommenting && (
-        <div className="flex justify-end">
-          <p
-            className="inline underline underline-offset-2 hover:cursor-pointer"
-            onClick={() => setIsCommenting(true)}
-          >
-            {replyingTo ? "Responder" : "Comentar"}
-          </p>
-        </div>
-      )}
-      {isCommenting && (
-        <div className="m-2 flex w-3/4 flex-col gap-3 p-4">
-          {/* // TODO: Must add max characters to match CommentModel */}
-          <TextareaAutosize
-            autoFocus
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            minRows={4}
-            className="resize-none rounded-xl border-2 border-black p-4 text-xl"
-          />
+  function handleCancel() {
+    handleClose();
+  }
 
-          <div className="mx-4 flex justify-end gap-3">
-            <Button disabled={isCreating} variation="danger">
-              Cancelar
-            </Button>
-            <Button disabled={isCreating} onClick={handleSubmit}>
-              Comentar
-            </Button>
-          </div>
-        </div>
-      )}
+  return (
+    <div className="flex w-3/4 flex-col gap-3 p-4">
+      <TextareaAutosize
+        autoFocus
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        minRows={4}
+        maxLength={400}
+        className="resize-none rounded-xl border-2 border-black p-4 text-xl"
+      />
+
+      <div className="mx-4 flex justify-end gap-3">
+        <Button disabled={isCreating} onClick={handleCancel} variation="danger">
+          Cancelar
+        </Button>
+        <Button disabled={isCreating} onClick={handleSubmit}>
+          Comentar
+        </Button>
+      </div>
     </div>
   );
 }

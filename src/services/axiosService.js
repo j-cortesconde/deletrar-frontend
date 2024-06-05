@@ -298,6 +298,13 @@ class AxiosService {
       data: comment,
     });
   }
+
+  getComments(type, id) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/comments/${type}/${id}`,
+    });
+  }
 }
 
 const axiosService = new AxiosService();

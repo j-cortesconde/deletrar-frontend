@@ -11,15 +11,15 @@ import axiosService from "./axiosService";
 //   }
 // }
 
-// export async function getPosts(authorUsername, queryString) {
-//   try {
-//     const response = await axiosService.getPosts(authorUsername, queryString);
+export async function getComments(type, id) {
+  try {
+    const response = await axiosService.getComments(type, id);
 
-//     return response.data.data;
-//   } catch (err) {
-//     throw new Error(err.response.data.message);
-//   }
-// }
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
 
 export async function createComment(comment) {
   const response = await axiosService.createComment(comment);

@@ -12,11 +12,16 @@ import HTMLParser from "../features/posts/HTMLParser";
 import PostOwnerOptions from "../features/posts/PostOwnerOptions";
 import Loader from "../ui/Loader";
 import CollectionNavigate from "../features/collections/CollectionNavigate";
-import CommentCreate from "../features/comments/CommentCreate";
+import PostComments from "../features/comments/PostComments";
+import PostUserOptions from "../features/posts/PostUserOptions";
+import { useQueryClient } from "@tanstack/react-query";
 
 function PostDetail() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { postId } = useParams();
+  const ownUser = queryClient.getQueryData(["user"]);
+  const isLoggedIn = !!ownUser;
 
   const { isLoading, post, error } = usePost(postId);
 
@@ -55,9 +60,10 @@ function PostDetail() {
       </div>
       <HTMLParser delta={post?.content} title={post?.title} />
 
-      <CommentCreate />
-
       <CollectionNavigate />
+
+      {isLoggedIn && <PostUserOptions />}
+      <PostComments postId={postId} />
     </div>
   );
 }

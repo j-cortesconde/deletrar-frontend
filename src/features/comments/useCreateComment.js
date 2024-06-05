@@ -7,7 +7,7 @@ export function useCreateComment() {
   const { mutate: createComment, isPending: isCreating } = useMutation({
     mutationFn: (newComment) => createCommentAPI(newComment),
     onSuccess: (data) => {
-      // TODO: Aquí debería invalidar el query que getea todos los comments
+      queryClient.invalidateQueries(["comments"]);
     },
     onError: (err) =>
       toast.error("Hubo algún problema. Volvé a intentarlo más tarde."),
