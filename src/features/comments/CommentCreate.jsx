@@ -41,16 +41,25 @@ function CommentCreate({ replyingTo, handleClose }) {
         autoFocus
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        minRows={4}
+        minRows={replyingTo ? 1 : 4}
         maxLength={400}
         className="resize-none rounded-xl border-2 border-black p-4 text-xl"
       />
 
       <div className="mx-4 flex justify-end gap-3">
-        <Button disabled={isCreating} onClick={handleCancel} variation="danger">
+        <Button
+          size={replyingTo ? "small" : "medium"}
+          disabled={isCreating}
+          onClick={handleCancel}
+          variation="danger"
+        >
           Cancelar
         </Button>
-        <Button disabled={isCreating} onClick={handleSubmit}>
+        <Button
+          size={replyingTo ? "small" : "medium"}
+          disabled={isCreating}
+          onClick={handleSubmit}
+        >
           Comentar
         </Button>
       </div>

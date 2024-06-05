@@ -7,12 +7,12 @@ import Loader from "../../ui/Loader";
 import CommentCard from "./CommentCard";
 import ReactPaginate from "react-paginate";
 
-function PostComments({ postId }) {
+function CommentComments({ commentId }) {
   const [page, setPage] = useState(1);
 
   const { comments, isLoading, count } = useComments({
-    type: "post",
-    id: postId,
+    type: "comment",
+    id: commentId,
     page,
   });
 
@@ -22,10 +22,10 @@ function PostComments({ postId }) {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="mx-auto w-3/4">
+    <div className="">
       <ul>
         {comments?.map((comment) => (
-          <CommentCard key={comment._id} comment={comment} />
+          <CommentCard key={comment._id} comment={comment} isReply={true} />
         ))}
       </ul>
 
@@ -40,7 +40,7 @@ function PostComments({ postId }) {
           nextLabel={page === pageCount ? null : <BiRightArrow />}
           breakLabel="..."
           renderOnZeroPageCount={null}
-          className="flex justify-center gap-4"
+          className="flex justify-start gap-4"
           activeClassName="font-bold"
           previousClassName="flex items-center"
           nextClassName="flex items-center"
@@ -51,4 +51,4 @@ function PostComments({ postId }) {
   );
 }
 
-export default PostComments;
+export default CommentComments;

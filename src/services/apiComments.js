@@ -11,9 +11,9 @@ import axiosService from "./axiosService";
 //   }
 // }
 
-export async function getComments(type, id) {
+export async function getComments(type, id, page) {
   try {
-    const response = await axiosService.getComments(type, id);
+    const response = await axiosService.getComments(type, id, page);
 
     return response.data.data;
   } catch (err) {

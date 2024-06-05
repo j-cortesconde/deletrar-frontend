@@ -299,10 +299,10 @@ class AxiosService {
     });
   }
 
-  getComments(type, id) {
+  getComments(type, id, page) {
     return axios({
       method: "GET",
-      url: `${API_URL}/comments/${type}/${id}`,
+      url: `${API_URL}/comments/${type}/${id}?page=${page}`,
     });
   }
 }
