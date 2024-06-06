@@ -11,6 +11,8 @@ import { useIsntOwnCollection } from "../features/collections/useIsntOwnCollecti
 import CollectionOwnerOptions from "../features/collections/CollectionOwnerOptions";
 import Loader from "../ui/Loader";
 import PostCard from "../features/posts/PostCard";
+import CollectionComments from "../features/comments/CollectionComments";
+import LikeCommentShare from "../features/posts/LikeCommentShare";
 
 function CollectionDetail() {
   const navigate = useNavigate();
@@ -18,7 +20,8 @@ function CollectionDetail() {
 
   const { isLoading, collection, error } = useCollection(collectionId);
 
-  const isntOwnCollection = useIsntOwnCollection(collection);
+  const { isntOwnCollection, isLoggedIn } = useIsntOwnCollection(collection);
+
   if (error) return <div>{error.message}</div>;
   if (isLoading) return <Loader />;
 
@@ -62,6 +65,9 @@ function CollectionDetail() {
           <PostCard key={post._id} post={post} collectionId={collection._id} />
         ))}
       </ul>
+
+      {isLoggedIn && <LikeCommentShare />}
+      <CollectionComments collectionId={collectionId} />
     </div>
   );
 }

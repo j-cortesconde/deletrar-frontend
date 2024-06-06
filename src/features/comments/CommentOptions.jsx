@@ -4,7 +4,7 @@ import { useIsOwnComment } from "./useIsOwnComment";
 import Loader from "../../ui/Loader";
 
 function CommentOptions({ comment, isReply, handleReply, handleShowReplies }) {
-  const { isOwnComment } = useIsOwnComment(comment.author.username);
+  const { isOwnComment, isLoggedIn } = useIsOwnComment(comment.author.username);
   const { deleteComment, isDeleting } = useDeleteComment();
 
   // FIXME: This and all deletes should ask confirmation
@@ -24,10 +24,14 @@ function CommentOptions({ comment, isReply, handleReply, handleShowReplies }) {
         {comment.replies} respuesta{comment.replies === 1 ? "" : "s"}
       </p>
 
-      <p> - </p>
-      <p onClick={handleReply} className="hover:cursor-pointer">
-        Responder
-      </p>
+      {isLoggedIn && (
+        <>
+          <p> - </p>
+          <p onClick={handleReply} className="hover:cursor-pointer">
+            Responder
+          </p>
+        </>
+      )}
 
       {isOwnComment && (
         <>

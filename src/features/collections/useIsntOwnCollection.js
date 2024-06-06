@@ -5,9 +5,11 @@ export function useIsntOwnCollection(collection) {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["user"]);
 
+  const isLoggedIn = !!user;
+
   const isntOwnCollection =
     collection?.collector.username &&
     collection?.collector.username !== user?.username;
 
-  return isntOwnCollection;
+  return { isntOwnCollection, isLoggedIn };
 }
