@@ -19,7 +19,7 @@ function CommentOptions({ comment, isReply, handleReply, handleShowReplies }) {
     <div className="mx-2 flex gap-8 pl-20">
       <p
         onClick={handleShowReplies}
-        className={`${(comment.replies > 1 || (comment.replies > 0 && isReply)) && "hover:cursor-pointer"}`}
+        className={`${comment.replies > 0 && "hover:cursor-pointer"}`}
       >
         {comment.replies} respuesta{comment.replies === 1 ? "" : "s"}
       </p>

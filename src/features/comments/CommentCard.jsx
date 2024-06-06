@@ -1,21 +1,22 @@
 import { useState } from "react";
 
-import { useIsOwnComment } from "./useIsOwnComment";
-import { useDeleteComment } from "./useDeleteComment";
-
 import CommentCreate from "./CommentCreate";
 import CommentComments from "./CommentComments";
-import Loader from "../../ui/Loader";
 import CommentData from "./CommentData";
 import CommentOptions from "./CommentOptions";
 
 function CommentCard({ comment, isReply = false }) {
   const [isReplying, setIsReplying] = useState(false);
   const [showReplies, setShowReplies] = useState(false);
+  const [showReply, setShowReply] = useState(!isReply && comment.reply);
 
   function handleShowReplies() {
-    if (isReply && comment.replies > 0) setShowReplies((prev) => !prev);
-    if (comment.replies > 1) setShowReplies((prev) => !prev);
+    if (comment.replies === 0) return;
+    if (comment.replies === 1 && !isReply) setShowReply((prev) => !prev);
+    else {
+      setShowReply(false);
+      setShowReplies((prev) => !prev);
+    }
   }
 
   return (
@@ -43,9 +44,7 @@ function CommentCard({ comment, isReply = false }) {
       )}
 
       <ul className="pl-4">
-        {comment.reply && !showReplies && (
-          <CommentCard comment={comment.reply} isReply={true} />
-        )}
+        {showReply && <CommentCard comment={comment.reply} isReply={true} />}
         {showReplies && <CommentComments commentId={comment._id} />}
       </ul>
     </li>
