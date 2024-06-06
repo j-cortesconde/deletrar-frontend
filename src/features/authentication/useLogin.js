@@ -11,7 +11,7 @@ export function useLogin() {
     mutationFn: ({ email, password }) => loginApi({ email, password }),
     onSuccess: (data) => {
       queryClient.setQueryData(["user"], data);
-      navigate("/home", { replace: true });
+      navigate(-1, { replace: true });
     },
     onError: (err) => {
       toast.error("Tus credenciales de inicio de sesión son incorrectas.");

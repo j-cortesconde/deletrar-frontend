@@ -22,7 +22,7 @@ function PostComments({ postId }) {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="mx-auto w-3/4">
+    <div className="mx-auto w-3/4 border-t-2 border-stone-300">
       <ul>
         {comments?.map((comment) => (
           <CommentCard key={comment._id} comment={comment} />
