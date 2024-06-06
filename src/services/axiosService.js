@@ -299,6 +299,14 @@ class AxiosService {
     });
   }
 
+  updateComment(commentId, comment) {
+    return axios({
+      method: "PATCH",
+      url: `${API_URL}/comments/id/${commentId}`,
+      data: comment,
+    });
+  }
+
   getComments(type, id, page) {
     return axios({
       method: "GET",

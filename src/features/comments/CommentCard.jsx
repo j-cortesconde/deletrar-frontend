@@ -1,16 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import { longDate } from "../../utils/dateFormat";
 import { useState } from "react";
+
+import { useIsOwnComment } from "./useIsOwnComment";
+import { useDeleteComment } from "./useDeleteComment";
+
 import CommentCreate from "./CommentCreate";
 import CommentComments from "./CommentComments";
+import Loader from "../../ui/Loader";
+import CommentData from "./CommentData";
+import CommentOptions from "./CommentOptions";
 
-function CommentCard({ comment }) {
-  const navigate = useNavigate();
+function CommentCard({ comment, isReply = false }) {
   const [isReplying, setIsReplying] = useState(false);
   const [showReplies, setShowReplies] = useState(false);
 
   function handleShowReplies() {
-    if (comment.replies > 0) setShowReplies((prev) => !prev);
+    if (isReply && comment.replies > 0) setShowReplies((prev) => !prev);
+    if (comment.replies > 1) setShowReplies((prev) => !prev);
   }
 
   return (
@@ -18,47 +23,15 @@ function CommentCard({ comment }) {
       <div
         className={`absolute bottom-0 left-0 top-10 z-0 border-l-2 border-stone-300`}
       ></div>
-      <div className="flex gap-4">
-        <img
-          onClick={() => navigate(`/user/${comment.author.username}`)}
-          className="h-20 w-20 rounded-full hover:cursor-pointer"
-          src={`/users/${comment.author.photo}`}
-          alt={comment.author.username}
-        />
 
-        <div>
-          <p
-            onClick={() => navigate(`/user/${comment.author.username}`)}
-            className="text-left hover:cursor-pointer"
-          >
-            {comment.author.name}
-            <span className="text-xl"> - {comment.author.username}</span>
-          </p>
-          {/* //TODO:CHANGE FORMAT */}
-          {/* // TODO: Add redirect to comment specific view */}
-          <p className="text-left text-xl">{longDate(comment.createdAt)}</p>
-        </div>
-      </div>
+      <CommentData comment={comment} />
 
-      <div className="mx-2 mb-2 pl-20">
-        <p className="select-text break-words text-left">{comment.content}</p>
-      </div>
-
-      <div className="mx-2 flex gap-8 pl-20">
-        <p
-          onClick={handleShowReplies}
-          className={`${comment.replies > 0 && "hover:cursor-pointer"}`}
-        >
-          {comment.replies} respuesta{comment.replies === 1 ? "" : "s"}
-        </p>
-        <p> - </p>
-        <p
-          onClick={() => setIsReplying((prev) => !prev)}
-          className="hover:cursor-pointer"
-        >
-          Responder
-        </p>
-      </div>
+      <CommentOptions
+        comment={comment}
+        isReply={isReply}
+        handleReply={() => setIsReplying((prev) => !prev)}
+        handleShowReplies={handleShowReplies}
+      />
 
       {isReplying && (
         <div className="ml-20">
@@ -69,12 +42,12 @@ function CommentCard({ comment }) {
         </div>
       )}
 
-      <div className="pl-4">
+      <ul className="pl-4">
         {comment.reply && !showReplies && (
-          <CommentCard comment={comment.reply} />
+          <CommentCard comment={comment.reply} isReply={true} />
         )}
         {showReplies && <CommentComments commentId={comment._id} />}
-      </div>
+      </ul>
     </li>
   );
 }

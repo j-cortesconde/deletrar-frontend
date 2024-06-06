@@ -13,7 +13,7 @@ import PostOwnerOptions from "../features/posts/PostOwnerOptions";
 import Loader from "../ui/Loader";
 import CollectionNavigate from "../features/collections/CollectionNavigate";
 import PostComments from "../features/comments/PostComments";
-import PostUserOptions from "../features/posts/PostUserOptions";
+import LikeCommentShare from "../features/posts/LikeCommentShare";
 import { useQueryClient } from "@tanstack/react-query";
 
 function PostDetail() {
@@ -62,7 +62,7 @@ function PostDetail() {
 
       <CollectionNavigate />
 
-      {isLoggedIn && <PostUserOptions />}
+      {isLoggedIn && <LikeCommentShare />}
       <PostComments postId={postId} />
     </div>
   );

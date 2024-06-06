@@ -25,3 +25,8 @@ export async function createComment(comment) {
   const response = await axiosService.createComment(comment);
   return response.data.data;
 }
+
+export async function updateComment(commentId, comment) {
+  const response = await axiosService.updateComment(commentId, comment);
+  return response.data.data;
+}
