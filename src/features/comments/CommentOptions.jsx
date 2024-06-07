@@ -3,7 +3,12 @@ import { useIsOwnComment } from "./useIsOwnComment";
 
 import Loader from "../../ui/Loader";
 
-function CommentOptions({ comment, handleReply, handleShowReplies }) {
+function CommentOptions({
+  comment,
+  handleReply,
+  handleShowReplies,
+  isMainComment,
+}) {
   const { isOwnComment, isLoggedIn } = useIsOwnComment(
     comment?.author.username,
   );
@@ -18,7 +23,9 @@ function CommentOptions({ comment, handleReply, handleShowReplies }) {
   if (isDeleting) return <Loader />;
 
   return (
-    <div className="mx-2 flex gap-8 pl-20">
+    <div
+      className={`mx-2 flex gap-8 ${isMainComment ? "pl-2 text-3xl" : "pl-20"}`}
+    >
       <p
         onClick={handleShowReplies}
         className={`${comment?.replies > 0 && "hover:cursor-pointer"}`}

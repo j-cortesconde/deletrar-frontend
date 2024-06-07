@@ -15,3 +15,8 @@ export function dateDistance(date) {
   if (!date) return null;
   return formatDistance(date, Date.now(), { locale: es, addSuffix: "Hace" });
 }
+
+export function timeDate(date) {
+  if (!date) return null;
+  return format(date, "HH:mm - dd MMM yy", { locale: es });
+}

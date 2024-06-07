@@ -2,7 +2,8 @@
 // TODO: Should redirect to an error page that recieves as a prop an error message
 // TODO: Should do this not only here. Also in other "if (error)" and many navigates that redirect home or elsewhere
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 import { useComment } from "../features/comments/useComment";
 import { useCommentThread } from "../features/comments/useCommentThread";
@@ -11,6 +12,7 @@ import Loader from "../ui/Loader";
 import CommentThread from "../features/comments/CommentThread";
 
 function CommentDetail() {
+  const navigate = useNavigate();
   const { commentId } = useParams();
 
   const {
@@ -25,6 +27,15 @@ function CommentDetail() {
     error: error2,
   } = useCommentThread(commentId);
 
+  const originalDocumentType = comment?.targetPost
+    ? "al texto"
+    : "a la colección";
+  const originalDocumentLink = comment?.targetPost
+    ? comment?.targetCollection
+      ? `/collection/${comment?.targetCollection?._id}/post/${comment?.targetPost?.id}`
+      : `/post/${comment?.targetPost?.id}`
+    : `/collection/${comment?.targetCollection?._id}`;
+
   if (error1 || error2)
     return (
       <div>
@@ -35,6 +46,13 @@ function CommentDetail() {
 
   return (
     <div className="mx-auto flex w-3/4 flex-col items-center">
+      <div
+        onClick={() => navigate(originalDocumentLink)}
+        className="flex items-center gap-4 hover:cursor-pointer"
+      >
+        <FaArrowLeftLong />
+        <p>Volver {originalDocumentType} de la discusión</p>
+      </div>
       <CommentThread commentThread={commentThread} mainComment={comment} />
     </div>
   );
