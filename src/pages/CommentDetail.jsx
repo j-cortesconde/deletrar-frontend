@@ -48,7 +48,7 @@ function CommentDetail() {
     <div className="mx-auto flex w-3/4 flex-col items-center">
       <div
         onClick={() => navigate(originalDocumentLink)}
-        className="flex items-center gap-4 hover:cursor-pointer"
+        className="flex select-none items-center gap-4 hover:cursor-pointer"
       >
         <FaArrowLeftLong />
         <p>Volver {originalDocumentType} de la discusión</p>

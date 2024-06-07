@@ -16,7 +16,7 @@ function LikeCommentShare() {
   const [isShared, setIsShared] = useState(false);
 
   return (
-    <div className="mx-auto my-2 w-3/4">
+    <div className="mx-auto my-2 w-3/4 select-none">
       <div className="grid grid-cols-3 bg-slate-300 px-8">
         <div
           className="flex items-center gap-2 place-self-center hover:cursor-pointer"
