@@ -51,7 +51,7 @@ function CollectionDetail() {
             </div>
           )}
 
-          <p className="flex-wrap">{collection?.summary}</p>
+          <p className="flex-wrap whitespace-pre-wrap">{collection?.summary}</p>
         </div>
 
         {!isntOwnCollection && (

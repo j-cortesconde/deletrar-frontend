@@ -1,3 +1,4 @@
+// TODO: See of setting maxLength to summary (and adding a way to load other post fields, like coverImage)
 // TODO: Must reject (redirect) any posts with status === "deleted" to wherever they are reactivated (postDetail probably)
 
 import toast from "react-hot-toast";
@@ -112,7 +113,6 @@ function PostWrite() {
         <textarea
           placeholder="Resumen..."
           rows={3}
-          maxLength={350}
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
           className="m-2 w-3/4 p-4 text-xl"

@@ -1,3 +1,4 @@
+// TODO: See of setting maxLength to summary (and adding a way to load other post fields, like coverImage or subtitle)
 // TODO: Must reject (redirect) any collections with status === "deleted" to wherever they are reactivated (collectionDetail probably)
 
 import "react-quill/dist/quill.snow.css";
@@ -128,7 +129,6 @@ function CollectionCreate() {
         <textarea
           placeholder="Resumen..."
           rows={3}
-          maxLength={350}
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
           className="m-2 w-full p-4 text-xl"
