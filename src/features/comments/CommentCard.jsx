@@ -6,6 +6,7 @@ import CommentComments from "./CommentComments";
 import CommentData from "./CommentData";
 import CommentOptions from "./CommentOptions";
 import MainCommentData from "./MainCommentData";
+import DeletedComment from "./DeletedComment";
 
 function CommentCard({
   comment,
@@ -37,6 +38,10 @@ function CommentCard({
       setShowReplies((prev) => !prev);
     }
   }
+
+  if (comment.status === "deleted" && isThread) return <DeletedComment />;
+
+  if (comment.status === "deleted") return;
 
   return (
     <li ref={liRef} className="relative m-4 select-none pl-2">
