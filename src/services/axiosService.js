@@ -195,17 +195,17 @@ class AxiosService {
     });
   }
 
-  isFollower(ownUsername, otherUsername) {
+  isFollower(otherUsername) {
     return axios({
       method: "GET",
-      url: `${API_URL}/users/isFollower/${ownUsername}/${otherUsername}`,
+      url: `${API_URL}/users/isFollower/${otherUsername}`,
     });
   }
 
-  amFollowing(ownUsername, otherUsername) {
+  amFollowing(otherUsername) {
     return axios({
       method: "GET",
-      url: `${API_URL}/users/amFollowing/${ownUsername}/${otherUsername}`,
+      url: `${API_URL}/users/amFollowing/${otherUsername}`,
     });
   }
 
@@ -213,12 +213,12 @@ class AxiosService {
     if (unfollow)
       return axios({
         method: "PATCH",
-        url: `${API_URL}/users/id/${username}/unfollow`,
+        url: `${API_URL}/users/unfollow/${username}`,
       });
     else {
       return axios({
         method: "PATCH",
-        url: `${API_URL}/users/id/${username}/follow`,
+        url: `${API_URL}/users/follow/${username}`,
       });
     }
   }

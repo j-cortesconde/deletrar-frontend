@@ -62,14 +62,14 @@ export async function getFollowing(followerUsername, queryString) {
 
 export async function isFollower(ownUsername, otherUsername) {
   if (!ownUsername) return null;
-  const response = await axiosService.isFollower(ownUsername, otherUsername);
+  const response = await axiosService.isFollower(otherUsername);
 
   return response.data.data;
 }
 
 export async function amFollowing(ownUsername, otherUsername) {
   if (!ownUsername) return null;
-  const response = await axiosService.amFollowing(ownUsername, otherUsername);
+  const response = await axiosService.amFollowing(otherUsername);
 
   return response.data.data;
 }
