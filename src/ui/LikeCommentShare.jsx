@@ -8,21 +8,36 @@ import {
   FaShareSquare,
 } from "react-icons/fa";
 
-import CommentCreate from "../comments/CommentCreate";
+import { useSaveUnsavePostCollection } from "../features/users/useSaveUnsavePostCollection";
 
-function LikeCommentShare() {
+import CommentCreate from "../features/comments/CommentCreate";
+import Loader from "./Loader";
+import { useHaveSaved } from "../features/users/useHaveSaved";
+
+// docType must be one of ['post', 'collection']
+function LikeCommentShare({ docId, docType }) {
   const [isCommenting, setIsCommenting] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
   const [isShared, setIsShared] = useState(false);
+
+  const { isPending, saveUnsavePostCollection } = useSaveUnsavePostCollection();
+  const { isLoading, haveSaved, error } = useHaveSaved(docId, docType);
+
+  function handleSaveUnsave() {
+    saveUnsavePostCollection({ docId, docType, unsave: haveSaved });
+  }
+
+  // TODO: Should be localized on save
+  if (isPending || isLoading) return <Loader />;
 
   return (
     <div className="mx-auto my-2 w-3/4 select-none">
       <div className="grid grid-cols-3 bg-slate-300 px-8">
         <div
           className="flex items-center gap-2 place-self-center hover:cursor-pointer"
-          onClick={() => setIsLiked((prev) => !prev)}
+          onClick={handleSaveUnsave}
         >
-          {isLiked ? <FaBookmark /> : <FaRegBookmark />}
+          {haveSaved ? <FaBookmark /> : <FaRegBookmark />}
           <p>Guardar</p>
         </div>
 

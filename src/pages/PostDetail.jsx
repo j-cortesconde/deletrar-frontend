@@ -7,14 +7,14 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { usePost } from "../features/posts/usePost";
 import { useIsntOwnPost } from "../features/posts/useIsntOwnPost";
+import { useQueryClient } from "@tanstack/react-query";
 
 import HTMLParser from "../features/posts/HTMLParser";
 import PostOwnerOptions from "../features/posts/PostOwnerOptions";
 import Loader from "../ui/Loader";
 import CollectionNavigate from "../features/collections/CollectionNavigate";
 import PostComments from "../features/comments/PostComments";
-import LikeCommentShare from "../features/posts/LikeCommentShare";
-import { useQueryClient } from "@tanstack/react-query";
+import LikeCommentShare from "../ui/LikeCommentShare";
 
 function PostDetail() {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ function PostDetail() {
 
       <CollectionNavigate />
 
-      {isLoggedIn && <LikeCommentShare />}
+      {isLoggedIn && <LikeCommentShare docId={postId} docType="post" />}
       <PostComments postId={postId} />
     </div>
   );

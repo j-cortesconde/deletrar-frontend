@@ -223,6 +223,27 @@ class AxiosService {
     }
   }
 
+  saveUnsavePostCollection(docId, docType, unsave) {
+    if (unsave)
+      return axios({
+        method: "PATCH",
+        url: `${API_URL}/users/${docType}/${docId}/unsave`,
+      });
+    else {
+      return axios({
+        method: "PATCH",
+        url: `${API_URL}/users/${docType}/${docId}/save`,
+      });
+    }
+  }
+
+  haveSaved(docId, docType) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/haveSaved/${docType}/${docId}`,
+    });
+  }
+
   searchCollections(query) {
     return axios({
       method: "GET",

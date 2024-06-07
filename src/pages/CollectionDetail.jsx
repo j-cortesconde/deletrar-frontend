@@ -12,7 +12,7 @@ import CollectionOwnerOptions from "../features/collections/CollectionOwnerOptio
 import Loader from "../ui/Loader";
 import PostCard from "../features/posts/PostCard";
 import CollectionComments from "../features/comments/CollectionComments";
-import LikeCommentShare from "../features/posts/LikeCommentShare";
+import LikeCommentShare from "../ui/LikeCommentShare";
 
 function CollectionDetail() {
   const navigate = useNavigate();
@@ -66,7 +66,9 @@ function CollectionDetail() {
         ))}
       </ul>
 
-      {isLoggedIn && <LikeCommentShare />}
+      {isLoggedIn && (
+        <LikeCommentShare docId={collectionId} docType="collection" />
+      )}
       <CollectionComments collectionId={collectionId} />
     </div>
   );

@@ -79,3 +79,23 @@ export async function followUnfollowUser({ username, unfollow = false }) {
 
   return response.data.data;
 }
+
+export async function saveUnsavePostCollection({
+  docId,
+  docType,
+  unsave = false,
+}) {
+  const response = await axiosService.saveUnsavePostCollection(
+    docId,
+    docType,
+    unsave,
+  );
+
+  return response.data.data;
+}
+
+export async function haveSaved(docId, docType) {
+  const response = await axiosService.haveSaved(docId, docType);
+
+  return response.data.data;
+}
