@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useComments } from "./useComments";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 
@@ -15,6 +15,10 @@ function CommentComments({ commentId }) {
     id: commentId,
     page,
   });
+
+  useEffect(() => {
+    setPage(1);
+  }, [count]);
 
   const pageCount = Math.ceil(count / COMMENT_PAGE_AMOUNT);
 
