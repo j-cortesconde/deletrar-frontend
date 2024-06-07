@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { longDate, shortDate } from "../../utils/dateFormat";
+import DeletedPost from "./DeletedPost";
 
-function PostCard({ post, collectionId }) {
+function PostCard({ post, collectionId, shouldBePosted = true }) {
   const navigate = useNavigate();
 
   const navigateLink = collectionId
@@ -14,10 +15,12 @@ function PostCard({ post, collectionId }) {
     deleted: "border-red-400 bg-red-300",
   };
 
+  if (!(post.status === "posted") && shouldBePosted) return <DeletedPost />;
+
   return (
     <li
       onClick={() => navigate(navigateLink)}
-      className={`m-5 rounded-md border-2 hover:cursor-pointer ${statusStyle[post.status || "posted"]}`}
+      className={`m-5 break-words rounded-md border-2 hover:cursor-pointer ${statusStyle[post.status || "posted"]}`}
     >
       <div className="my-8 flex items-start justify-center">
         <img

@@ -62,7 +62,7 @@ function UserHidden() {
               sortOptions={HIDDEN_POST_SORT_OPTIONS}
             />
 
-            <CardList posts={posts} />
+            <CardList posts={posts} shouldBePosted={false} />
 
             <Pagination totalAmount={postsCount} />
           </>
@@ -80,7 +80,7 @@ function UserHidden() {
               sortOptions={HIDDEN_COLLECTION_SORT_OPTIONS}
             />
 
-            <CardList collections={collections} />
+            <CardList collections={collections} shouldBePosted={false} />
 
             <Pagination totalAmount={collectionsCount} />
           </>

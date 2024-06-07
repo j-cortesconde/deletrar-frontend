@@ -54,10 +54,12 @@ function CollectionCreate() {
     newCollection,
   );
 
-  const isntOwnCollection = useIsntOwnCollection(collection);
+  const { isntOwnCollection } = useIsntOwnCollection(collection);
 
   useEffect(() => {
-    if (isntOwnCollection) navigate("/home", { replace: true });
+    if (isntOwnCollection) {
+      navigate("/home", { replace: true });
+    }
   }, [isntOwnCollection, navigate]);
 
   useEffect(() => {
@@ -117,7 +119,7 @@ function CollectionCreate() {
       <div className="mx-auto flex h-full w-3/4 flex-col items-center">
         <input
           type="text"
-          maxLength={120}
+          maxLength={40}
           placeholder="Título..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}

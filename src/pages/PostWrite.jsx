@@ -103,7 +103,7 @@ function PostWrite() {
       <div className="flex h-full flex-col items-center">
         <input
           type="text"
-          maxLength={120}
+          maxLength={40}
           placeholder="Título..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}

@@ -2,10 +2,17 @@ import UserCard from "../features/users/UserCard";
 import PostCard from "../features/posts/PostCard";
 import CollectionCard from "../features/collections/CollectionCard";
 
-function CardList({ posts, users, collections }) {
+function CardList({ posts, users, collections, shouldBePosted = true }) {
   return (
     <ul className={`grid grid-cols-2`}>
-      {posts && posts.map((post) => <PostCard key={post._id} post={post} />)}
+      {posts &&
+        posts.map((post) => (
+          <PostCard
+            key={post._id}
+            post={post}
+            shouldBePosted={shouldBePosted}
+          />
+        ))}
 
       {collections &&
         collections.map((collection) => (
