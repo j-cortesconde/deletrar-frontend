@@ -1,5 +1,3 @@
-// TODO: Must find a way to display the reply that's just been left on a comment
-
 import { useState } from "react";
 
 import CommentCreate from "./CommentCreate";
@@ -7,14 +5,22 @@ import CommentComments from "./CommentComments";
 import CommentData from "./CommentData";
 import CommentOptions from "./CommentOptions";
 
-function CommentCard({ comment, isReply = false }) {
+function CommentCard({ comment, isReply = false, isMainComment = false }) {
   const [isReplying, setIsReplying] = useState(false);
-  const [showReplies, setShowReplies] = useState(false);
-  const [showReply, setShowReply] = useState(!isReply && comment.reply);
+  const [showReplies, setShowReplies] = useState(isMainComment);
+  const [showReply, setShowReply] = useState(
+    !isReply && !isMainComment && comment.reply,
+  );
+
+  function handleAddReply() {
+    setShowReply(false);
+    setShowReplies(true);
+  }
 
   function handleShowReplies() {
     if (comment.replies === 0) return;
-    if (comment.replies === 1 && !isReply) setShowReply((prev) => !prev);
+    if (comment.replies === 1 && !isReply && !isMainComment)
+      setShowReply((prev) => !prev);
     else {
       setShowReply(false);
       setShowReplies((prev) => !prev);
@@ -31,7 +37,6 @@ function CommentCard({ comment, isReply = false }) {
 
       <CommentOptions
         comment={comment}
-        isReply={isReply}
         handleReply={() => setIsReplying((prev) => !prev)}
         handleShowReplies={handleShowReplies}
       />
@@ -39,15 +44,21 @@ function CommentCard({ comment, isReply = false }) {
       {isReplying && (
         <div className="ml-20">
           <CommentCreate
-            replyingTo={comment._id}
+            repliedComment={comment}
             handleClose={() => setIsReplying(false)}
+            handleCreate={handleAddReply}
           />
         </div>
       )}
 
       <ul className="pl-4">
-        {showReply && <CommentCard comment={comment.reply} isReply={true} />}
-        {showReplies && <CommentComments commentId={comment._id} />}
+        {showReply && !showReplies && (
+          <CommentCard comment={comment.reply} isReply={true} />
+        )}
+
+        {showReplies && !showReply && (
+          <CommentComments commentId={comment._id} />
+        )}
       </ul>
     </li>
   );

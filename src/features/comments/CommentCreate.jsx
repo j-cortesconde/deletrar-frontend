@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useCreateComment } from "./useCreateComment";
 import toast from "react-hot-toast";
 
-function CommentCreate({ replyingTo, handleClose }) {
+function CommentCreate({ repliedComment, handleClose, handleCreate }) {
   const { collectionId, postId } = useParams();
   const [content, setContent] = useState();
 
@@ -19,14 +19,22 @@ function CommentCreate({ replyingTo, handleClose }) {
 
     const newComment = {
       content,
-      replyingTo,
       targetCollection: collectionId,
       targetPost: postId,
     };
 
+    if (repliedComment) {
+      newComment.replyingTo = repliedComment._id;
+      newComment.replyingToArray = [
+        repliedComment._id,
+        ...(repliedComment.replyingToArray || []),
+      ];
+    }
+
     createComment(newComment, {
       onSuccess: () => {
-        handleClose();
+        handleCreate?.();
+        handleClose?.();
       },
     });
   }
@@ -41,14 +49,14 @@ function CommentCreate({ replyingTo, handleClose }) {
         autoFocus
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        minRows={replyingTo ? 1 : 4}
+        minRows={repliedComment ? 1 : 4}
         maxLength={400}
         className="resize-none rounded-xl border-2 border-black p-4 text-xl"
       />
 
       <div className="mx-4 flex justify-end gap-3">
         <Button
-          size={replyingTo ? "small" : "medium"}
+          size={repliedComment ? "small" : "medium"}
           disabled={isCreating}
           onClick={handleCancel}
           variation="danger"
@@ -56,7 +64,7 @@ function CommentCreate({ replyingTo, handleClose }) {
           Cancelar
         </Button>
         <Button
-          size={replyingTo ? "small" : "medium"}
+          size={repliedComment ? "small" : "medium"}
           disabled={isCreating}
           onClick={handleSubmit}
         >

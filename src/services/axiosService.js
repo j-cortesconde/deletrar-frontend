@@ -307,10 +307,24 @@ class AxiosService {
     });
   }
 
+  getComment(commentId) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/comments/id/${commentId}`,
+    });
+  }
+
   getComments(type, id, page) {
     return axios({
       method: "GET",
       url: `${API_URL}/comments/${type}/${id}?page=${page}`,
+    });
+  }
+
+  getCommentThread(commentId) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/comments/thread/${commentId}`,
     });
   }
 }

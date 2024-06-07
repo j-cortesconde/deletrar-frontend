@@ -28,6 +28,7 @@ import CollectionCreate from "./pages/CollectionCreate";
 import CollectionDetail from "./pages/CollectionDetail";
 import UserHidden from "./features/users/UserHidden";
 import CollectionSearchResults from "./pages/CollectionSearchResults";
+import CommentDetail from "./pages/CommentDetail";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -72,6 +73,7 @@ function App() {
               path="collection/:collectionId"
               element={<CollectionDetail />}
             />
+            <Route path="comment/:commentId" element={<CommentDetail />} />
             <Route
               path="collection/:collectionId/post/:postId"
               element={<PostDetail />}

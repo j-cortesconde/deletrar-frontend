@@ -3,13 +3,15 @@ import { useIsOwnComment } from "./useIsOwnComment";
 
 import Loader from "../../ui/Loader";
 
-function CommentOptions({ comment, isReply, handleReply, handleShowReplies }) {
-  const { isOwnComment, isLoggedIn } = useIsOwnComment(comment.author.username);
+function CommentOptions({ comment, handleReply, handleShowReplies }) {
+  const { isOwnComment, isLoggedIn } = useIsOwnComment(
+    comment?.author.username,
+  );
   const { deleteComment, isDeleting } = useDeleteComment();
 
   // FIXME: This and all deletes should ask confirmation
   function handleDelete() {
-    deleteComment(comment._id);
+    deleteComment(comment?._id);
   }
 
   //TODO: Should be a localized spinner
@@ -19,9 +21,9 @@ function CommentOptions({ comment, isReply, handleReply, handleShowReplies }) {
     <div className="mx-2 flex gap-8 pl-20">
       <p
         onClick={handleShowReplies}
-        className={`${comment.replies > 0 && "hover:cursor-pointer"}`}
+        className={`${comment?.replies > 0 && "hover:cursor-pointer"}`}
       >
-        {comment.replies} respuesta{comment.replies === 1 ? "" : "s"}
+        {comment?.replies} respuesta{comment?.replies === 1 ? "" : "s"}
       </p>
 
       {isLoggedIn && (
