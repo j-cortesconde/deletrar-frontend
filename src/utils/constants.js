@@ -74,4 +74,4 @@ export const HIDDEN_COLLECTION_SORT_OPTIONS = [
 export const PAGE_SIZE = 10;
 
 // IMPORTANT. This must only be changed in accordance to the change of the COMMENT_LIMIT constant in backend
-export const COMMENT_PAGE_AMOUNT = 1;
+export const COMMENT_PAGE_AMOUNT = 10;

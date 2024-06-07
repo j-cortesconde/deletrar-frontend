@@ -165,6 +165,14 @@ class AxiosService {
     });
   }
 
+  // TODO: Rview problematic order. Hook, api and service in posts, but calling to route, controller, service and model in users. (same with getSavedCollections)
+  getSavedPosts(username, queryString) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/savedPosts/user/${username}?${queryString}`,
+    });
+  }
+
   createPost(post) {
     return axios({
       method: "POST",
@@ -269,6 +277,14 @@ class AxiosService {
     return axios({
       method: "GET",
       url: `${API_URL}/collections/ownHidden?${queryString}`,
+    });
+  }
+
+  // TODO: Rview problematic order. Hook, api and service in collections, but calling to route, controller, service and model in users. (same with getSavedPosts)
+  getSavedCollections(username, queryString) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/users/savedCollections/user/${username}?${queryString}`,
     });
   }
 

@@ -40,6 +40,16 @@ export async function getOwnHiddenPosts(queryString) {
   }
 }
 
+export async function getSavedPosts(username, queryString) {
+  try {
+    const response = await axiosService.getSavedPosts(username, queryString);
+
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
+
 export async function createPost(post) {
   const response = await axiosService.createPost(post);
   return response.data.data;

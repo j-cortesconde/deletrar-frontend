@@ -29,6 +29,12 @@ function UserLayout() {
         >
           Colecciones
         </NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}
+          to={`/user/${username}/saved`}
+        >
+          Guardados
+        </NavLink>
         {isOwnUser && (
           <NavLink
             className={({ isActive }) =>

@@ -1,3 +1,5 @@
+// FIXME: Se muestran los textos no publicados en las colecciones? Como manejo la despublicacion de un texto incluido en una coleccion? Notificacion al colector? (esto ultimo 2.0)
+
 //FIXME: How does one connect the images from the frontend to the backend?
 // TODO: Should redirect to an error page that recieves as a prop an error message
 // TODO: Should do this not only here. Also in other "if (error)" and many navigates that redirect home or elsewhere

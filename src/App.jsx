@@ -29,6 +29,7 @@ import CollectionDetail from "./pages/CollectionDetail";
 import UserHidden from "./features/users/UserHidden";
 import CollectionSearchResults from "./pages/CollectionSearchResults";
 import CommentDetail from "./pages/CommentDetail";
+import UserSaved from "./features/users/UserSaved";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -82,6 +83,7 @@ function App() {
               <Route index element={<Navigate replace to="posts" />} />
               <Route path="posts" element={<UserPosts />} />
               <Route path="collections" element={<UserCollections />} />
+              <Route path="saved" element={<UserSaved />} />
               <Route path="hidden" element={<UserHidden />} />
               <Route path="subscribers" element={<UserFollowers />} />
               <Route path="subscribed" element={<UserFollowing />} />

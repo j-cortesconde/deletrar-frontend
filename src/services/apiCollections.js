@@ -43,6 +43,19 @@ export async function getOwnHiddenCollections(queryString) {
   }
 }
 
+export async function getSavedCollections(username, queryString) {
+  try {
+    const response = await axiosService.getSavedCollections(
+      username,
+      queryString,
+    );
+
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
+
 export async function createCollection(collection) {
   const response = await axiosService.createCollection(collection);
   return response.data.data;
