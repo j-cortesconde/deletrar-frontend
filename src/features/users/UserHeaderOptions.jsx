@@ -20,6 +20,12 @@ function UserHeaderOptions({ user, onCloseDisplayOptions }) {
         Profile
       </ScrollableLi>
       <ScrollableLi
+        onClick={() => navigate(`/conversations/all`)}
+        selected={selectedIndex === 1}
+      >
+        Conversaciones
+      </ScrollableLi>
+      <ScrollableLi
         onClick={() => navigate(`/settings`)}
         selected={selectedIndex === 1}
       >

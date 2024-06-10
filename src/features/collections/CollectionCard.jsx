@@ -13,7 +13,7 @@ function CollectionCard({ collection }) {
   return (
     <li
       onClick={() => navigate(`/collection/${collection._id}`)}
-      className={`m-5 rounded-md border-2 hover:cursor-pointer ${statusStyle[collection.status || "posted"]}`}
+      className={`m-5 select-none rounded-md border-2 hover:cursor-pointer ${statusStyle[collection.status || "posted"]}`}
     >
       <div className="my-8 flex items-start justify-center">
         <img

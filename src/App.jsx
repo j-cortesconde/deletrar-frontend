@@ -1,3 +1,5 @@
+// TODO: Feed, Compartir, Settings, Help, Reportar. Carga y recuperación de imágenes. UserComments?
+// TODO: Creo que es algo que pasa por cache, pero a veces posts que están ok me los devuelve como "No está disponible", como si status no fuera "posted". Sucedió varias veces estando en CollectionDetail. Revisar. (particularmente despues de haber editado y guardado (como publicar) una colección). INVESTIGAR. Más data: Pareciera que despues (cuando Ctrl S el repositorio), el asunto se arregla, pero dejo de aparecer loggeado (a no ser que tire F5) (De hecho esta funcionalidad de Ctrl S y desloggearme me esta sucediendo en cualquier pantalla, pareceria ser otro issue aparte)
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -30,6 +32,9 @@ import UserHidden from "./features/users/UserHidden";
 import CollectionSearchResults from "./pages/CollectionSearchResults";
 import CommentDetail from "./pages/CommentDetail";
 import UserSaved from "./features/users/UserSaved";
+import ConversationLayout from "./pages/ConversationLayout";
+import ConversationDetail from "./features/conversations/ConversationDetail";
+import ConversationPlaceholder from "./features/conversations/ConversationPlaceholder";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,6 +65,14 @@ function App() {
                 path="collection/create/:collectionId"
                 element={<CollectionCreate />}
               />
+              <Route path="conversations" element={<ConversationLayout />}>
+                <Route index element={<Navigate replace to="all" />} />
+                <Route path="all" element={<ConversationPlaceholder />} />
+                <Route
+                  path="id/:conversationId"
+                  element={<ConversationDetail />}
+                />
+              </Route>
             </Route>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />

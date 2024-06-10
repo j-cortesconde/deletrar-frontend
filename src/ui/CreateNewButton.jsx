@@ -45,10 +45,10 @@ function CreateNewButton() {
   if (isCreating1 || isCreating2) return <Loader />;
 
   return (
-    <div className="fixed bottom-[5%] right-[5%] flex flex-col items-end">
+    <div className="fixed bottom-[2%] right-[1%] flex flex-col items-end">
       <div
         onClick={handleCreateCollection}
-        className={`fixed bottom-[5%] right-[5%] z-0 mr-4 flex items-center gap-2 transition-all duration-300 hover:cursor-pointer ${isActive && "mb-40"}`}
+        className={`fixed bottom-[2%] right-[1%] z-0 mr-4 flex items-center gap-2 transition-all duration-300 hover:cursor-pointer ${isActive && "mb-40"}`}
       >
         {isActive && (
           <p className="font-bold backdrop-blur-xl">Crear Colección</p>
@@ -60,7 +60,7 @@ function CreateNewButton() {
 
       <div
         onClick={handleCreatePost}
-        className={`fixed bottom-[5%] right-[5%] z-0 mr-4 flex items-center gap-2 transition-all duration-300 hover:cursor-pointer ${isActive && "mb-24"}`}
+        className={`fixed bottom-[2%] right-[1%] z-0 mr-4 flex items-center gap-2 transition-all duration-300 hover:cursor-pointer ${isActive && "mb-24"}`}
       >
         {isActive && <p className="font-bold backdrop-blur-xl">Crear Texto</p>}
         <Button size="small" shape="round">
@@ -68,7 +68,7 @@ function CreateNewButton() {
         </Button>
       </div>
 
-      <div className={`z-10 ${isActive ? "" : "fixed bottom-[5%] right-[5%]"}`}>
+      <div className={`z-10 ${isActive ? "" : "fixed bottom-[2%] right-[1%]"}`}>
         <Button
           size="medium"
           shape="round"

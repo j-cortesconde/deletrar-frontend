@@ -20,7 +20,7 @@ function PostCard({ post, collectionId, shouldBePosted = true }) {
   return (
     <li
       onClick={() => navigate(navigateLink)}
-      className={`m-5 break-words rounded-md border-2 hover:cursor-pointer ${statusStyle[post.status || "posted"]}`}
+      className={`m-5 select-none break-words rounded-md border-2 hover:cursor-pointer ${statusStyle[post.status || "posted"]}`}
     >
       <div className="my-8 flex items-start justify-center">
         <img
