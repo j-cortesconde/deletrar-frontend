@@ -364,6 +364,28 @@ class AxiosService {
       url: `${API_URL}/comments/thread/${commentId}`,
     });
   }
+
+  getConversation(username) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/conversations/with/${username}`,
+    });
+  }
+
+  getConversations(username, queryString) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/conversations/user/${username}?${queryString}`,
+    });
+  }
+
+  sendMessage(addressee, message) {
+    return axios({
+      method: "PATCH",
+      url: `${API_URL}/conversations/sendMessage/user/${addressee}`,
+      data: { message },
+    });
+  }
 }
 
 const axiosService = new AxiosService();
