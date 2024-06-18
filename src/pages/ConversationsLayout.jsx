@@ -1,7 +1,18 @@
 import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+
+import socketService from "../services/socketService";
 import ConversationSelection from "../features/conversations/ConversationSelection";
 
 function ConversationsLayout() {
+  useEffect(() => {
+    socketService.connect();
+
+    return () => {
+      socketService.disconnect();
+    };
+  }, []);
+
   return (
     <div className="mx-auto h-full w-3/4">
       <div className="grid h-full grid-cols-[1fr_2fr]">
