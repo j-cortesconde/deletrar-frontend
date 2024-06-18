@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
 
 import { useDebounce } from "../../hooks/useDebounce";
 import { useConversations } from "./useConversations";
 
 import ConversationSearch from "../search/conversation/ConversationSearch";
+import ConversationCard from "./ConversationCard";
 
 function ConversationSelection() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function ConversationSelection() {
   }
 
   return (
-    <div className="flex flex-col justify-start gap-2">
+    <div className="flex w-full flex-col justify-start gap-2">
       <ConversationSearch
         query={query}
         setQuery={setQuery}
@@ -34,9 +34,11 @@ function ConversationSelection() {
 
       {debouncedQuery === "" &&
         conversations?.map((conversation) => (
-          <p key={conversation._id} className="text-left">
-            {conversation.messages[0]}
-          </p>
+          <ConversationCard
+            key={conversation._id}
+            conversation={conversation}
+            handleSelect={handleSelect}
+          />
         ))}
     </div>
   );

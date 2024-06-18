@@ -9,9 +9,9 @@ export async function getConversation(username) {
   }
 }
 
-export async function getConversations(username, queryString) {
+export async function getConversations(queryString) {
   try {
-    const response = await axiosService.getConversations(username, queryString);
+    const response = await axiosService.getConversations(queryString);
 
     return response.data.data;
   } catch (err) {

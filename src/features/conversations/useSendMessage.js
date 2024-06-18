@@ -11,6 +11,7 @@ export function useSendMesssage() {
         ["conversation", data?.addressee],
         data?.conversation,
       );
+      queryClient.invalidateQueries(["conversations"]);
     },
   });
 

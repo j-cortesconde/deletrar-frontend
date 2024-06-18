@@ -16,7 +16,7 @@ export function useConversations() {
 
   const { isLoading, data, error } = useQuery({
     queryKey: ["conversations", ownUser.username, page],
-    queryFn: () => getConversations(ownUser.username, queryString),
+    queryFn: () => getConversations(queryString),
     retry: false,
   });
 
@@ -31,7 +31,7 @@ export function useConversations() {
   if (page < pageCount)
     queryClient.prefetchQuery({
       queryKey: ["conversations", ownUser.username, page + 1],
-      queryFn: () => getConversations(ownUser.username, nextQueryString),
+      queryFn: () => getConversations(nextQueryString),
     });
 
   const previousQueryString = `page=${page - 1}&limit=${limit}`;
@@ -39,7 +39,7 @@ export function useConversations() {
   if (page > 1)
     queryClient.prefetchQuery({
       queryKey: ["conversations", ownUser.username, page - 1],
-      queryFn: () => getConversations(ownUser.username, previousQueryString),
+      queryFn: () => getConversations(previousQueryString),
     });
 
   return { isLoading, conversations, count, error };

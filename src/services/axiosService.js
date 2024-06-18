@@ -372,10 +372,10 @@ class AxiosService {
     });
   }
 
-  getConversations(username, queryString) {
+  getConversations(queryString) {
     return axios({
       method: "GET",
-      url: `${API_URL}/conversations/user/${username}?${queryString}`,
+      url: `${API_URL}/conversations/getOwn?${queryString}`,
     });
   }
 
