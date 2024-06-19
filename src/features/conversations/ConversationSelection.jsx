@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDebounce } from "../../hooks/useDebounce";
@@ -6,6 +6,7 @@ import { useConversations } from "./useConversations";
 
 import ConversationSearch from "../search/conversation/ConversationSearch";
 import ConversationCard from "./ConversationCard";
+import socketService from "../../services/socketService";
 
 function ConversationSelection() {
   const navigate = useNavigate();
@@ -13,10 +14,18 @@ function ConversationSelection() {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
 
-  const { conversations, count, isLoading } = useConversations();
+  const { conversations, count, isLoading, refetch } = useConversations();
 
-  function handleSelect(user) {
-    navigate(`/conversations/user/${user.username}`);
+  useEffect(() => {
+    if (!isLoading) socketService.onNewUserMessage(refetch);
+
+    return () => {
+      socketService.offNewUserMessage();
+    };
+  }, [refetch, isLoading]);
+
+  function handleSelect(addressee) {
+    navigate(`/conversations/user/${addressee.username}`);
   }
 
   return (

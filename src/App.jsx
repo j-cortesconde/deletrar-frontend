@@ -74,7 +74,10 @@ function App() {
                   path="start/:username"
                   element={<ConversationCreate />}
                 /> */}
-                <Route path="user/:username" element={<ConversationDetail />} />
+                <Route
+                  path="user/:addresseeUsername"
+                  element={<ConversationDetail />}
+                />
               </Route>
             </Route>
             <Route index element={<Navigate replace to="home" />} />

@@ -22,17 +22,30 @@ class SocketService {
     this.#socket.emit("leaveConversation", conversationId);
   }
 
-  sendMessage(conversationId) {
-    this.#socket.emit("sendMessage", conversationId);
+  sendMessage(conversationId, addresseeUsername) {
+    this.#socket.emit("sendMessage", conversationId, addresseeUsername);
   }
 
-  onNewMessage(callback) {
-    this.#socket.on("newMessage", callback);
+  onNewConversationMessage(callback) {
+    this.#socket.on("newConversationMessage", callback);
   }
 
-  onError(callback) {
-    this.#socket.on("error", callback);
+  offNewConversationMessage(callback) {
+    this.#socket.off("newConversationMessage");
   }
+
+  onNewUserMessage(callback) {
+    this.#socket.on("newUserMessage", callback);
+  }
+
+  offNewUserMessage(callback) {
+    this.#socket.off("newUserMessage");
+  }
+
+  // TODO: Add or check
+  // onError(callback) {
+  //   this.#socket.on("error", callback);
+  // }
 }
 
 const socketService = new SocketService();

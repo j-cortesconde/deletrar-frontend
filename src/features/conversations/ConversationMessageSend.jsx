@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { MdSend } from "react-icons/md";
-import { useParams } from "react-router-dom";
 
 import { useSendMesssage } from "./useSendMessage";
+import socketService from "../../services/socketService";
 
-function ConversationMessageSend() {
-  const { username } = useParams();
-
+function ConversationMessageSend({ conversationId, addresseeUsername }) {
   const [messageContent, setMessageContent] = useState("");
   const { sendMessage, isSending } = useSendMesssage();
 
@@ -14,7 +12,15 @@ function ConversationMessageSend() {
     e.preventDefault();
     if (!messageContent) return;
 
-    sendMessage({ addressee: username, message: messageContent });
+    sendMessage(
+      { addressee: addresseeUsername, message: messageContent },
+      {
+        onSuccess: () => {
+          socketService.sendMessage(conversationId, addresseeUsername);
+          setMessageContent("");
+        },
+      },
+    );
   }
 
   return (

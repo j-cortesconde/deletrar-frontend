@@ -5,11 +5,12 @@ export function useConversation(username) {
     isLoading,
     data: conversation,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["conversation", username],
     queryFn: () => getConversation(username),
     retry: false,
   });
 
-  return { isLoading, conversation, error };
+  return { isLoading, conversation, error, refetch };
 }

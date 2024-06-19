@@ -1,39 +1,50 @@
 // TODO: Add a newMessage emitter on frontend and a newMessage reciever and broadcaster on backend
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 import { useUser } from "../users/useUser";
 import { useConversation } from "./useConversation";
+import socketService from "../../services/socketService";
 
 import Loader from "../../ui/Loader";
 import ConversationMessageSend from "./ConversationMessageSend";
-import { useEffect } from "react";
-import socketService from "../../services/socketService";
 
 function ConversationDetail() {
-  const { username } = useParams();
+  const { addresseeUsername } = useParams();
 
-  const { user, isLoading: isLoading1, error: error1 } = useUser(username);
+  const {
+    user,
+    isLoading: isLoading1,
+    error: error1,
+  } = useUser(addresseeUsername);
   const {
     conversation,
+    refetch,
     isLoading: isLoading2,
     error: error2,
-  } = useConversation(username);
+  } = useConversation(addresseeUsername);
 
   const conversationId = conversation?._id;
 
   useEffect(() => {
     if (conversationId) {
-      console.log("In join");
       socketService.joinConversation(conversationId);
     }
 
     return () => {
       if (conversationId) {
-        console.log("In Leave");
         socketService.leaveConversation(conversationId);
       }
     };
   }, [conversationId]);
+
+  useEffect(() => {
+    if (conversationId) socketService.onNewConversationMessage(refetch);
+
+    return () => {
+      socketService.offNewConversationMessage();
+    };
+  }, [refetch, conversationId]);
 
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;
@@ -53,7 +64,10 @@ function ConversationDetail() {
           <p key={message._id}>{message.content}</p>
         ))}
       </div>
-      <ConversationMessageSend />
+      <ConversationMessageSend
+        conversationId={conversationId}
+        addresseeUsername={addresseeUsername}
+      />
     </div>
   );
 }

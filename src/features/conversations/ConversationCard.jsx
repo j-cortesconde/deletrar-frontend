@@ -6,7 +6,6 @@ import { useQueryClient } from "@tanstack/react-query";
 function ConversationCard({ conversation, handleSelect }) {
   const queryClient = useQueryClient();
   const ownUser = queryClient.getQueryData(["user"]);
-  console.log(conversation);
 
   const addressee = conversation.participants.find(
     (participant) => participant.username !== ownUser.username,
