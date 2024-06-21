@@ -20,8 +20,10 @@ function ConversationsLayout() {
           <p className="text-left">Conversaciones</p>
           <ConversationSelection />
         </div>
-        <div className="col-span-2 bg-slate-300 p-5">
-          <Outlet />
+        <div className="col-span-2 flex h-full flex-col bg-slate-300 p-5">
+          <div className="flex-1 overflow-y-auto">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-// TODO: Style and make it work
+// TODO: Fix so that it never exceeds screen size and instead the space for messages has scrollbar (and so that the div is focused at the bottom of its scroll at start)
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -60,7 +60,7 @@ function ConversationDetail() {
         />
         <p>{addressee.name}</p>
       </div>
-      <div className="mt-4 grow">
+      <div className="mt-4 grow overflow-y-auto">
         {conversation?.messages?.map((message, i) => (
           <ConversationMessage
             key={message._id}
