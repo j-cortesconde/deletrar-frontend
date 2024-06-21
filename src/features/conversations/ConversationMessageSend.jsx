@@ -27,6 +27,7 @@ function ConversationMessageSend({ conversationId, addresseeUsername }) {
     <form className="flex items-center justify-center gap-2">
       <input
         placeholder="Aa"
+        autoFocus
         value={messageContent}
         onChange={(e) => setMessageContent(e.target.value)}
       />

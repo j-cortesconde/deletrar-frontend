@@ -1,4 +1,4 @@
-// TODO: Add a newMessage emitter on frontend and a newMessage reciever and broadcaster on backend
+// TODO: Style and make it work
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -8,12 +8,13 @@ import socketService from "../../services/socketService";
 
 import Loader from "../../ui/Loader";
 import ConversationMessageSend from "./ConversationMessageSend";
+import ConversationMessage from "./ConversationMessage";
 
 function ConversationDetail() {
   const { addresseeUsername } = useParams();
 
   const {
-    user,
+    user: addressee,
     isLoading: isLoading1,
     error: error1,
   } = useUser(addresseeUsername);
@@ -54,14 +55,19 @@ function ConversationDetail() {
       <div className="mx-10 flex items-center justify-start gap-2 border-b-2 border-slate-400 border-opacity-50 pb-2">
         <img
           className="h-20 w-20 rounded-full"
-          src={`/users/${user.photo}`}
-          alt={`${user.username}`}
+          src={`/users/${addressee.photo}`}
+          alt={`${addressee.username}`}
         />
-        <p>{user.name}</p>
+        <p>{addressee.name}</p>
       </div>
-      <div className="grow">
-        {conversation?.messages?.map((message) => (
-          <p key={message._id}>{message.content}</p>
+      <div className="mt-4 grow">
+        {conversation?.messages?.map((message, i) => (
+          <ConversationMessage
+            key={message._id}
+            message={message}
+            addressee={addressee}
+            previousMessageTime={conversation.messages[i - 1]?.timestamp}
+          />
         ))}
       </div>
       <ConversationMessageSend

@@ -35,7 +35,6 @@ import UserSaved from "./features/users/UserSaved";
 import ConversationsLayout from "./pages/ConversationsLayout";
 import ConversationDetail from "./features/conversations/ConversationDetail";
 import ConversationPlaceholder from "./features/conversations/ConversationPlaceholder";
-import ConversationCreate from "./features/conversations/ConversationCreate";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,11 +68,6 @@ function App() {
               <Route path="conversations" element={<ConversationsLayout />}>
                 <Route index element={<Navigate replace to="all" />} />
                 <Route path="all" element={<ConversationPlaceholder />} />
-                {/* //TODO: Extraer */}
-                {/* <Route
-                  path="start/:username"
-                  element={<ConversationCreate />}
-                /> */}
                 <Route
                   path="user/:addresseeUsername"
                   element={<ConversationDetail />}

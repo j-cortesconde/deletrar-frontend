@@ -1,7 +1,5 @@
-import { IoCheckmark } from "react-icons/io5";
-import { IoCheckmarkDone } from "react-icons/io5";
-
 import { useQueryClient } from "@tanstack/react-query";
+import { minimumRelativeDate } from "../../utils/dateFormat";
 
 function ConversationCard({ conversation, handleSelect }) {
   const queryClient = useQueryClient();
@@ -23,14 +21,13 @@ function ConversationCard({ conversation, handleSelect }) {
       />
       <div className="flex w-full min-w-0 flex-col gap-2">
         <p className="truncate text-left text-2xl">{addressee.name}</p>
-        <div className="flex items-center justify-start gap-2">
-          {conversation.lastMessage.messenger === ownUser.username &&
-          conversation.lastMessage.read ? (
-            <IoCheckmarkDone />
-          ) : (
-            <IoCheckmark />
-          )}
-          <p className="truncate text-xl">{conversation.lastMessage.content}</p>
+        <div className="flex w-full items-baseline justify-between gap-2">
+          <p className="truncate text-left text-xl">
+            {conversation.lastMessage.content}
+          </p>
+          <p className="text-lg capitalize">
+            {minimumRelativeDate(conversation.lastMessage.timestamp)}
+          </p>
         </div>
       </div>
     </div>
