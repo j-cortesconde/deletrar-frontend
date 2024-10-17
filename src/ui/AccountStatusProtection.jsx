@@ -10,6 +10,7 @@ function AccountStatusProtection({ children }) {
   const { logout } = useLogout();
 
   // 1. Load the authenticated user
+  //
   const {
     isLoading,
     isAuthenticated,
