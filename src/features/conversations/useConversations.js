@@ -42,5 +42,11 @@ export function useConversations() {
       queryFn: () => getConversations(previousQueryString),
     });
 
-  return { isLoading, conversations, count, error, refetch };
+  return {
+    isLoading,
+    conversations,
+    count,
+    error,
+    refetch,
+  };
 }

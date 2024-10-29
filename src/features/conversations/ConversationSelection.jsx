@@ -15,7 +15,7 @@ function ConversationSelection() {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
 
-  const { conversations, count, isLoading, refetch } = useConversations();
+  const { conversations, isLoading, refetch } = useConversations();
 
   useEffect(() => {
     if (!isLoading) socketService.onNewUserMessage(refetch);

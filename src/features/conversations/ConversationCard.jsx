@@ -1,5 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { minimumRelativeDate } from "../../utils/dateFormat";
+import { IoCheckmarkDoneOutline, IoCheckmarkDoneSharp } from "react-icons/io5";
+import { SiGooglemessages } from "react-icons/si";
 
 function ConversationCard({ conversation, handleSelect }) {
   const queryClient = useQueryClient();
@@ -20,14 +22,28 @@ function ConversationCard({ conversation, handleSelect }) {
         alt={addressee.name}
       />
       <div className="flex w-full min-w-0 flex-col gap-2">
-        <p className="truncate text-left text-2xl">{addressee.name}</p>
         <div className="flex w-full items-baseline justify-between gap-2">
-          <p className="truncate text-left text-xl">
-            {conversation.lastMessage.content}
-          </p>
-          <p className="text-lg capitalize">
+          <p className="truncate text-left text-2xl">{addressee.name}</p>
+          <p className="text-xl capitalize">
             {minimumRelativeDate(conversation.lastMessage.timestamp)}
           </p>
+        </div>
+        <div className="flex w-full items-start justify-between gap-2">
+          <div className="flex w-full items-center gap-1 truncate">
+            {conversation.lastMessage.messenger === ownUser.username &&
+              (conversation.read ? (
+                <IoCheckmarkDoneSharp className="w-8 text-black" />
+              ) : (
+                <IoCheckmarkDoneOutline className="w-8" />
+              ))}
+            <p className="truncate text-left text-2xl">
+              {conversation.lastMessage.content}
+            </p>
+          </div>
+          <div>
+            {conversation.lastMessage.messenger !== ownUser.username &&
+              !conversation.read && <SiGooglemessages className="h-8 w-8" />}
+          </div>
         </div>
       </div>
     </div>
