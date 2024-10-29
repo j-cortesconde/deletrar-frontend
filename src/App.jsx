@@ -36,6 +36,7 @@ import ConversationsLayout from "./pages/ConversationsLayout";
 import ConversationDetail from "./features/conversations/ConversationDetail";
 import ConversationPlaceholder from "./features/conversations/ConversationPlaceholder";
 import ConversationCreate from "./features/conversations/ConversationCreate";
+import LoggedInProtection from "./ui/LoggedInProtection";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -116,13 +117,15 @@ function App() {
                 element={<InitializeAccount />}
               />
             </Route>
-            <Route path="account/request" element={<RequestAccount />} />
-            <Route path="account/login" element={<Login />} />
-            <Route path="password/forgot" element={<ForgotPassword />} />
-            <Route
-              path="password/reset/:resetToken"
-              element={<ResetPassword />}
-            />
+            <Route element={<LoggedInProtection />}>
+              <Route path="account/request" element={<RequestAccount />} />
+              <Route path="account/login" element={<Login />} />
+              <Route path="password/forgot" element={<ForgotPassword />} />
+              <Route
+                path="password/reset/:resetToken"
+                element={<ResetPassword />}
+              />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

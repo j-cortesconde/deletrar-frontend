@@ -13,7 +13,7 @@ function ConversationSelection() {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
 
-  const { conversations, count, isLoading } = useConversations();
+  const { conversations } = useConversations();
 
   function handleSelect(user) {
     navigate(`/conversations/user/${user.username}`);
