@@ -27,7 +27,7 @@ function CommentData({ comment }) {
             onClick={() => navigate(`/comment/${comment?._id}`)}
             className="text-left text-xl first-letter:capitalize hover:cursor-pointer"
           >
-            {dateDistance(comment?.createdAt)}
+            {dateDistance(comment?.postedAt)}
           </p>
         </div>
       </div>

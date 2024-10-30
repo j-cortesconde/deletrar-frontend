@@ -38,7 +38,7 @@ function MainCommentData({ comment }) {
       </div>
       <div className="mx-2 my-2 pl-2">
         <p className="text-left text-2xl first-letter:capitalize">
-          {timeDate(comment?.createdAt)}
+          {timeDate(comment?.postedAt)}
         </p>
       </div>
     </div>
