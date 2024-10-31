@@ -3,15 +3,14 @@ import { useIsOwnComment } from "./useIsOwnComment";
 
 import Loader from "../../ui/Loader";
 
+// TODO: Maybe one day add functionality here and in BE so that post/collection/replyingTo document owner can delete
 function CommentOptions({
   comment,
   handleReply,
   handleShowReplies,
   isMainComment,
 }) {
-  const { isOwnComment, isLoggedIn } = useIsOwnComment(
-    comment?.author.username,
-  );
+  const { isOwnComment } = useIsOwnComment(comment?.author?.username);
   const { deleteComment, isDeleting } = useDeleteComment();
 
   // FIXME: This and all deletes should ask confirmation
@@ -33,14 +32,10 @@ function CommentOptions({
         {comment?.replies} respuesta{comment?.replies === 1 ? "" : "s"}
       </p>
 
-      {isLoggedIn && (
-        <>
-          <p> - </p>
-          <p onClick={handleReply} className="hover:cursor-pointer">
-            Responder
-          </p>
-        </>
-      )}
+      <p> - </p>
+      <p onClick={handleReply} className="hover:cursor-pointer">
+        Responder
+      </p>
 
       {isOwnComment && (
         <>

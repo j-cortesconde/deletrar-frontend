@@ -62,7 +62,9 @@ function PostDetail() {
 
       <CollectionNavigate />
 
-      {isLoggedIn && <LikeCommentShare docId={postId} docType="post" />}
+      {/* {isLoggedIn && <LikeCommentShare docId={postId} docType="post" />} */}
+      <LikeCommentShare docId={postId} docType="post" isLoggedIn={isLoggedIn} />
+
       <PostComments postId={postId} />
     </div>
   );
