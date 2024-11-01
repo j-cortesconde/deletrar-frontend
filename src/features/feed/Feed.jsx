@@ -1,6 +1,6 @@
 import Loader from "../../ui/Loader";
 import CollectionCard from "../collections/CollectionCard";
-import PostCard from "../posts/PostCard";
+import FeedPost from "./FeedPost";
 import { useFeed } from "./useFeed";
 
 function Feed() {
@@ -9,19 +9,23 @@ function Feed() {
   if (isLoading) return <Loader />;
 
   return (
-    <ul>
-      {feed?.map((feedElement) => {
-        if (feedElement.documentType === "post")
-          return <PostCard key={feedElement._id} post={feedElement} />;
-        if (feedElement.documentType === "collection")
+    <div className="flex justify-center">
+      <ul className="flex w-3/4 flex-col items-center justify-between gap-8">
+        {feed?.map((feedElement) => {
+          if (feedElement.documentType === "post")
+            return <FeedPost key={feedElement._id} post={feedElement} />;
+          if (feedElement.documentType === "collection")
+            return (
+              <CollectionCard key={feedElement._id} collection={feedElement} />
+            );
           return (
-            <CollectionCard key={feedElement._id} collection={feedElement} />
+            <p
+              key={feedElement._id}
+            >{`Acá va un ${feedElement.documentType}`}</p>
           );
-        return (
-          <p key={feedElement._id}>{`Acá va un ${feedElement.documentType}`}</p>
-        );
-      })}
-    </ul>
+        })}
+      </ul>
+    </div>
   );
 }
 
