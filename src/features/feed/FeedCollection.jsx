@@ -2,31 +2,50 @@
 
 import { Link } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
+import { useEffect, useState } from "react";
 
-function FeedPost({ post }) {
+function FeedCollection({ collection }) {
+  const [showAllPosts, setShowAllPosts] = useState(false);
+  const [shownPosts, setShownPosts] = useState(collection.posts.slice(0, 3));
+
+  const handleShowAll = () => {
+    setShowAllPosts((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (showAllPosts) {
+      setShownPosts(collection.posts);
+    } else {
+      setShownPosts(collection.posts.slice(0, 3));
+    }
+  }, [showAllPosts, collection.posts]);
+
   return (
     <div className="w-1/2 rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
       {/* <!-- User Info with Three-Dot Menu --> */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex h-full w-full items-start gap-2 truncate">
           <Link
-            to={`/user/${post.author.username}`}
+            to={`/user/${collection.collector.username}`}
             className="h-20 w-20 flex-shrink-0"
           >
             <img
-              src={`/users/${post.author.photo}`}
+              src={`/users/${collection.collector.photo}`}
               alt="User Avatar"
               className="h-20 w-20 rounded-full"
             />
           </Link>
           <div className="flex w-full flex-col justify-between gap-1 truncate">
-            <Link to={`/user/${post.author.username}`} className="truncate">
+            <Link
+              to={`/user/${collection.collector.username}`}
+              className="truncate"
+            >
               <p className=" truncate font-semibold text-gray-800">
-                {post.author.name}
+                {collection.collector.name}
               </p>
             </Link>
             <p className="text-xl text-gray-500">
-              Publicado {dateDistance(post.postedAt)}
+              Publicado {dateDistance(collection.postedAt)}
             </p>
           </div>
         </div>
@@ -53,18 +72,25 @@ function FeedPost({ post }) {
       </div>
       {/* <!-- Title --> */}
       <div className="mb-4">
-        <Link to={`/post/${post._id}`}>
+        <Link to={`/collection/${collection._id}`}>
           <p className="inline break-words font-medium text-gray-800 underline underline-offset-2">
-            {post.title}
+            {collection.title}
           </p>
         </Link>
+        {/* <!-- Subtitle --> */}
+        {collection.subtitle && (
+          <p className="break-words text-gray-800">{collection.subtitle}</p>
+        )}
       </div>
       {/* <!-- Image --> */}
-      {post.coverImage && (
+      {collection.coverImage && (
         <div className="mb-4">
-          <Link to={`/post/${post._id}`} className="flex justify-center">
+          <Link
+            to={`/collection/${collection._id}`}
+            className="flex justify-center"
+          >
             <img
-              src={`/posts/${post.coverImage}`}
+              src={`/collections/${collection.coverImage}`}
               alt="Post Image"
               className="h-48 w-full rounded-md object-cover"
             />
@@ -72,11 +98,38 @@ function FeedPost({ post }) {
         </div>
       )}
       {/* <!-- Summary --> */}
-      {post.summary && (
-        <div className="">
-          <p className="break-words text-gray-800">{post.summary}</p>
+      {collection.summary && (
+        <div className="mb-4">
+          <p className="break-words text-gray-800">{collection.summary}</p>
         </div>
       )}
+      {/* <!-- Posts --> */}
+      <div className="text-gray-800">
+        <p>Textos de esta colección:</p>
+        <ul className="indent-4">
+          {shownPosts.map((post) => (
+            <li key={post._id} className="mb-1">
+              <div className="line-clamp-2">
+                <Link to={`/post/${post._id}`} className=" font-semibold">
+                  - {post.title}
+                </Link>
+                <span> de </span>
+                <Link to={`/user/${post.author.username}`} className="italic">
+                  {post.author.name}
+                </Link>
+              </div>
+            </li>
+          ))}
+        </ul>
+        {collection.posts.length > 3 && (
+          <p
+            onClick={handleShowAll}
+            className="ml-10 inline underline hover:cursor-pointer"
+          >
+            Ver {showAllPosts ? "menos" : "todos"}
+          </p>
+        )}
+      </div>
 
       {/* <!-- Like and Comment Section --> */}
       {/* <div className="flex items-center justify-between text-gray-500">
@@ -121,4 +174,4 @@ function FeedPost({ post }) {
   );
 }
 
-export default FeedPost;
+export default FeedCollection;

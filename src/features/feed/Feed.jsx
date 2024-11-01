@@ -1,5 +1,5 @@
 import Loader from "../../ui/Loader";
-import CollectionCard from "../collections/CollectionCard";
+import FeedCollection from "./FeedCollection";
 import FeedPost from "./FeedPost";
 import { useFeed } from "./useFeed";
 
@@ -16,7 +16,7 @@ function Feed() {
             return <FeedPost key={feedElement._id} post={feedElement} />;
           if (feedElement.documentType === "collection")
             return (
-              <CollectionCard key={feedElement._id} collection={feedElement} />
+              <FeedCollection key={feedElement._id} collection={feedElement} />
             );
           return (
             <p
