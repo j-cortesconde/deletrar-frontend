@@ -91,7 +91,7 @@ function FeedCollection({ collection }) {
           >
             <img
               src={`/collections/${collection.coverImage}`}
-              alt="Post Image"
+              alt="Collection Cover"
               className="h-48 w-full rounded-md object-cover"
             />
           </Link>

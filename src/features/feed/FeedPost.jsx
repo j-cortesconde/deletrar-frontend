@@ -65,7 +65,7 @@ function FeedPost({ post }) {
           <Link to={`/post/${post._id}`} className="flex justify-center">
             <img
               src={`/posts/${post.coverImage}`}
-              alt="Post Image"
+              alt="Post Cover"
               className="h-48 w-full rounded-md object-cover"
             />
           </Link>
