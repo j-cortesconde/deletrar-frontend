@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
 import FeedPost from "./FeedPost";
 import FeedCollection from "./FeedCollection";
+import FeedComment from "./FeedComment";
 
 function FeedShared({ shared }) {
-  console.log(shared);
   return (
     <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
       {/* <!-- User Info with Three-Dot Menu --> */}
@@ -23,11 +23,13 @@ function FeedShared({ shared }) {
             />
           </Link>
           <div className="flex w-full flex-col justify-between gap-1 truncate">
-            <Link to={`/user/${shared.sharer.username}`} className="truncate">
-              <p className=" truncate font-semibold text-gray-800">
-                {shared.sharer.name}
-              </p>
-            </Link>
+            <div className="truncate">
+              <Link to={`/user/${shared.sharer.username}`} className="truncate">
+                <p className=" inline truncate font-semibold text-gray-800">
+                  {shared.sharer.name}
+                </p>
+              </Link>
+            </div>
             <p className="text-xl text-gray-500">
               Compartido {dateDistance(shared.postedAt)}
             </p>
@@ -71,6 +73,7 @@ function FeedShared({ shared }) {
         {shared.sharedCollection && !shared.sharedPost && (
           <FeedCollection collection={shared.sharedCollection} />
         )}
+        {shared.sharedComment && <FeedComment comment={shared.sharedComment} />}
       </div>
 
       {/* <!-- Like and Comment Section --> */}

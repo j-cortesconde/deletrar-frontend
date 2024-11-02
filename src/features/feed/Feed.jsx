@@ -1,5 +1,6 @@
 import Loader from "../../ui/Loader";
 import FeedCollection from "./FeedCollection";
+import FeedComment from "./FeedComment";
 import FeedPost from "./FeedPost";
 import FeedShared from "./FeedShared";
 import { useFeed } from "./useFeed";
@@ -24,10 +25,8 @@ function Feed() {
           if (feedElement.documentType === "shared")
             return <FeedShared key={feedElement._id} shared={feedElement} />;
 
-          //   if (feedElement.documentType === "comment")
-          //     return (
-          //       <FeedCollection key={feedElement._id} collection={feedElement} />
-          //     );
+          if (feedElement.documentType === "comment")
+            return <FeedComment key={feedElement._id} comment={feedElement} />;
           return (
             <p
               key={feedElement._id}

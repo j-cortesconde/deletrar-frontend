@@ -36,14 +36,16 @@ function FeedCollection({ collection }) {
             />
           </Link>
           <div className="flex w-full flex-col justify-between gap-1 truncate">
-            <Link
-              to={`/user/${collection.collector.username}`}
-              className="truncate"
-            >
-              <p className=" truncate font-semibold text-gray-800">
-                {collection.collector.name}
-              </p>
-            </Link>
+            <div className="truncate">
+              <Link
+                to={`/user/${collection.collector.username}`}
+                className="truncate"
+              >
+                <p className=" inline truncate font-semibold text-gray-800">
+                  {collection.collector.name}
+                </p>
+              </Link>
+            </div>
             <p className="text-xl text-gray-500">
               Publicado {dateDistance(collection.postedAt)}
             </p>

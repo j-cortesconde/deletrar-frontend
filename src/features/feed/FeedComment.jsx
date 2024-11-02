@@ -1,35 +1,40 @@
-// Base Component sourced and extracted from https://www.creative-tim.com/twcomponents/component/social-media-layout
-
 import { Link } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
 
-function FeedPost({ post, fromCollection }) {
+function FeedComment({ comment }) {
+  console.log(comment);
   return (
     <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
       {/* <!-- User Info with Three-Dot Menu --> */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex h-full w-full items-start gap-2 truncate">
           <Link
-            to={`/user/${post.author.username}`}
+            to={`/user/${comment.author.username}`}
             className="h-20 w-20 flex-shrink-0"
           >
             <img
-              src={`/users/${post.author.photo}`}
+              src={`/users/${comment.author.photo}`}
               alt="User Avatar"
               className="h-20 w-20 rounded-full"
             />
           </Link>
           <div className="flex w-full flex-col justify-between gap-1 truncate">
             <div className="truncate">
-              <Link to={`/user/${post.author.username}`} className="truncate">
+              <Link
+                to={`/user/${comment.author.username}`}
+                className="truncate"
+              >
                 <p className=" inline truncate font-semibold text-gray-800">
-                  {post.author.name}
+                  {comment.author.name}
                 </p>
               </Link>
             </div>
-            <p className="text-xl text-gray-500">
-              Publicado {dateDistance(post.postedAt)}
-            </p>
+
+            <Link to={`/comment/${comment._id}`}>
+              <p className="text-xl text-gray-500">
+                Escrito {dateDistance(comment.postedAt)}
+              </p>
+            </Link>
           </div>
         </div>
         <div className="cursor-pointer text-gray-500">
@@ -53,54 +58,48 @@ function FeedPost({ post, fromCollection }) {
           </button>
         </div>
       </div>
-      {/* <!-- Title --> */}
-      <div className="mb-4">
-        <Link to={`/post/${post._id}`}>
-          <p className="inline break-words font-medium text-gray-800 underline underline-offset-2">
-            {post.title}
-          </p>
-        </Link>
-        {/* <!-- Post's Collection --> */}
-        {fromCollection && (
-          <div className="text-2xl">
-            <div className="ml-4 line-clamp-2 indent-4">
-              <span>Incluído en </span>
-              <Link
-                to={`/collection/${fromCollection._id}`}
-                className=" font-semibold"
-              >
-                {fromCollection.title}
-              </Link>
-              <span> de </span>
-              <Link
-                to={`/user/${fromCollection.collector.username}`}
-                className="italic"
-              >
-                {fromCollection.collector.name}
-              </Link>
-              <span></span>
-            </div>
+
+      <Link to={`/comment/${comment._id}`}>
+        {/* <!-- Comment Origin --> */}
+        {comment.replyingTo && (
+          <div className="truncate break-words text-xl text-gray-500">
+            <p className="truncate">
+              En respuesta a {comment.replyingTo.author.name}
+            </p>
           </div>
         )}
-      </div>
-      {/* <!-- Image --> */}
-      {post.coverImage && (
-        <div className="mb-4">
-          <Link to={`/post/${post._id}`} className="flex justify-center">
-            <img
-              src={`/posts/${post.coverImage}`}
-              alt="Post Cover"
-              className="h-48 w-full rounded-md object-cover"
-            />
-          </Link>
-        </div>
-      )}
-      {/* <!-- Summary --> */}
-      {post.summary && (
-        <div className="">
-          <p className="break-words text-gray-800">{post.summary}</p>
-        </div>
-      )}
+        <p className="mb-2 line-clamp-2 break-words text-xl text-gray-500">
+          <span>En el marco</span>
+          {comment.targetPost && (
+            <>
+              <span> del texto </span>
+              <Link
+                to={`${comment.targetCollection ? `/collection/${comment.targetCollection._id}` : ""}/post/${comment.targetPost._id}`}
+                className="font-medium"
+              >
+                {comment.targetPost.title}
+              </Link>
+            </>
+          )}
+          {comment.targetCollection && (
+            <>
+              <span> de la colección </span>
+              <Link
+                to={`/collection/${comment.targetCollection._id}`}
+                className="font-medium"
+              >
+                {comment.targetCollection.title}
+              </Link>
+            </>
+          )}
+        </p>
+        {/* <!-- Content--> */}
+        {comment.content && (
+          <div className="pb-4">
+            <p className="break-words text-gray-800">{comment.content}</p>
+          </div>
+        )}
+      </Link>
 
       {/* <!-- Like and Comment Section --> */}
       {/* <div className="flex items-center justify-between text-gray-500">
@@ -145,4 +144,4 @@ function FeedPost({ post, fromCollection }) {
   );
 }
 
-export default FeedPost;
+export default FeedComment;
