@@ -21,7 +21,7 @@ function FeedCollection({ collection }) {
   }, [showAllPosts, collection.posts]);
 
   return (
-    <div className="w-1/2 rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
+    <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
       {/* <!-- User Info with Three-Dot Menu --> */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex h-full w-full items-start gap-2 truncate">

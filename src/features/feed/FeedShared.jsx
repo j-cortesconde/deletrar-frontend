@@ -2,31 +2,34 @@
 
 import { Link } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
+import FeedPost from "./FeedPost";
+import FeedCollection from "./FeedCollection";
 
-function FeedPost({ post, fromCollection }) {
+function FeedShared({ shared }) {
+  console.log(shared);
   return (
     <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
       {/* <!-- User Info with Three-Dot Menu --> */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex h-full w-full items-start gap-2 truncate">
           <Link
-            to={`/user/${post.author.username}`}
+            to={`/user/${shared.sharer.username}`}
             className="h-20 w-20 flex-shrink-0"
           >
             <img
-              src={`/users/${post.author.photo}`}
+              src={`/users/${shared.sharer.photo}`}
               alt="User Avatar"
               className="h-20 w-20 rounded-full"
             />
           </Link>
           <div className="flex w-full flex-col justify-between gap-1 truncate">
-            <Link to={`/user/${post.author.username}`} className="truncate">
+            <Link to={`/user/${shared.sharer.username}`} className="truncate">
               <p className=" truncate font-semibold text-gray-800">
-                {post.author.name}
+                {shared.sharer.name}
               </p>
             </Link>
             <p className="text-xl text-gray-500">
-              Publicado {dateDistance(post.postedAt)}
+              Compartido {dateDistance(shared.postedAt)}
             </p>
           </div>
         </div>
@@ -51,54 +54,24 @@ function FeedPost({ post, fromCollection }) {
           </button>
         </div>
       </div>
-      {/* <!-- Title --> */}
+      {/* <!-- Content--> */}
+      {shared.content && (
+        <div className="mb-4">
+          <p className="break-words text-gray-800">{shared.content}</p>
+        </div>
+      )}
+      {/* <!-- Shared Content --> */}
       <div className="mb-4">
-        <Link to={`/post/${post._id}`}>
-          <p className="inline break-words font-medium text-gray-800 underline underline-offset-2">
-            {post.title}
-          </p>
-        </Link>
-        {/* <!-- Post's Collection --> */}
-        {fromCollection && (
-          <div className="text-2xl">
-            <div className="ml-4 line-clamp-2 indent-4">
-              <span>Incluído en </span>
-              <Link
-                to={`/collection/${fromCollection._id}`}
-                className=" font-semibold"
-              >
-                {fromCollection.title}
-              </Link>
-              <span> de </span>
-              <Link
-                to={`/user/${fromCollection.collector.username}`}
-                className="italic"
-              >
-                {fromCollection.collector.name}
-              </Link>
-              <span></span>
-            </div>
-          </div>
+        {shared.sharedPost && (
+          <FeedPost
+            post={shared.sharedPost}
+            fromCollection={shared.sharedCollection}
+          />
+        )}
+        {shared.sharedCollection && !shared.sharedPost && (
+          <FeedCollection collection={shared.sharedCollection} />
         )}
       </div>
-      {/* <!-- Image --> */}
-      {post.coverImage && (
-        <div className="mb-4">
-          <Link to={`/post/${post._id}`} className="flex justify-center">
-            <img
-              src={`/posts/${post.coverImage}`}
-              alt="Post Cover"
-              className="h-48 w-full rounded-md object-cover"
-            />
-          </Link>
-        </div>
-      )}
-      {/* <!-- Summary --> */}
-      {post.summary && (
-        <div className="">
-          <p className="break-words text-gray-800">{post.summary}</p>
-        </div>
-      )}
 
       {/* <!-- Like and Comment Section --> */}
       {/* <div className="flex items-center justify-between text-gray-500">
@@ -143,4 +116,4 @@ function FeedPost({ post, fromCollection }) {
   );
 }
 
-export default FeedPost;
+export default FeedShared;
