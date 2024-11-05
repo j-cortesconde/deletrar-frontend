@@ -390,7 +390,7 @@ class AxiosService {
   getFeed() {
     return axios({
       method: "GET",
-      url: `${API_URL}/users/feed`,
+      url: `${API_URL}/feed`,
     });
   }
 }
