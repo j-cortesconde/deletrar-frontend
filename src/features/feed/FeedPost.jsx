@@ -2,6 +2,7 @@
 
 import { Link } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
+import TruncatedText from "../../ui/TruncatedText";
 
 function FeedPost({ post, fromCollection }) {
   return (
@@ -96,11 +97,7 @@ function FeedPost({ post, fromCollection }) {
         </div>
       )}
       {/* <!-- Summary --> */}
-      {post.summary && (
-        <div className="">
-          <p className="break-words text-gray-800">{post.summary}</p>
-        </div>
-      )}
+      {post.summary && <TruncatedText text={post.summary} maxLines={4} />}
 
       {/* <!-- Like and Comment Section --> */}
       {/* <div className="flex items-center justify-between text-gray-500">

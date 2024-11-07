@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
+import TruncatedText from "../../ui/TruncatedText";
 
 function FeedComment({ comment }) {
-  console.log(comment);
   return (
     <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
       {/* <!-- User Info with Three-Dot Menu --> */}
@@ -73,31 +73,21 @@ function FeedComment({ comment }) {
           {comment.targetPost && (
             <>
               <span> del texto </span>
-              <Link
-                to={`${comment.targetCollection ? `/collection/${comment.targetCollection._id}` : ""}/post/${comment.targetPost._id}`}
-                className="font-medium"
-              >
-                {comment.targetPost.title}
-              </Link>
+              <span className="font-medium">{comment.targetPost.title}</span>
             </>
           )}
           {comment.targetCollection && (
             <>
               <span> de la colección </span>
-              <Link
-                to={`/collection/${comment.targetCollection._id}`}
-                className="font-medium"
-              >
+              <span className="font-medium">
                 {comment.targetCollection.title}
-              </Link>
+              </span>
             </>
           )}
         </p>
         {/* <!-- Content--> */}
         {comment.content && (
-          <div className="pb-4">
-            <p className="break-words text-gray-800">{comment.content}</p>
-          </div>
+          <TruncatedText text={comment.content} maxLines={4} />
         )}
       </Link>
 

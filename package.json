@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "github:tailwindcss/typography",
     "@tanstack/react-query": "^5.29.0",
     "@tanstack/react-query-devtools": "^5.29.0",

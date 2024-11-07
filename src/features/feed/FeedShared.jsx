@@ -5,6 +5,7 @@ import { dateDistance } from "../../utils/dateFormat";
 import FeedPost from "./FeedPost";
 import FeedCollection from "./FeedCollection";
 import FeedComment from "./FeedComment";
+import TruncatedText from "../../ui/TruncatedText";
 
 function FeedShared({ shared }) {
   return (
@@ -57,13 +58,9 @@ function FeedShared({ shared }) {
         </div>
       </div>
       {/* <!-- Content--> */}
-      {shared.content && (
-        <div className="mb-4">
-          <p className="break-words text-gray-800">{shared.content}</p>
-        </div>
-      )}
+      {shared.content && <TruncatedText text={shared.content} maxLines={4} />}
       {/* <!-- Shared Content --> */}
-      <div className="mb-4">
+      <div className="my-4">
         {shared.sharedPost && (
           <FeedPost
             post={shared.sharedPost}

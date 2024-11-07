@@ -3,6 +3,7 @@
 import { Link } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
 import { useEffect, useState } from "react";
+import TruncatedText from "../../ui/TruncatedText";
 
 function FeedCollection({ collection }) {
   const [showAllPosts, setShowAllPosts] = useState(false);
@@ -101,12 +102,10 @@ function FeedCollection({ collection }) {
       )}
       {/* <!-- Summary --> */}
       {collection.summary && (
-        <div className="mb-4">
-          <p className="break-words text-gray-800">{collection.summary}</p>
-        </div>
+        <TruncatedText text={collection.summary} maxLines={4} />
       )}
       {/* <!-- Posts --> */}
-      <div className="text-gray-800">
+      <div className="mt-4 text-gray-800">
         <p>Textos de esta colección:</p>
         <ul className="indent-4">
           {shownPosts.map((post) => (
