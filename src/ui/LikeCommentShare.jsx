@@ -5,7 +5,6 @@ import {
   FaRegBookmark,
   FaBookmark,
   FaRegShareSquare,
-  FaShareSquare,
 } from "react-icons/fa";
 
 import { useSaveUnsavePostCollection } from "../features/users/useSaveUnsavePostCollection";
@@ -13,12 +12,11 @@ import { useSaveUnsavePostCollection } from "../features/users/useSaveUnsavePost
 import CommentCreate from "../features/comments/CommentCreate";
 import Loader from "./Loader";
 import { useHaveSaved } from "../features/users/useHaveSaved";
+import ShareModal from "../features/shareds/ShareModal";
 
 // docType must be one of ['post', 'collection']
 function LikeCommentShare({ docId, docType, isLoggedIn }) {
   const [isCommenting, setIsCommenting] = useState(false);
-  // const [isLiked, setIsLiked] = useState(false);
-  const [isShared, setIsShared] = useState(false);
 
   const { isPending, saveUnsavePostCollection } = useSaveUnsavePostCollection();
   const { isLoading, haveSaved, error } = useHaveSaved(docId, docType);
@@ -52,13 +50,12 @@ function LikeCommentShare({ docId, docType, isLoggedIn }) {
         </div>
 
         {isLoggedIn && (
-          <div
-            className="flex items-center gap-2 place-self-center hover:cursor-pointer"
-            onClick={() => setIsShared((prev) => !prev)}
-          >
-            {isShared ? <FaShareSquare /> : <FaRegShareSquare />}
+          <ShareModal>
+            <>
+              <FaRegShareSquare />
+            </>
             <p>Compartir</p>
-          </div>
+          </ShareModal>
         )}
       </div>
 

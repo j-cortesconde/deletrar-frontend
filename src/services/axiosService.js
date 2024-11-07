@@ -393,6 +393,14 @@ class AxiosService {
       url: `${API_URL}/feed`,
     });
   }
+
+  createShared(newShared) {
+    return axios({
+      method: "POST",
+      url: `${API_URL}/shareds`,
+      data: newShared,
+    });
+  }
 }
 
 const axiosService = new AxiosService();

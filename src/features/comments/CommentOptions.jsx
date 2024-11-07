@@ -2,6 +2,7 @@ import { useDeleteComment } from "./useDeleteComment";
 import { useIsOwnComment } from "./useIsOwnComment";
 
 import Loader from "../../ui/Loader";
+import ShareModal from "../shareds/ShareModal";
 
 // TODO: Maybe one day add functionality here and in BE so that post/collection/replyingTo document owner can delete
 function CommentOptions({
@@ -10,7 +11,9 @@ function CommentOptions({
   handleShowReplies,
   isMainComment,
 }) {
-  const { isOwnComment } = useIsOwnComment(comment?.author?.username);
+  const { isOwnComment, isLoggedIn } = useIsOwnComment(
+    comment?.author?.username,
+  );
   const { deleteComment, isDeleting } = useDeleteComment();
 
   // FIXME: This and all deletes should ask confirmation
@@ -36,6 +39,15 @@ function CommentOptions({
       <p onClick={handleReply} className="hover:cursor-pointer">
         Responder
       </p>
+
+      {isLoggedIn && (
+        <>
+          <p> - </p>
+          <ShareModal sharedComment={comment._id}>
+            <p className="hover:cursor-pointer">Compartir</p>
+          </ShareModal>
+        </>
+      )}
 
       {isOwnComment && (
         <>
