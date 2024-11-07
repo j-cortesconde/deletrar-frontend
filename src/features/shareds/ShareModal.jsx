@@ -31,6 +31,7 @@ function ShareModal({ children, sharedComment }) {
       onSuccess: () => {
         toast.success("Compartido exitosamente");
         closeModal();
+        setContent();
       },
     });
   }
