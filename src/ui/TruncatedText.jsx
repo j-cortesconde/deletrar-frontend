@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
-const TruncatedText = ({ text, maxLines = 3 }) => {
+const TruncatedText = ({
+  text,
+  maxLines = 3 /*maxLines MSUT be a value between 1-10*/,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const textRef = useRef(null);
