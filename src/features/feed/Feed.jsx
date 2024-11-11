@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+
+import { useFeed } from "./useFeed";
+
 import Loader from "../../ui/Loader";
 import FeedCollection from "./FeedCollection";
 import FeedComment from "./FeedComment";
 import FeedPost from "./FeedPost";
 import FeedShared from "./FeedShared";
-import { useFeed } from "./useFeed";
 
 function Feed() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useFeed();
 
-  console.log(data);
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   if (isLoading) return <Loader />;
 
@@ -48,6 +57,11 @@ function Feed() {
             })}
           </React.Fragment>
         ))}
+
+        {/* // TODO: Mejorar el look de esto */}
+        <div ref={ref} style={{ height: "20px" }}>
+          {isFetchingNextPage && <p>Buscando más publicaciones...</p>}
+        </div>
       </ul>
     </div>
   );
