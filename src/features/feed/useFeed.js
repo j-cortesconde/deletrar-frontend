@@ -1,16 +1,30 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { getFeed } from "../../services/apiFeed";
 
-// TODO: This gives a basic feed. Must add feed pagination. MVP
 export function useFeed() {
-  const { isLoading, data, error } = useQuery({
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery({
     queryKey: ["feed"],
-    queryFn: () => getFeed(),
+    queryFn: getFeed,
+    getNextPageParam: (lastPage) =>
+      lastPage.hasNextPage ? lastPage.nextPage : undefined,
     retry: false,
   });
 
-  const count = data?.count;
-  const feed = data?.limitedDocuments;
-
-  return { isLoading, count, feed, error };
+  return {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  };
 }

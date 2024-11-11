@@ -387,10 +387,11 @@ class AxiosService {
     });
   }
 
-  getFeed() {
+  getFeed(pageParam = 1) {
     return axios({
       method: "GET",
       url: `${API_URL}/feed`,
+      params: { page: pageParam },
     });
   }
 
