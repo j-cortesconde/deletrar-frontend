@@ -41,7 +41,7 @@ import LoggedInProtection from "./ui/LoggedInProtection";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 2000,
+      staleTime: 10000,
     },
   },
 });
