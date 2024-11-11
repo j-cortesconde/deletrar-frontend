@@ -60,7 +60,12 @@ function Feed() {
 
         {/* // TODO: Mejorar el look de esto */}
         <div ref={ref} style={{ height: "20px" }}>
-          {isFetchingNextPage && <p>Buscando más publicaciones...</p>}
+          {isFetchingNextPage && <Loader />}
+          {!hasNextPage && (
+            <p>
+              De momento no hay más publicaciones que mostrar. Volvé más tarde.
+            </p>
+          )}
         </div>
       </ul>
     </div>
