@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDebounce } from "../../hooks/useDebounce";
@@ -7,17 +7,23 @@ import { useConversations } from "./useConversations";
 import ConversationSearch from "../search/conversation/ConversationSearch";
 import ConversationCard from "./ConversationCard";
 
-function ConversationSelection() {
+function ConversationSelection({ socket }) {
   const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
 
-  const { conversations } = useConversations();
+  const { conversations, refetch } = useConversations();
 
   function handleSelect(user) {
     navigate(`/conversations/user/${user.username}`);
   }
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("new-message", refetch);
+    }
+  }, [socket, refetch]);
 
   return (
     <div className="flex w-full flex-col justify-start gap-2">

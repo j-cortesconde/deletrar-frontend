@@ -14,7 +14,7 @@ export function useConversations() {
 
   const queryString = `page=${page}&limit=${limit}`;
 
-  const { isLoading, data, error } = useQuery({
+  const { isLoading, data, error, refetch } = useQuery({
     queryKey: ["conversations", ownUser.username, page],
     queryFn: () => getConversations(queryString),
     retry: false,
@@ -42,5 +42,5 @@ export function useConversations() {
       queryFn: () => getConversations(previousQueryString),
     });
 
-  return { isLoading, conversations, count, error };
+  return { isLoading, conversations, count, error, refetch };
 }

@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import { useUser } from "../users/useUser";
 import { useConversation } from "./useConversation";
@@ -7,6 +8,9 @@ import Loader from "../../ui/Loader";
 import ConversationMessageSend from "./ConversationMessageSend";
 
 function ConversationDetail() {
+  const [messages, setMessages] = useState([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const socket = useOutletContext();
   const { username } = useParams();
 
   const { user, isLoading: isLoading1, error: error1 } = useUser(username);
@@ -15,6 +19,33 @@ function ConversationDetail() {
     isLoading: isLoading2,
     error: error2,
   } = useConversation(username);
+
+  console.log("Conve", conversation);
+  console.log("Messa", messages);
+
+  useEffect(() => {
+    if (socket && conversation && !isLoading2) {
+      setMessages([...conversation.messages]);
+
+      socket.emit("join-conversation", conversation._id);
+      socket.on("typing", () => {
+        setIsTyping(true);
+      });
+      socket.on("stop-typing", () => {
+        setIsTyping(false);
+      });
+
+      socket.on("message-recieved", (newMessage) => {
+        setMessages([...messages, newMessage]);
+      });
+
+      return () => {
+        socket.emit("leave-conversation", conversation._id);
+      };
+    }
+
+    //TODO: No agregar aún todas las dependencias, ver qué pasa cuando se agregan
+  }, [isLoading2, conversation]);
 
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;
@@ -30,7 +61,7 @@ function ConversationDetail() {
         <p>{user.name}</p>
       </div>
       <div className="grow">
-        {conversation?.messages?.map((message) => (
+        {conversation.messages?.map((message) => (
           <p key={message._id}>{message.content}</p>
         ))}
       </div>
