@@ -2,7 +2,9 @@ import { useDeleteComment } from "./useDeleteComment";
 import { useIsOwnComment } from "./useIsOwnComment";
 
 import Loader from "../../ui/Loader";
+import ShareModal from "../shareds/ShareModal";
 
+// TODO: Maybe one day add functionality here and in BE so that post/collection/replyingTo document owner can delete
 function CommentOptions({
   comment,
   handleReply,
@@ -10,7 +12,7 @@ function CommentOptions({
   isMainComment,
 }) {
   const { isOwnComment, isLoggedIn } = useIsOwnComment(
-    comment?.author.username,
+    comment?.author?.username,
   );
   const { deleteComment, isDeleting } = useDeleteComment();
 
@@ -33,12 +35,17 @@ function CommentOptions({
         {comment?.replies} respuesta{comment?.replies === 1 ? "" : "s"}
       </p>
 
+      <p> - </p>
+      <p onClick={handleReply} className="hover:cursor-pointer">
+        Responder
+      </p>
+
       {isLoggedIn && (
         <>
           <p> - </p>
-          <p onClick={handleReply} className="hover:cursor-pointer">
-            Responder
-          </p>
+          <ShareModal sharedComment={comment._id}>
+            <p className="hover:cursor-pointer">Compartir</p>
+          </ShareModal>
         </>
       )}
 

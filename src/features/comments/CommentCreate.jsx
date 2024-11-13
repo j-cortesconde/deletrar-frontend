@@ -19,8 +19,8 @@ function CommentCreate({ repliedComment, handleClose, handleCreate }) {
 
     const newComment = {
       content,
-      targetCollection: collectionId,
-      targetPost: postId,
+      targetCollection: collectionId || repliedComment?.targetCollection,
+      targetPost: postId || repliedComment?.targetPost,
     };
 
     if (repliedComment) {

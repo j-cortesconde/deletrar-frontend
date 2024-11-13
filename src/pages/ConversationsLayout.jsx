@@ -1,29 +1,37 @@
 import { Outlet } from "react-router-dom";
-import { useEffect } from "react";
-
-import socketService from "../services/socketService";
+import { io } from "socket.io-client";
+import { useEffect, useState } from "react";
+import { useCurrentUser } from "../features/users/useCurrentUser";
+import { API_URL } from "../utils/constants";
 import ConversationSelection from "../features/conversations/ConversationSelection";
 
 function ConversationsLayout() {
-  useEffect(() => {
-    socketService.connect();
+  const [socket, setSocket] = useState(null);
 
-    return () => {
-      socketService.disconnect();
-    };
-  }, []);
+  const { user, isLoading } = useCurrentUser();
+
+  useEffect(() => {
+    if (!isLoading) {
+      const socketInstance = io(API_URL);
+      socketInstance.emit("setup", user.username);
+
+      setSocket(socketInstance);
+
+      return () => {
+        socketInstance.disconnect();
+      };
+    }
+  }, [isLoading, user]);
 
   return (
     <div className="mx-auto h-full w-3/4">
       <div className="grid h-full grid-cols-3">
         <div className="col-span-1 flex flex-col gap-2 bg-slate-200 p-5">
           <p className="text-left">Conversaciones</p>
-          <ConversationSelection />
+          <ConversationSelection socket={socket} />
         </div>
-        <div className="col-span-2 flex h-full flex-col bg-slate-300 p-5">
-          <div className="flex-1 overflow-y-auto">
-            <Outlet />
-          </div>
+        <div className="bg-slate-300 p-5">
+          <Outlet context={socket} />
         </div>
       </div>
     </div>

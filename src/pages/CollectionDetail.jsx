@@ -67,9 +67,11 @@ function CollectionDetail() {
         ))}
       </ul>
 
-      {isLoggedIn && (
-        <LikeCommentShare docId={collectionId} docType="collection" />
-      )}
+      <LikeCommentShare
+        docId={collectionId}
+        docType="collection"
+        isLoggedIn={isLoggedIn}
+      />
       <CollectionComments collectionId={collectionId} />
     </div>
   );

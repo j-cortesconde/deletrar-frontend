@@ -4,30 +4,43 @@ import { timeDate } from "../../utils/dateFormat";
 function MainCommentData({ comment }) {
   const navigate = useNavigate();
 
+  const isAnonymousComment = !comment.author;
+
   return (
     <div>
       <div className="flex gap-6">
         <img
-          onClick={() => navigate(`/user/${comment?.author.username}`)}
+          onClick={() => {
+            if (isAnonymousComment) return;
+            return navigate(`/user/${comment?.author.username}`);
+          }}
           className="h-28 w-28 rounded-full hover:cursor-pointer"
-          src={`/users/${comment?.author.photo}`}
-          alt={comment?.author.username}
+          src={`/users/${comment?.author?.photo || "anonymous.png"}`}
+          alt={comment?.author?.username || "Lector Anónimo"}
         />
 
         <div className="pt-2">
           <p
-            onClick={() => navigate(`/user/${comment?.author.username}`)}
+            onClick={() => {
+              if (isAnonymousComment) return;
+              return navigate(`/user/${comment?.author.username}`);
+            }}
             className="text-left text-4xl hover:cursor-pointer"
           >
-            {comment?.author.name}
+            {comment?.author?.name || "Lector Anónimo"}
           </p>
 
-          <p
-            onClick={() => navigate(`/user/${comment?.author.username}`)}
-            className="text-left text-2xl hover:cursor-pointer"
-          >
-            {comment?.author.username}
-          </p>
+          {!isAnonymousComment && (
+            <p
+              onClick={() => {
+                if (isAnonymousComment) return;
+                return navigate(`/user/${comment?.author.username}`);
+              }}
+              className="text-left text-2xl hover:cursor-pointer"
+            >
+              {comment?.author.username}
+            </p>
+          )}
         </div>
       </div>
 
@@ -38,7 +51,7 @@ function MainCommentData({ comment }) {
       </div>
       <div className="mx-2 my-2 pl-2">
         <p className="text-left text-2xl first-letter:capitalize">
-          {timeDate(comment?.createdAt)}
+          {timeDate(comment?.postedAt)}
         </p>
       </div>
     </div>

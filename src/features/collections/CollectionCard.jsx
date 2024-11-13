@@ -1,3 +1,4 @@
+// TODO: Se agregó info de cada uno de los posts. Se puede mapear el array de posts (o los primeros X (o los primeros X y hover:los demás)) y mostrar los principales (que además de traer info de c/post traen info de c/autor)
 import { useNavigate } from "react-router-dom";
 import { longDate, shortDate } from "../../utils/dateFormat";
 
@@ -25,7 +26,7 @@ function CollectionCard({ collection }) {
           <p className="text-4xl font-semibold">{collection.title}</p>
           {collection.collector?.name && (
             <p className="mt-1 text-2xl">
-              Un texto escrito por {collection.collector.name}
+              Una colección creada por {collection.collector.name}
             </p>
           )}
           <p className="mt-1 text-2xl">

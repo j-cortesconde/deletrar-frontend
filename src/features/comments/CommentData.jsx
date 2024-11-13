@@ -4,30 +4,40 @@ import { dateDistance } from "../../utils/dateFormat";
 function CommentData({ comment }) {
   const navigate = useNavigate();
 
+  const isAnonymousComment = !comment.author;
+
   return (
     <div>
       <div className="flex gap-4">
         <img
-          onClick={() => navigate(`/user/${comment?.author.username}`)}
+          onClick={() => {
+            if (isAnonymousComment) return;
+            return navigate(`/user/${comment?.author?.username}`);
+          }}
           className="h-20 w-20 rounded-full hover:cursor-pointer"
-          src={`/users/${comment?.author.photo}`}
-          alt={comment?.author.username}
+          src={`/users/${comment?.author?.photo || "anonymous.png"}`}
+          alt={comment?.author?.username || "Lector Anónimo"}
         />
 
         <div>
           <p
-            onClick={() => navigate(`/user/${comment?.author.username}`)}
+            onClick={() => {
+              if (isAnonymousComment) return;
+              return navigate(`/user/${comment?.author?.username}`);
+            }}
             className="text-left hover:cursor-pointer"
           >
-            {comment?.author.name}
-            <span className="text-xl"> - {comment?.author.username}</span>
+            {comment?.author?.name || "Lector Anónimo"}
+            {!isAnonymousComment && (
+              <span className="text-xl"> - {comment?.author?.username}</span>
+            )}
           </p>
 
           <p
             onClick={() => navigate(`/comment/${comment?._id}`)}
             className="text-left text-xl first-letter:capitalize hover:cursor-pointer"
           >
-            {dateDistance(comment?.createdAt)}
+            {dateDistance(comment?.postedAt)}
           </p>
         </div>
       </div>

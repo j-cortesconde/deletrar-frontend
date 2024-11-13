@@ -386,6 +386,22 @@ class AxiosService {
       data: { message },
     });
   }
+
+  getFeed(pageParam = 1) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/feed`,
+      params: { page: pageParam },
+    });
+  }
+
+  createShared(newShared) {
+    return axios({
+      method: "POST",
+      url: `${API_URL}/shareds`,
+      data: newShared,
+    });
+  }
 }
 
 const axiosService = new AxiosService();

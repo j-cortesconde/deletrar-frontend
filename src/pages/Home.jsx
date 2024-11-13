@@ -1,5 +1,11 @@
+import Feed from "../features/feed/Feed";
+
 function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Feed />
+    </div>
+  );
 }
 
 export default Home;

@@ -6,7 +6,7 @@ export function useIsOwnComment(authorUsername) {
 
   const isLoggedIn = !!ownUser;
 
-  const isOwnComment = authorUsername === ownUser?.username;
+  const isOwnComment = !!authorUsername && authorUsername === ownUser?.username;
 
   return { isOwnComment, isLoggedIn };
 }
