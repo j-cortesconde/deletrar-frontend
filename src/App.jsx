@@ -35,7 +35,6 @@ import UserSaved from "./features/users/UserSaved";
 import ConversationsLayout from "./pages/ConversationsLayout";
 import ConversationDetail from "./features/conversations/ConversationDetail";
 import ConversationPlaceholder from "./features/conversations/ConversationPlaceholder";
-import ConversationCreate from "./features/conversations/ConversationCreate";
 import LoggedInProtection from "./ui/LoggedInProtection";
 
 const queryClient = new QueryClient({
