@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { MdSend } from "react-icons/md";
 import TextareaAutosize from "react-textarea-autosize";
 
@@ -7,9 +7,29 @@ import socketService from "../../services/socketService";
 
 function ConversationMessageSend({ conversationId, addresseeUsername }) {
   const [messageContent, setMessageContent] = useState("");
+  const [typing, setTyping] = useState(false);
+  const typingTimeout = useRef(null);
   const { sendMessage, isSending } = useSendMesssage();
 
-  function onSend(e) {
+  const handleType = (e) => {
+    setMessageContent(e.target.value);
+
+    if (!typing) {
+      setTyping(true);
+      socketService.emitTyping(conversationId);
+    }
+
+    // Clear any existing timeout before setting a new one
+    if (typingTimeout.current) clearTimeout(typingTimeout.current);
+
+    // Set a new timeout to stop typing after 3 seconds of inactivity
+    typingTimeout.current = setTimeout(() => {
+      socketService.emitStopTyping(conversationId);
+      setTyping(false);
+    }, 3000);
+  };
+
+  function handleSend(e) {
     e.preventDefault();
     if (!messageContent) return;
 
@@ -34,9 +54,9 @@ function ConversationMessageSend({ conversationId, addresseeUsername }) {
           maxRows={8}
           autoFocus
           value={messageContent}
-          onChange={(e) => setMessageContent(e.target.value)}
+          onChange={handleType}
         />
-        <button onClick={onSend}>
+        <button onClick={handleSend}>
           <MdSend className="h-8 w-8" />
         </button>
       </form>

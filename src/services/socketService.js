@@ -58,6 +58,14 @@ class SocketService {
     this.#socket.off("stopTyping");
   }
 
+  emitTyping(conversationId) {
+    this.#socket.emit("typing", conversationId);
+  }
+
+  emitStopTyping(conversationId) {
+    this.#socket.emit("stopTyping", conversationId);
+  }
+
   // TODO: Add or check
   // onError(callback) {
   //   this.#socket.on("error", callback);
