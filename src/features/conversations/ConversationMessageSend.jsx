@@ -38,6 +38,8 @@ function ConversationMessageSend({ conversationId, addresseeUsername }) {
       {
         onSuccess: () => {
           socketService.sendMessage(conversationId, addresseeUsername);
+          socketService.emitStopTyping(conversationId);
+          setTyping(false);
           setMessageContent("");
         },
       },
