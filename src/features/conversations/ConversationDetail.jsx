@@ -1,7 +1,7 @@
 // TODO: Fix so that it never exceeds screen size and instead the space for messages has scrollbar (and so that the div is focused at the bottom of its scroll at start)
 // TODO: Conversation messages, even when all got together, should be displayed in parts to aleviate rendering times. Maybe should find a way to first render ConversationMessage for the last X messages in the array (and also find a way to detect when user scrolls to top so that it renders the X number of messages before those too [The way facebook/wa do])
-import { useOutletContext, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 import { useUser } from "../users/useUser";
 import { useConversation } from "./useConversation";
@@ -12,9 +12,6 @@ import ConversationMessageSend from "./ConversationMessageSend";
 import ConversationMessage from "./ConversationMessage";
 
 function ConversationDetail() {
-  const [messages, setMessages] = useState([]);
-  const [isTyping, setIsTyping] = useState(false);
-  const socket = useOutletContext();
   const { addresseeUsername } = useParams();
 
   const {
@@ -27,36 +24,29 @@ function ConversationDetail() {
     refetch,
     isLoading: isLoading2,
     error: error2,
-  } = useConversation(username);
+  } = useConversation(addresseeUsername);
 
   const conversationId = conversation?._id;
 
-  console.log("Conve", conversation);
-  console.log("Messa", messages);
-
   useEffect(() => {
-    if (socket && conversation && !isLoading2) {
-      setMessages([...conversation.messages]);
-
-      socket.emit("join-conversation", conversation._id);
-      socket.on("typing", () => {
-        setIsTyping(true);
-      });
-      socket.on("stop-typing", () => {
-        setIsTyping(false);
-      });
-
-      socket.on("message-recieved", (newMessage) => {
-        setMessages([...messages, newMessage]);
-      });
-
-      return () => {
-        socket.emit("leave-conversation", conversation._id);
-      };
+    if (conversationId) {
+      socketService.joinConversation(conversationId);
     }
 
-    //TODO: No agregar aún todas las dependencias, ver qué pasa cuando se agregan
-  }, [isLoading2, conversation]);
+    return () => {
+      if (conversationId) {
+        socketService.leaveConversation(conversationId);
+      }
+    };
+  }, [conversationId]);
+
+  useEffect(() => {
+    if (conversationId) socketService.onNewConversationMessage(refetch);
+
+    return () => {
+      socketService.offNewConversationMessage();
+    };
+  }, [refetch, conversationId]);
 
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;

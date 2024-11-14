@@ -9,23 +9,25 @@ import ConversationSearch from "../search/conversation/ConversationSearch";
 import ConversationCard from "./ConversationCard";
 import socketService from "../../services/socketService";
 
-function ConversationSelection({ socket }) {
+function ConversationSelection() {
   const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
 
-  const { conversations, refetch } = useConversations();
+  const { conversations, isLoading, refetch } = useConversations();
+
+  useEffect(() => {
+    if (!isLoading) socketService.onNewUserMessage(refetch);
+
+    return () => {
+      socketService.offNewUserMessage();
+    };
+  }, [refetch, isLoading]);
 
   function handleSelect(addressee) {
     navigate(`/conversations/user/${addressee.username}`);
   }
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("new-message", refetch);
-    }
-  }, [socket, refetch]);
 
   return (
     <div className="flex w-full flex-col justify-start gap-2">

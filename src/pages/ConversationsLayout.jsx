@@ -1,37 +1,29 @@
 import { Outlet } from "react-router-dom";
-import { io } from "socket.io-client";
-import { useEffect, useState } from "react";
-import { useCurrentUser } from "../features/users/useCurrentUser";
-import { API_URL } from "../utils/constants";
+import { useEffect } from "react";
+
+import socketService from "../services/socketService";
 import ConversationSelection from "../features/conversations/ConversationSelection";
 
 function ConversationsLayout() {
-  const [socket, setSocket] = useState(null);
-
-  const { user, isLoading } = useCurrentUser();
-
   useEffect(() => {
-    if (!isLoading) {
-      const socketInstance = io(API_URL);
-      socketInstance.emit("setup", user.username);
+    socketService.connect();
 
-      setSocket(socketInstance);
-
-      return () => {
-        socketInstance.disconnect();
-      };
-    }
-  }, [isLoading, user]);
+    return () => {
+      socketService.disconnect();
+    };
+  }, []);
 
   return (
     <div className="mx-auto h-full w-3/4">
       <div className="grid h-full grid-cols-3">
         <div className="col-span-1 flex flex-col gap-2 bg-slate-200 p-5">
           <p className="text-left">Conversaciones</p>
-          <ConversationSelection socket={socket} />
+          <ConversationSelection />
         </div>
-        <div className="bg-slate-300 p-5">
-          <Outlet context={socket} />
+        <div className="col-span-2 flex h-full flex-col bg-slate-300 p-5">
+          <div className="flex-1 overflow-y-auto">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
