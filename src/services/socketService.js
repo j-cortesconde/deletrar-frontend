@@ -42,6 +42,22 @@ class SocketService {
     this.#socket.off("newUserMessage");
   }
 
+  onTyping(callback) {
+    this.#socket.on("typing", callback);
+  }
+
+  offTyping(callback) {
+    this.#socket.off("typing");
+  }
+
+  onStopTyping(callback) {
+    this.#socket.on("stopTyping", callback);
+  }
+
+  offStopTyping(callback) {
+    this.#socket.off("stopTyping");
+  }
+
   // TODO: Add or check
   // onError(callback) {
   //   this.#socket.on("error", callback);
