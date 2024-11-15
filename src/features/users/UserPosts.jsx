@@ -11,10 +11,7 @@ import { POST_SORT_OPTIONS } from "../../utils/constants";
 
 function UserPosts() {
   const { username } = useParams();
-
   const { posts, count, isLoading } = usePosts(username);
-
-  console.log(posts);
 
   // TODO: This should return a spinner Loader instead of this one that veils the screen so the user can see the rest of the page as this loads
   if (isLoading) return <Loader />;

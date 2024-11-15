@@ -12,7 +12,6 @@ import ConversationMessageSend from "./ConversationMessageSend";
 import ConversationMessage from "./ConversationMessage";
 
 function ConversationDetail() {
-  const [currentMessages, setCurrentMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const { addresseeUsername } = useParams();
 
@@ -52,7 +51,10 @@ function ConversationDetail() {
   }, [conversationId]);
 
   useEffect(() => {
-    if (conversationId) socketService.onNewConversationMessage(refetch);
+    if (conversationId)
+      socketService.onNewConversationMessage(() => {
+        refetch();
+      });
 
     return () => {
       socketService.offNewConversationMessage();

@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { minimumRelativeDate } from "../../utils/dateFormat";
 import { IoCheckmarkDoneOutline, IoCheckmarkDoneSharp } from "react-icons/io5";
 import { SiGooglemessages } from "react-icons/si";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function ConversationCard({ conversation, handleSelect }) {
   const [isRead, setIsRead] = useState(conversation.lastMessage.read);
@@ -17,6 +17,10 @@ function ConversationCard({ conversation, handleSelect }) {
     setIsRead(true);
     handleSelect(addressee);
   }
+
+  useEffect(() => {
+    if (conversation) setIsRead(conversation.lastMessage.read);
+  }, [conversation]);
 
   return (
     <div

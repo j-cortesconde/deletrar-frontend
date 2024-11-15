@@ -18,7 +18,10 @@ function ConversationSelection() {
   const { conversations, isLoading, refetch } = useConversations();
 
   useEffect(() => {
-    if (!isLoading) socketService.onNewUserMessage(refetch);
+    if (!isLoading)
+      socketService.onNewUserMessage(() => {
+        refetch();
+      });
 
     return () => {
       socketService.offNewUserMessage();
