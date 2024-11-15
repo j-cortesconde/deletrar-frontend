@@ -6,11 +6,11 @@ export function useSendMesssage() {
 
   const { mutate: sendMessage, isPending: isSending } = useMutation({
     mutationFn: ({ addressee, message }) => sendMessageAPI(addressee, message),
-    onSuccess: (data) => {
-      queryClient.setQueryData(
-        ["conversation", data?.addressee],
-        data?.conversation,
-      );
+    onSuccess: ({ conversation, addressee, messages }) => {
+      queryClient.setQueryData(["conversation", addressee], {
+        conversation,
+        messages,
+      });
       queryClient.invalidateQueries(["conversations"]);
     },
   });

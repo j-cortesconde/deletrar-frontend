@@ -20,11 +20,10 @@ export function useConversations() {
     retry: false,
   });
 
-  const conversations = data?.docs;
-  const count = data?.count;
+  const { conversations, totalCount, hasNextPage, nextPage } = data || {};
 
   // PRE-FETCHING of next and previous pages
-  const pageCount = Math.ceil(count / PAGE_SIZE);
+  const pageCount = Math.ceil(totalCount / PAGE_SIZE);
 
   const nextQueryString = `page=${page + 1}&limit=${limit}`;
 
@@ -45,7 +44,9 @@ export function useConversations() {
   return {
     isLoading,
     conversations,
-    count,
+    totalCount,
+    hasNextPage,
+    nextPage,
     error,
     refetch,
   };

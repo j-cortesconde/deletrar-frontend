@@ -31,7 +31,7 @@ function ConversationCard({ conversation, handleSelect }) {
         <div className="flex w-full items-start justify-between gap-2">
           <div className="flex w-full items-center gap-1 truncate">
             {conversation.lastMessage.messenger === ownUser.username &&
-              (conversation.read ? (
+              (conversation.lastMessage.read ? (
                 <IoCheckmarkDoneSharp className="w-8 text-black" />
               ) : (
                 <IoCheckmarkDoneOutline className="w-8" />
@@ -42,7 +42,9 @@ function ConversationCard({ conversation, handleSelect }) {
           </div>
           <div>
             {conversation.lastMessage.messenger !== ownUser.username &&
-              !conversation.read && <SiGooglemessages className="h-8 w-8" />}
+              !conversation.lastMessage.read && (
+                <SiGooglemessages className="h-8 w-8" />
+              )}
           </div>
         </div>
       </div>

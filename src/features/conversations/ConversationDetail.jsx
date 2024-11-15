@@ -22,6 +22,7 @@ function ConversationDetail() {
   } = useUser(addresseeUsername);
   const {
     conversation,
+    messages,
     refetch,
     isLoading: isLoading2,
     error: error2,
@@ -76,12 +77,12 @@ function ConversationDetail() {
         </div>
       </div>
       <div className="mt-4 grow overflow-y-auto">
-        {conversation?.messages?.map((message, i) => (
+        {messages?.map((message, i) => (
           <ConversationMessage
             key={message._id}
             message={message}
             addressee={addressee}
-            previousMessageTime={conversation.messages[i - 1]?.timestamp}
+            previousMessageTime={messages[i - 1]?.timestamp}
           />
         ))}
       </div>
