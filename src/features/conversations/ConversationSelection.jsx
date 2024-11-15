@@ -18,14 +18,23 @@ function ConversationSelection() {
   const { conversations, isLoading, refetch } = useConversations();
 
   useEffect(() => {
-    if (!isLoading)
+    socketService.connect();
+
+    return () => {
+      socketService.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
       socketService.onNewUserMessage(() => {
         refetch();
       });
 
-    return () => {
-      socketService.offNewUserMessage();
-    };
+      return () => {
+        socketService.offNewUserMessage();
+      };
+    }
   }, [refetch, isLoading]);
 
   function handleSelect(addressee) {

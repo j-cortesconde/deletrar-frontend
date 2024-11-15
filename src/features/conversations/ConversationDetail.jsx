@@ -12,6 +12,7 @@ import ConversationMessageSend from "./ConversationMessageSend";
 import ConversationMessage from "./ConversationMessage";
 
 function ConversationDetail() {
+  const [newOwnMessage, setNewOwnMessage] = useState();
   const [combinedMessages, setCombinedMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const { addresseeUsername } = useParams();
@@ -31,6 +32,7 @@ function ConversationDetail() {
 
   const conversationId = conversation?._id;
 
+  // As soon as the conversation data is loaded this primes the socket and sets the messages into the combinedMessages state variable
   useEffect(() => {
     if (conversationId) {
       setCombinedMessages([...messages]);
@@ -56,6 +58,14 @@ function ConversationDetail() {
       }
     };
   }, [conversationId, messages]);
+
+  // Listens to the addition/change of a newOwnMessage and pushes it onto the combinedMessage state (so no need to trigger refetch on message send)
+  useEffect(() => {
+    if (newOwnMessage)
+      setCombinedMessages((prevMessages) => [...prevMessages, newOwnMessage]);
+  }, [newOwnMessage]);
+
+  console.log(combinedMessages);
 
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;
@@ -88,6 +98,7 @@ function ConversationDetail() {
       <ConversationMessageSend
         conversationId={conversationId}
         addresseeUsername={addresseeUsername}
+        setNewOwnMessage={setNewOwnMessage}
       />
     </div>
   );
