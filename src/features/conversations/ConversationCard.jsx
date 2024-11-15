@@ -2,8 +2,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { minimumRelativeDate } from "../../utils/dateFormat";
 import { IoCheckmarkDoneOutline, IoCheckmarkDoneSharp } from "react-icons/io5";
 import { SiGooglemessages } from "react-icons/si";
+import { useState } from "react";
 
 function ConversationCard({ conversation, handleSelect }) {
+  const [isRead, setIsRead] = useState(conversation.lastMessage.read);
   const queryClient = useQueryClient();
   const ownUser = queryClient.getQueryData(["user"]);
 
@@ -11,9 +13,14 @@ function ConversationCard({ conversation, handleSelect }) {
     (participant) => participant.username !== ownUser.username,
   );
 
+  function handleClick() {
+    setIsRead(true);
+    handleSelect(addressee);
+  }
+
   return (
     <div
-      onClick={() => handleSelect(addressee)}
+      onClick={handleClick}
       className="flex w-full select-none items-center justify-start gap-2 rounded-3xl p-2 hover:cursor-pointer hover:bg-slate-300"
     >
       <img
@@ -42,9 +49,7 @@ function ConversationCard({ conversation, handleSelect }) {
           </div>
           <div>
             {conversation.lastMessage.messenger !== ownUser.username &&
-              !conversation.lastMessage.read && (
-                <SiGooglemessages className="h-8 w-8" />
-              )}
+              !isRead && <SiGooglemessages className="h-8 w-8" />}
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ import ConversationMessageSend from "./ConversationMessageSend";
 import ConversationMessage from "./ConversationMessage";
 
 function ConversationDetail() {
+  const [currentMessages, setCurrentMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const { addresseeUsername } = useParams();
 

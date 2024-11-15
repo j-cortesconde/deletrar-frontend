@@ -20,8 +20,8 @@ export function usePosts(authorUsername) {
     retry: false,
   });
 
-  const posts = data?.docs;
-  const count = data?.count;
+  const posts = data?.limitedDocuments;
+  const count = data?.totalCount;
 
   // PRE-FETCHING of next and previous pages
   const pageCount = Math.ceil(count / PAGE_SIZE);

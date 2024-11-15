@@ -25,8 +25,8 @@ export function useHiddenCollections() {
     retry: false,
   });
 
-  const collections = data?.docs;
-  const count = data?.count;
+  const collections = data?.limitedDocuments;
+  const count = data?.totalCount;
 
   // PRE-FETCHING of next and previous pages
   const pageCount = Math.ceil(count / PAGE_SIZE);
