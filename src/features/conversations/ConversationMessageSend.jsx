@@ -36,8 +36,12 @@ function ConversationMessageSend({ conversationId, addresseeUsername }) {
     sendMessage(
       { addressee: addresseeUsername, message: messageContent },
       {
-        onSuccess: () => {
-          socketService.sendMessage(conversationId, addresseeUsername);
+        onSuccess: ({ newMessage }) => {
+          socketService.sendMessage(
+            conversationId,
+            addresseeUsername,
+            newMessage,
+          );
           socketService.emitStopTyping(conversationId);
           setTyping(false);
           setMessageContent("");

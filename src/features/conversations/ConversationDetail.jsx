@@ -12,6 +12,7 @@ import ConversationMessageSend from "./ConversationMessageSend";
 import ConversationMessage from "./ConversationMessage";
 
 function ConversationDetail() {
+  const [combinedMessages, setCombinedMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const { addresseeUsername } = useParams();
 
@@ -32,12 +33,17 @@ function ConversationDetail() {
 
   useEffect(() => {
     if (conversationId) {
+      setCombinedMessages([...messages]);
+
       socketService.joinConversation(conversationId);
       socketService.onTyping(() => {
         setIsTyping(true);
       });
       socketService.onStopTyping(() => {
         setIsTyping(false);
+      });
+      socketService.onNewConversationMessage((newMessage) => {
+        setCombinedMessages((prevMessages) => [...prevMessages, newMessage]);
       });
     }
 
@@ -46,20 +52,10 @@ function ConversationDetail() {
         socketService.leaveConversation(conversationId);
         socketService.offTyping();
         socketService.offStopTyping();
+        socketService.offNewConversationMessage();
       }
     };
-  }, [conversationId]);
-
-  useEffect(() => {
-    if (conversationId)
-      socketService.onNewConversationMessage(() => {
-        refetch();
-      });
-
-    return () => {
-      socketService.offNewConversationMessage();
-    };
-  }, [refetch, conversationId]);
+  }, [conversationId, messages]);
 
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;
@@ -80,12 +76,12 @@ function ConversationDetail() {
         </div>
       </div>
       <div className="mt-4 grow overflow-y-auto">
-        {messages?.map((message, i) => (
+        {combinedMessages?.map((message, i) => (
           <ConversationMessage
             key={message._id}
             message={message}
             addressee={addressee}
-            previousMessageTime={messages[i - 1]?.timestamp}
+            previousMessageTime={combinedMessages[i - 1]?.timestamp}
           />
         ))}
       </div>

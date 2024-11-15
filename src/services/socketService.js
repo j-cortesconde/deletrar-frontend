@@ -22,8 +22,13 @@ class SocketService {
     this.#socket.emit("leaveConversation", conversationId);
   }
 
-  sendMessage(conversationId, addresseeUsername) {
-    this.#socket.emit("sendMessage", conversationId, addresseeUsername);
+  sendMessage(conversationId, addresseeUsername, newMessage) {
+    this.#socket.emit(
+      "sendMessage",
+      conversationId,
+      addresseeUsername,
+      newMessage,
+    );
   }
 
   onNewConversationMessage(callback) {
