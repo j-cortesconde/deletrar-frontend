@@ -8,9 +8,11 @@ import { useConversations } from "./useConversations";
 import ConversationSearch from "../search/conversation/ConversationSearch";
 import ConversationCard from "./ConversationCard";
 import socketService from "../../services/socketService";
+import { useQueryClient } from "@tanstack/react-query";
 
 function ConversationSelection() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
@@ -38,6 +40,10 @@ function ConversationSelection() {
   }, [refetch, isLoading]);
 
   function handleSelect(addressee) {
+    queryClient.refetchQueries({
+      queryKey: ["conversation", addressee.username],
+      exact: true,
+    });
     navigate(`/conversations/user/${addressee.username}`);
   }
 

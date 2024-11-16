@@ -65,8 +65,6 @@ function ConversationDetail() {
       setCombinedMessages((prevMessages) => [...prevMessages, newOwnMessage]);
   }, [newOwnMessage]);
 
-  console.log(combinedMessages);
-
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;
 

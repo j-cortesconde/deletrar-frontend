@@ -20,6 +20,9 @@ export function useConversations() {
     // queryKey: ["conversations", ownUser.username, page],
     queryFn: () => getConversations(queryString),
     retry: false,
+    refetchOnMount: "always",
+    // TODO: Check how this works when adding infinite pagination
+    staleTime: 60 * 1000,
   });
 
   const { conversations, totalCount, hasNextPage, nextPage } = data || {};
