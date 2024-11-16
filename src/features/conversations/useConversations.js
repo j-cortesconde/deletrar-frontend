@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { getConversations } from "../../services/apiConversations";
 import { PAGE_SIZE } from "../../utils/constants";
 
+// TODO: Must implement pagination. I commented out pevious pagination because its not being userd and I want to use infinite querie pagination instead
 export function useConversations() {
   const [searchParams] = useSearchParams();
   const queryClient = useQueryClient();
@@ -15,31 +16,32 @@ export function useConversations() {
   const queryString = `page=${page}&limit=${limit}`;
 
   const { isLoading, data, error, refetch } = useQuery({
-    queryKey: ["conversations", ownUser.username, page],
+    queryKey: ["conversations"],
+    // queryKey: ["conversations", ownUser.username, page],
     queryFn: () => getConversations(queryString),
     retry: false,
   });
 
   const { conversations, totalCount, hasNextPage, nextPage } = data || {};
 
-  // PRE-FETCHING of next and previous pages
-  const pageCount = Math.ceil(totalCount / PAGE_SIZE);
+  // // PRE-FETCHING of next and previous pages
+  // const pageCount = Math.ceil(totalCount / PAGE_SIZE);
 
-  const nextQueryString = `page=${page + 1}&limit=${limit}`;
+  // const nextQueryString = `page=${page + 1}&limit=${limit}`;
 
-  if (page < pageCount)
-    queryClient.prefetchQuery({
-      queryKey: ["conversations", ownUser.username, page + 1],
-      queryFn: () => getConversations(nextQueryString),
-    });
+  // if (page < pageCount)
+  //   queryClient.prefetchQuery({
+  //     queryKey: ["conversations", ownUser.username, page + 1],
+  //     queryFn: () => getConversations(nextQueryString),
+  //   });
 
-  const previousQueryString = `page=${page - 1}&limit=${limit}`;
+  // const previousQueryString = `page=${page - 1}&limit=${limit}`;
 
-  if (page > 1)
-    queryClient.prefetchQuery({
-      queryKey: ["conversations", ownUser.username, page - 1],
-      queryFn: () => getConversations(previousQueryString),
-    });
+  // if (page > 1)
+  //   queryClient.prefetchQuery({
+  //     queryKey: ["conversations", ownUser.username, page - 1],
+  //     queryFn: () => getConversations(previousQueryString),
+  //   });
 
   return {
     isLoading,
