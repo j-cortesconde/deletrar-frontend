@@ -2,6 +2,7 @@
 // TODO: Conversation messages, even when all got together, should be displayed in parts to aleviate rendering times. Maybe should find a way to first render ConversationMessage for the last X messages in the array (and also find a way to detect when user scrolls to top so that it renders the X number of messages before those too [The way facebook/wa do])
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useUser } from "../users/useUser";
 import { useConversation } from "./useConversation";
@@ -12,10 +13,9 @@ import ConversationMessageSend from "./ConversationMessageSend";
 import ConversationMessage from "./ConversationMessage";
 
 function ConversationDetail() {
-  const [newOwnMessage, setNewOwnMessage] = useState();
-  const [combinedMessages, setCombinedMessages] = useState([]);
-  const [isTyping, setIsTyping] = useState(false);
   const { addresseeUsername } = useParams();
+  const queryClient = useQueryClient();
+  const [isTyping, setIsTyping] = useState(false);
 
   const {
     user: addressee,
@@ -35,8 +35,6 @@ function ConversationDetail() {
   // As soon as the conversation data is loaded this primes the socket and sets the messages into the combinedMessages state variable
   useEffect(() => {
     if (conversationId) {
-      setCombinedMessages([...messages]);
-
       socketService.joinConversation(conversationId);
       socketService.onTyping(() => {
         setIsTyping(true);
@@ -44,9 +42,7 @@ function ConversationDetail() {
       socketService.onStopTyping(() => {
         setIsTyping(false);
       });
-      socketService.onNewConversationMessage((newMessage) => {
-        setCombinedMessages((prevMessages) => [...prevMessages, newMessage]);
-      });
+      socketService.onNewConversationMessage(queryClient, addresseeUsername);
     }
 
     return () => {
@@ -57,13 +53,7 @@ function ConversationDetail() {
         socketService.offNewConversationMessage();
       }
     };
-  }, [conversationId, messages]);
-
-  // Listens to the addition/change of a newOwnMessage and pushes it onto the combinedMessage state (so no need to trigger refetch on message send)
-  useEffect(() => {
-    if (newOwnMessage)
-      setCombinedMessages((prevMessages) => [...prevMessages, newOwnMessage]);
-  }, [newOwnMessage]);
+  }, [conversationId, addresseeUsername, queryClient]);
 
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;
@@ -84,19 +74,18 @@ function ConversationDetail() {
         </div>
       </div>
       <div className="mt-4 grow overflow-y-auto">
-        {combinedMessages?.map((message, i) => (
+        {messages?.map((message, i) => (
           <ConversationMessage
             key={message._id}
             message={message}
             addressee={addressee}
-            previousMessageTime={combinedMessages[i - 1]?.timestamp}
+            previousMessageTime={messages[i - 1]?.timestamp}
           />
         ))}
       </div>
       <ConversationMessageSend
         conversationId={conversationId}
         addresseeUsername={addresseeUsername}
-        setNewOwnMessage={setNewOwnMessage}
       />
     </div>
   );

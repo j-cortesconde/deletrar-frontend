@@ -5,11 +5,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { useSendMesssage } from "./useSendMessage";
 import socketService from "../../services/socketService";
 
-function ConversationMessageSend({
-  conversationId,
-  addresseeUsername,
-  setNewOwnMessage,
-}) {
+function ConversationMessageSend({ conversationId, addresseeUsername }) {
   const [messageContent, setMessageContent] = useState("");
   const [typing, setTyping] = useState(false);
   const typingTimeout = useRef(null);
@@ -46,7 +42,6 @@ function ConversationMessageSend({
             addresseeUsername,
             newMessage,
           );
-          setNewOwnMessage(newMessage);
           socketService.emitStopTyping(conversationId);
           setTyping(false);
           setMessageContent("");

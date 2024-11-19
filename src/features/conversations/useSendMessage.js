@@ -6,7 +6,13 @@ export function useSendMesssage() {
 
   const { mutate: sendMessage, isPending: isSending } = useMutation({
     mutationFn: ({ addressee, message }) => sendMessageAPI(addressee, message),
-    onSuccess: () => {
+    onSuccess: ({ addressee, newMessage }) => {
+      queryClient.setQueryData(["conversation", addressee], (oldData) => {
+        const { conversation } = oldData;
+        const messages = [...oldData.messages, newMessage];
+        return { conversation, messages };
+      });
+
       queryClient.refetchQueries({
         queryKey: ["conversations"],
         type: "active",

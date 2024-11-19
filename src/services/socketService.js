@@ -31,8 +31,20 @@ class SocketService {
     );
   }
 
-  onNewConversationMessage(callback) {
-    this.#socket.on("newConversationMessage", callback);
+  onNewConversationMessage(queryClient, addresseeUsername) {
+    const callBack = (newMessage) => {
+      queryClient.setQueryData(
+        ["conversation", addresseeUsername],
+        (oldData) => {
+          const { conversation } = oldData;
+          const messages = [...oldData.messages, newMessage];
+
+          return { conversation, messages };
+        },
+      );
+    };
+
+    this.#socket.on("newConversationMessage", callBack);
   }
 
   offNewConversationMessage(callback) {
