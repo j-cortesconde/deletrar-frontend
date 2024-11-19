@@ -31,6 +31,10 @@ class SocketService {
     );
   }
 
+  markAsRead(conversationId, messageId) {
+    this.#socket.emit("messageRead", conversationId, messageId);
+  }
+
   onNewConversationMessage(queryClient, addresseeUsername) {
     const callBack = (updatedConversation, newMessage) => {
       queryClient.setQueryData(
@@ -59,7 +63,7 @@ class SocketService {
         return { totalCount, hasNextPage, nextPage, conversations };
       });
 
-      this.#socket.emit("messageRead", updatedConversation._id, newMessage._id);
+      this.markAsRead(updatedConversation._id, newMessage._id);
     };
 
     this.#socket.on("newConversationMessage", callBack);

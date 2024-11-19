@@ -55,6 +55,12 @@ function ConversationDetail() {
     };
   }, [conversationId, addresseeUsername, queryClient]);
 
+  useEffect(() => {
+    if (conversation?.lastMessage?.messenger === addresseeUsername) {
+      socketService.markAsRead(conversation._id, conversation.lastMessage._id);
+    }
+  }, [addresseeUsername, conversation]);
+
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;
 

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getConversation } from "../../services/apiConversations";
+
 // TODO: Must add infinite pagination
 export function useConversation(username) {
   const { isLoading, data, error, refetch } = useQuery({
