@@ -17,7 +17,7 @@ function ConversationSelection() {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 250);
 
-  const { conversations, isLoading, refetch } = useConversations();
+  const { conversations, isLoading } = useConversations();
 
   useEffect(() => {
     socketService.connect();
@@ -29,15 +29,13 @@ function ConversationSelection() {
 
   useEffect(() => {
     if (!isLoading) {
-      socketService.onNewUserMessage(() => {
-        refetch();
-      });
+      socketService.onNewUserMessage(queryClient);
 
       return () => {
         socketService.offNewUserMessage();
       };
     }
-  }, [refetch, isLoading]);
+  }, [queryClient, isLoading]);
 
   function handleSelect(addressee) {
     queryClient.refetchQueries({

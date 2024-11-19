@@ -36,9 +36,9 @@ function ConversationMessageSend({ conversationId, addresseeUsername }) {
     sendMessage(
       { addressee: addresseeUsername, message: messageContent },
       {
-        onSuccess: ({ newMessage }) => {
+        onSuccess: ({ newMessage, conversation }) => {
           socketService.sendMessage(
-            conversationId,
+            conversation,
             addresseeUsername,
             newMessage,
           );

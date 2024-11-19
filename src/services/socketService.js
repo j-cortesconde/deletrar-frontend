@@ -22,26 +22,38 @@ class SocketService {
     this.#socket.emit("leaveConversation", conversationId);
   }
 
-  sendMessage(conversationId, addresseeUsername, newMessage) {
+  sendMessage(conversation, addresseeUsername, newMessage) {
     this.#socket.emit(
       "sendMessage",
-      conversationId,
+      conversation,
       addresseeUsername,
       newMessage,
     );
   }
 
   onNewConversationMessage(queryClient, addresseeUsername) {
-    const callBack = (newMessage) => {
+    const callBack = (updatedConversation, newMessage) => {
       queryClient.setQueryData(
         ["conversation", addresseeUsername],
         (oldData) => {
           const { conversation } = oldData;
-          const messages = [...oldData.messages, newMessage];
+          const messages = [...(oldData?.messages || []), newMessage];
 
           return { conversation, messages };
         },
       );
+
+      queryClient.setQueryData(["conversations"], (oldData) => {
+        const { totalCount, hasNextPage, nextPage } = oldData;
+
+        const filteredConversations = oldData?.conversations?.filter(
+          (conversation) => conversation._id !== updatedConversation._id,
+        );
+
+        const conversations = [updatedConversation, ...filteredConversations];
+
+        return { totalCount, hasNextPage, nextPage, conversations };
+      });
     };
 
     this.#socket.on("newConversationMessage", callBack);
@@ -51,8 +63,23 @@ class SocketService {
     this.#socket.off("newConversationMessage");
   }
 
-  onNewUserMessage(callback) {
-    this.#socket.on("newUserMessage", callback);
+  onNewUserMessage(queryClient) {
+    console.log("Corre");
+    const callBack = (updatedConversation) => {
+      queryClient.setQueryData(["conversations"], (oldData) => {
+        const { totalCount, hasNextPage, nextPage } = oldData;
+
+        const filteredConversations = oldData?.conversations?.filter(
+          (conversation) => conversation._id !== updatedConversation._id,
+        );
+
+        const conversations = [updatedConversation, ...filteredConversations];
+
+        return { totalCount, hasNextPage, nextPage, conversations };
+      });
+    };
+
+    this.#socket.on("newUserMessage", callBack);
   }
 
   offNewUserMessage(callback) {

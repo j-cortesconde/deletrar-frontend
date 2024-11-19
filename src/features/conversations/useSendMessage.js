@@ -6,17 +6,25 @@ export function useSendMesssage() {
 
   const { mutate: sendMessage, isPending: isSending } = useMutation({
     mutationFn: ({ addressee, message }) => sendMessageAPI(addressee, message),
-    onSuccess: ({ addressee, newMessage }) => {
+    onSuccess: ({ conversation, addressee, newMessage }) => {
       queryClient.setQueryData(["conversation", addressee], (oldData) => {
         const { conversation } = oldData;
         const messages = [...oldData.messages, newMessage];
         return { conversation, messages };
       });
 
-      queryClient.refetchQueries({
-        queryKey: ["conversations"],
-        type: "active",
-        exact: true,
+      queryClient.setQueryData(["conversations"], (oldData) => {
+        const { totalCount, hasNextPage, nextPage } = oldData;
+
+        const filteredConversations = oldData?.conversations?.filter(
+          (oldConversation) => oldConversation._id !== conversation._id,
+        );
+
+        conversation.lastMessage = newMessage;
+
+        const conversations = [conversation, ...filteredConversations];
+
+        return { totalCount, hasNextPage, nextPage, conversations };
       });
     },
   });
