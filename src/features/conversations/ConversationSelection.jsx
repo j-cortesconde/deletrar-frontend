@@ -1,6 +1,6 @@
 // TODO: Fix so that it never exceeds screen size and instead the space for conversations  has scrollbar
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useDebounce } from "../../hooks/useDebounce";
 import { useConversations } from "./useConversations";
@@ -11,6 +11,7 @@ import socketService from "../../services/socketService";
 import { useQueryClient } from "@tanstack/react-query";
 
 function ConversationSelection() {
+  const { addresseeUsername } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -29,13 +30,15 @@ function ConversationSelection() {
 
   useEffect(() => {
     if (!isLoading) {
-      socketService.onNewUserMessage(queryClient);
+      socketService.onNewUserMessage(queryClient, addresseeUsername);
+      socketService.onRead(queryClient);
 
       return () => {
         socketService.offNewUserMessage();
+        socketService.offRead();
       };
     }
-  }, [queryClient, isLoading]);
+  }, [queryClient, isLoading, addresseeUsername]);
 
   function handleSelect(addressee) {
     queryClient.refetchQueries({

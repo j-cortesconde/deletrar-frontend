@@ -50,22 +50,36 @@ class SocketService {
           (conversation) => conversation._id !== updatedConversation._id,
         );
 
+        updatedConversation.lastMessage.read = true;
+
         const conversations = [updatedConversation, ...filteredConversations];
+
+        conversations[0].lastMessage.read = true;
 
         return { totalCount, hasNextPage, nextPage, conversations };
       });
+
+      this.#socket.emit("messageRead", updatedConversation._id, newMessage._id);
     };
 
     this.#socket.on("newConversationMessage", callBack);
   }
 
-  offNewConversationMessage(callback) {
+  offNewConversationMessage() {
     this.#socket.off("newConversationMessage");
   }
 
-  onNewUserMessage(queryClient) {
-    console.log("Corre");
+  onNewUserMessage(queryClient, selectedConversationUsername) {
     const callBack = (updatedConversation) => {
+      const updatedConversationIsSelected =
+        updatedConversation.participants.some(
+          (participant) =>
+            participant.username === selectedConversationUsername,
+        );
+
+      // Guard clause so the updating of the conversations list will be handled by onNewConversationMessage when the message that is being sent corresponds to a conversation that is selected
+      if (updatedConversationIsSelected) return;
+
       queryClient.setQueryData(["conversations"], (oldData) => {
         const { totalCount, hasNextPage, nextPage } = oldData;
 
@@ -82,7 +96,7 @@ class SocketService {
     this.#socket.on("newUserMessage", callBack);
   }
 
-  offNewUserMessage(callback) {
+  offNewUserMessage() {
     this.#socket.off("newUserMessage");
   }
 
@@ -90,7 +104,7 @@ class SocketService {
     this.#socket.on("typing", callback);
   }
 
-  offTyping(callback) {
+  offTyping() {
     this.#socket.off("typing");
   }
 
@@ -98,8 +112,40 @@ class SocketService {
     this.#socket.on("stopTyping", callback);
   }
 
-  offStopTyping(callback) {
+  offStopTyping() {
     this.#socket.off("stopTyping");
+  }
+
+  onRead(queryClient) {
+    const callBack = (conversationId, messageId) => {
+      queryClient.setQueryData(["conversations"], (oldData) => {
+        const { totalCount, hasNextPage, nextPage } = oldData;
+
+        const conversations = oldData.conversations.map((conversation) => {
+          if (conversation._id === conversationId) {
+            return {
+              ...conversation,
+              lastMessage: {
+                ...conversation.lastMessage,
+                read:
+                  conversation.lastMessage._id === messageId
+                    ? true
+                    : conversation.lastMessage.read,
+              },
+            };
+          }
+          return conversation;
+        });
+
+        return { totalCount, hasNextPage, nextPage, conversations };
+      });
+    };
+
+    this.#socket.on("isRead", callBack);
+  }
+
+  offRead() {
+    this.#socket.off("isRead");
   }
 
   emitTyping(conversationId) {
