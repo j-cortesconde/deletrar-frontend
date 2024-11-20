@@ -395,6 +395,14 @@ class AxiosService {
     });
   }
 
+  getShareds(sharerUsername, pageParam = 1) {
+    return axios({
+      method: "GET",
+      url: `${API_URL}/shareds/user/${sharerUsername}`,
+      params: { page: pageParam },
+    });
+  }
+
   createShared(newShared) {
     return axios({
       method: "POST",

@@ -5,6 +5,14 @@ import { dateDistance } from "../../utils/dateFormat";
 import TruncatedText from "../../ui/TruncatedText";
 
 function FeedPost({ post, fromCollection }) {
+  if (post.status !== "posted") {
+    return (
+      <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 py-4 text-start shadow-xl">
+        <p className="italic ">Este texto ya no está disponible</p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
       {/* <!-- User Info with Three-Dot Menu --> */}

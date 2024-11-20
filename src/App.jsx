@@ -36,6 +36,7 @@ import ConversationsLayout from "./pages/ConversationsLayout";
 import ConversationDetail from "./features/conversations/ConversationDetail";
 import ConversationPlaceholder from "./features/conversations/ConversationPlaceholder";
 import LoggedInProtection from "./ui/LoggedInProtection";
+import UserShared from "./features/users/UserShared";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -98,6 +99,7 @@ function App() {
               <Route path="posts" element={<UserPosts />} />
               <Route path="collections" element={<UserCollections />} />
               <Route path="saved" element={<UserSaved />} />
+              <Route path="shared" element={<UserShared />} />
               <Route path="hidden" element={<UserHidden />} />
               <Route path="subscribers" element={<UserFollowers />} />
               <Route path="subscribed" element={<UserFollowing />} />

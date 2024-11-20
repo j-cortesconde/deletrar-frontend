@@ -21,6 +21,14 @@ function FeedCollection({ collection }) {
     }
   }, [showAllPosts, collection.posts]);
 
+  if (collection.status !== "posted") {
+    return (
+      <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 py-4 text-start shadow-xl">
+        <p className="italic ">Esta colección ya no está disponible</p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
       {/* <!-- User Info with Three-Dot Menu --> */}

@@ -11,15 +11,15 @@ import axiosService from "./axiosService";
 //   }
 // }
 
-// export async function getComments(type, id, page) {
-//   try {
-//     const response = await axiosService.getComments(type, id, page);
+export async function getShareds({ sharerUsername, pageParam = 1 }) {
+  try {
+    const response = await axiosService.getShareds(sharerUsername, pageParam);
 
-//     return response.data.data;
-//   } catch (err) {
-//     throw new Error(err.response.data.message);
-//   }
-// }
+    return response.data.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+}
 
 export async function createShared(newShared) {
   const response = await axiosService.createShared(newShared);

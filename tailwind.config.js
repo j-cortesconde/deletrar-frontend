@@ -15,10 +15,7 @@ export default {
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/line-clamp"),
-    require("@tailwindcss/typography"),
-  ],
+  plugins: [],
   safelist: [
     {
       pattern: /line-clamp-(1|2|3|4|5|6|7|8|9|10)/,
