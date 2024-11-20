@@ -6,8 +6,10 @@ import { useIsOwnUser } from "./useIsOwnUser";
 
 import Button from "../../ui/Button";
 import Loader from "../../ui/Loader";
+import { useNavigate } from "react-router-dom";
 
 function UserInfo() {
+  const navigate = useNavigate();
   const { isOwnUser, username, ownUser } = useIsOwnUser();
 
   const {
@@ -28,7 +30,7 @@ function UserInfo() {
   const error = userError || followStatusError;
 
   function handleMessage() {
-    console.log("Message Action Triggered");
+    navigate(`/conversations/user/${username}`);
   }
   function handleFollowUnfollow() {
     if (amFollowing) followUnfollowUser({ username, unfollow: true });
