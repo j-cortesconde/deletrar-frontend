@@ -8,8 +8,7 @@ export function useSendMesssage() {
     mutationFn: ({ addressee, message }) => sendMessageAPI(addressee, message),
     onSuccess: ({ conversation, addressee, newMessage }) => {
       queryClient.setQueryData(["conversation", addressee], (oldData) => {
-        const { conversation } = oldData;
-        const messages = [...oldData.messages, newMessage];
+        const messages = [...(oldData?.messages || []), newMessage];
         return { conversation, messages };
       });
 
@@ -22,7 +21,7 @@ export function useSendMesssage() {
 
         conversation.lastMessage = newMessage;
 
-        const conversations = [conversation, ...filteredConversations];
+        const conversations = [conversation, ...(filteredConversations || [])];
 
         return { totalCount, hasNextPage, nextPage, conversations };
       });
