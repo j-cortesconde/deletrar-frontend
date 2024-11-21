@@ -37,6 +37,7 @@ import ConversationDetail from "./features/conversations/ConversationDetail";
 import ConversationPlaceholder from "./features/conversations/ConversationPlaceholder";
 import LoggedInProtection from "./ui/LoggedInProtection";
 import UserShared from "./features/users/UserShared";
+import UserSettings from "./features/users/UserSettings";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,7 +62,7 @@ function App() {
           >
             <Route element={<LoginProtection />}>
               <Route path="users/invite" element={<InviteFriend />} />
-              <Route path="user/settings" />
+              <Route path="user/settings" element={<UserSettings />} />
               <Route path="post/write/:postId" element={<PostWrite />} />
               <Route
                 path="collection/create/:collectionId"

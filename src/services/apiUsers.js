@@ -22,6 +22,17 @@ export async function getCurrentUser() {
   }
 }
 
+export async function updateMe(data) {
+  try {
+    const response = await axiosService.updateMe(data);
+    return response.data.data;
+  } catch (err) {
+    throw new Error(
+      "Error inesperado. Por favor vuelva a intentarlo más tarde.",
+    );
+  }
+}
+
 export async function reactivateAccount() {
   try {
     const response = await axiosService.reactivateAccount();

@@ -2,10 +2,12 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import CreateNewButton from "./CreateNewButton";
 import { useQueryClient } from "@tanstack/react-query";
+import { useCurrentUser } from "../features/users/useCurrentUser";
 
 function AppLayoutInt() {
-  const queryClient = useQueryClient();
-  const user = queryClient.getQueryData(["user"]);
+  // const queryClient = useQueryClient();
+  // const user = queryClient.getQueryData(["user"]);
+  const { user } = useCurrentUser();
 
   return (
     <div className="flex h-screen flex-col">

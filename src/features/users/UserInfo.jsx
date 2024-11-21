@@ -37,7 +37,7 @@ function UserInfo() {
     else followUnfollowUser({ username, unfollow: false });
   }
   function handleEdit() {
-    console.log("Edit Action Triggered");
+    navigate("/user/settings");
   }
 
   if (isLoadingUser) return <Loader />;

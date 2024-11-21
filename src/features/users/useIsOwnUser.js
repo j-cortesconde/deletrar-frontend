@@ -1,11 +1,10 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { useCurrentUser } from "./useCurrentUser";
 
 export function useIsOwnUser() {
   const { username } = useParams();
 
-  const queryClient = useQueryClient();
-  const ownUser = queryClient.getQueryData(["user"]);
+  const { user: ownUser } = useCurrentUser();
 
   const isOwnUser = username === ownUser?.username;
 

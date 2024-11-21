@@ -122,6 +122,15 @@ class AxiosService {
     });
   }
 
+  updateMe(data) {
+    console.log(data);
+    return axios({
+      method: "PATCH",
+      url: `${API_URL}/users/updateMe`,
+      data,
+    });
+  }
+
   reactivateAccount() {
     return axios({
       method: "PATCH",
