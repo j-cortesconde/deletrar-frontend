@@ -8,15 +8,8 @@ export function useUpdateMe() {
   const navigate = useNavigate();
 
   const { isPending: isUpdating, mutate: updateMe } = useMutation({
-    mutationFn: ({ name, description, photo, ...settings }) => {
-      const updateData = {
-        name,
-        description,
-        photo,
-        settings,
-      };
-
-      return updateMeApi(updateData);
+    mutationFn: (formData) => {
+      return updateMeApi(formData);
     },
     onSuccess: (data) => {
       queryClient.setQueryData(["user"], data);

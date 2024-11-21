@@ -4,14 +4,22 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Loader from "../../ui/Loader";
 import { useCurrentUser } from "./useCurrentUser";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import Textarea from "../../ui/Textarea";
 import { useUpdateMe } from "./useUpdateMe";
 
 function UserSettings() {
+  const navigate = useNavigate();
   const { user, isLoading } = useCurrentUser();
-  const { register, formState, handleSubmit } = useForm({
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    control,
+    setError,
+    clearErrors,
+  } = useForm({
     defaultValues: {
       name: user?.name,
       description: user?.description,
@@ -22,25 +30,22 @@ function UserSettings() {
   });
   const { isUpdating, updateMe } = useUpdateMe();
 
-  const navigate = useNavigate();
-  const { errors } = formState;
-
   function onSubmit({
     name,
     description,
-    photo,
+    image,
     publicAccount,
     publicEditing,
     receivingInvitationRequests,
   }) {
-    updateMe({
-      name,
-      description,
-      photo,
-      publicAccount,
-      publicEditing,
-      receivingInvitationRequests,
-    });
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("image", image);
+    formData.append("publicAccount", publicAccount);
+    formData.append("publicEditing", publicEditing);
+    formData.append("receivingInvitationRequests", receivingInvitationRequests);
+    updateMe(formData);
   }
 
   if (isLoading) return <Loader />;
@@ -71,23 +76,35 @@ function UserSettings() {
             }}
           />
         </FormRow>
-        <FormRow label="Foto de Perfil" error={errors?.photo?.message}>
-          <Input
-            type="file"
-            accept="image/*"
-            id="photo"
-            disabled={isUpdating}
-            register={{
-              ...register("photo", {
-                validate: {
-                  // Check if a file exists
-                  fileType: (value) =>
-                    !value?.[0] || value[0]?.type.startsWith("image/")
-                      ? true
-                      : "Sólo se permiten archivos de imagen.",
-                },
-              }),
-            }}
+
+        <FormRow label="Foto de Perfil" error={errors?.image?.message}>
+          <Controller
+            name="image"
+            control={control}
+            render={({ field }) => (
+              <Input
+                type="file"
+                accept="image/*"
+                id="image"
+                disabled={isUpdating}
+                onChange={(e) => {
+                  const file = e.target.files[0];
+
+                  // Validate the file type (check if it's an image)
+                  if (file && !file.type.startsWith("image/")) {
+                    // If the file is not an image, set an error
+                    setError("image", {
+                      type: "manual",
+                      message: "Sólo se permiten archivos de imagen.",
+                    });
+                  } else {
+                    // If valid, clear the error and set the file
+                    clearErrors("image");
+                    field.onChange(file);
+                  }
+                }}
+              />
+            )}
           />
         </FormRow>
 
@@ -166,7 +183,7 @@ function UserSettings() {
           >
             Cancelar
           </Button>
-          <Button size="wide" disabled={isUpdating}>
+          <Button size="wide" disabled={isUpdating || !isValid}>
             {!isUpdating ? "Actualizar información" : "Esperar"}
           </Button>
         </FormRow>
