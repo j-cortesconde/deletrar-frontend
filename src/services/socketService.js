@@ -3,10 +3,12 @@ import { io } from "socket.io-client";
 const SOCKET_SERVER_URL = "http://localhost:3000";
 
 class SocketService {
-  #jwt = localStorage.getItem("jwt");
+  #jwt;
   #socket;
 
   connect() {
+    this.#jwt = localStorage.getItem("jwt");
+
     this.#socket = io(SOCKET_SERVER_URL, { auth: { token: this.#jwt } });
   }
 
