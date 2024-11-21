@@ -21,7 +21,6 @@ function UserShared() {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  console.log(data);
   // TODO: This should return a spinner Loader instead of this one that veils the screen so the user can see the rest of the page as this loads
   if (isLoading) return <Loader />;
 
