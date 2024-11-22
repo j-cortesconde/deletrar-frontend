@@ -90,7 +90,7 @@ function ConversationDetail() {
         </div>
       </div>
       <div className="mt-4 grow overflow-y-auto">
-        <div ref={inViewRef} style={{ height: "20px" }}>
+        <div ref={inViewRef} className="h-5">
           {/* //TODO: Should be localized spinner */}
           {isFetchingNextPage && <Loader />}
         </div>

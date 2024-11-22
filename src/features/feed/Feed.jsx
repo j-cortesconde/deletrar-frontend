@@ -59,7 +59,7 @@ function Feed() {
         ))}
 
         {/* // TODO: Mejorar el look de esto */}
-        <div ref={inViewRef} style={{ height: "20px" }}>
+        <div ref={inViewRef} className="h-5">
           {isFetchingNextPage && <Loader />}
           {!hasNextPage && (
             <p>

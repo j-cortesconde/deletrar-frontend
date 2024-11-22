@@ -34,7 +34,7 @@ function UserShared() {
         </React.Fragment>
       ))}
 
-      <div ref={inViewRef} style={{ height: "20px" }}>
+      <div ref={inViewRef} className="h-5">
         {isFetchingNextPage && <Loader />}
       </div>
     </div>
