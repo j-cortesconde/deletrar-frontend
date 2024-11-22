@@ -42,14 +42,11 @@ class SocketService {
       queryClient.setQueryData(
         ["conversation", addresseeUsername],
         (oldData) => {
-          console.log("Está corriendo");
-          console.log(updatedConversation);
-          console.log(newMessage);
-
           const { pages: oldPages, pageParams: oldPageParams } = oldData;
 
           const newPages = [
             {
+              ...oldPages[0],
               conversation: updatedConversation,
               messages: [...(oldPages?.[0]?.messages || []), newMessage],
             },

@@ -3,6 +3,7 @@
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
 
 import { useUser } from "../users/useUser";
 import { useConversation } from "./useConversation";
@@ -13,8 +14,9 @@ import ConversationMessageSend from "./ConversationMessageSend";
 import ConversationMessage from "./ConversationMessage";
 
 function ConversationDetail() {
-  const { addresseeUsername } = useParams();
   const queryClient = useQueryClient();
+  const { ref, inView } = useInView();
+  const { addresseeUsername } = useParams();
   const [isTyping, setIsTyping] = useState(false);
 
   const {
@@ -25,6 +27,9 @@ function ConversationDetail() {
   const {
     conversation,
     pages,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
     isLoading: isLoading2,
     error: error2,
   } = useConversation(addresseeUsername);
@@ -60,6 +65,12 @@ function ConversationDetail() {
     }
   }, [addresseeUsername, conversation]);
 
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;
 
@@ -79,6 +90,9 @@ function ConversationDetail() {
         </div>
       </div>
       <div className="mt-4 grow overflow-y-auto">
+        <div ref={ref} style={{ height: "20px" }}>
+          {isFetchingNextPage && <Loader />}
+        </div>
         {pages?.map((page, index) => (
           <React.Fragment key={index}>
             {page.messages?.map((message, i) => (

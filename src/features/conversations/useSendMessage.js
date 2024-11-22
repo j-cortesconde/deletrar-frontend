@@ -12,6 +12,7 @@ export function useSendMesssage() {
 
         const newPages = [
           {
+            ...oldPages[0],
             conversation,
             messages: [...(oldPages?.[0]?.messages || []), newMessage],
           },

@@ -1,7 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getConversation } from "../../services/apiConversations";
 
-// TODO: Must add infinite pagination
 export function useConversation(username) {
   const {
     data,
@@ -23,7 +22,7 @@ export function useConversation(username) {
   });
 
   const conversation = data?.pages?.[0]?.conversation;
-  const pages = data?.pages;
+  const pages = [...(data?.pages || [])].reverse();
 
   return {
     conversation,
@@ -36,9 +35,3 @@ export function useConversation(username) {
     isError,
   };
 }
-
-// const { isLoading, data, error, refetch } = useQuery({
-//   queryKey: ["conversation", username],
-//   queryFn: () => getConversation(username),
-//   retry: false,
-// });
