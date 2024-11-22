@@ -1,7 +1,7 @@
 // TODO: Fix so that it never exceeds screen size and instead the space for messages has scrollbar (and so that the div is focused at the bottom of its scroll at start)
 // TODO: Conversation messages, even when all got together, should be displayed in parts to aleviate rendering times. Maybe should find a way to first render ConversationMessage for the last X messages in the array (and also find a way to detect when user scrolls to top so that it renders the X number of messages before those too [The way facebook/wa do])
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { useUser } from "../users/useUser";
@@ -24,8 +24,7 @@ function ConversationDetail() {
   } = useUser(addresseeUsername);
   const {
     conversation,
-    messages,
-    refetch,
+    pages,
     isLoading: isLoading2,
     error: error2,
   } = useConversation(addresseeUsername);
@@ -80,13 +79,17 @@ function ConversationDetail() {
         </div>
       </div>
       <div className="mt-4 grow overflow-y-auto">
-        {messages?.map((message, i) => (
-          <ConversationMessage
-            key={message._id}
-            message={message}
-            addressee={addressee}
-            previousMessageTime={messages[i - 1]?.timestamp}
-          />
+        {pages?.map((page, index) => (
+          <React.Fragment key={index}>
+            {page.messages?.map((message, i) => (
+              <ConversationMessage
+                key={message._id}
+                message={message}
+                addressee={addressee}
+                previousMessageTime={page.messages[i - 1]?.timestamp}
+              />
+            ))}
+          </React.Fragment>
         ))}
       </div>
       <ConversationMessageSend

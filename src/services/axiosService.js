@@ -373,10 +373,11 @@ class AxiosService {
     });
   }
 
-  getConversation(username) {
+  getConversation(username, pageParam) {
     return axios({
       method: "GET",
       url: `${API_URL}/conversations/with/${username}`,
+      params: { page: pageParam },
     });
   }
 

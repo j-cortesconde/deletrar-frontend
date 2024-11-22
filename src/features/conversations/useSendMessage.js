@@ -8,8 +8,19 @@ export function useSendMesssage() {
     mutationFn: ({ addressee, message }) => sendMessageAPI(addressee, message),
     onSuccess: ({ conversation, addressee, newMessage }) => {
       queryClient.setQueryData(["conversation", addressee], (oldData) => {
-        const messages = [...(oldData?.messages || []), newMessage];
-        return { conversation, messages };
+        const { pages: oldPages, pageParams: oldPageParams } = oldData;
+
+        const newPages = [
+          {
+            conversation,
+            messages: [...(oldPages?.[0]?.messages || []), newMessage],
+          },
+          ...oldPages.slice(1),
+        ];
+
+        newPages[0].conversation.lastMessage = newMessage;
+
+        return { pages: newPages, pageParams: oldPageParams };
       });
 
       queryClient.setQueryData(["conversations"], (oldData) => {
