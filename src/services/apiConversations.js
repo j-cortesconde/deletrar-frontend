@@ -9,9 +9,9 @@ export async function getConversation(username, pageParam = 1) {
   }
 }
 
-export async function getConversations(queryString) {
+export async function getConversations({ pageParam = 1 }) {
   try {
-    const response = await axiosService.getConversations(queryString);
+    const response = await axiosService.getConversations(pageParam);
 
     return response.data.data;
   } catch (err) {

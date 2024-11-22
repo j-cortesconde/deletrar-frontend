@@ -15,6 +15,7 @@ export function useConversation(username) {
     queryFn: ({ pageParam }) => getConversation(username, pageParam),
     getNextPageParam: (lastPage) =>
       lastPage.hasNextPage ? lastPage.nextPage : undefined,
+    initialPageParam: 1,
     retry: false,
     refetchOnMount: "always",
     // TODO: Check how this works when adding infinite pagination

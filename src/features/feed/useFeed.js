@@ -15,6 +15,7 @@ export function useFeed() {
     queryFn: getFeed,
     getNextPageParam: (lastPage) =>
       lastPage.hasNextPage ? lastPage.nextPage : undefined,
+    initialPageParam: 1,
     retry: false,
   });
 

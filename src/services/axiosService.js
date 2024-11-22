@@ -381,10 +381,11 @@ class AxiosService {
     });
   }
 
-  getConversations(queryString) {
+  getConversations(pageParam) {
     return axios({
       method: "GET",
-      url: `${API_URL}/conversations/getOwn?${queryString}`,
+      url: `${API_URL}/conversations/getOwn`,
+      params: { page: pageParam },
     });
   }
 
