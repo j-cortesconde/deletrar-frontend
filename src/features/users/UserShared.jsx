@@ -13,7 +13,7 @@ function UserShared() {
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useShareds(username);
 
-  const { ref, inView } = useInView();
+  const { ref: inViewRef, inView } = useInView();
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -34,7 +34,7 @@ function UserShared() {
         </React.Fragment>
       ))}
 
-      <div ref={ref} style={{ height: "20px" }}>
+      <div ref={inViewRef} style={{ height: "20px" }}>
         {isFetchingNextPage && <Loader />}
       </div>
     </div>

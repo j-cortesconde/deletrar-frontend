@@ -15,7 +15,7 @@ import ConversationMessage from "./ConversationMessage";
 
 function ConversationDetail() {
   const queryClient = useQueryClient();
-  const { ref, inView } = useInView();
+  const { ref: inViewRef, inView } = useInView();
   const { addresseeUsername } = useParams();
   const [isTyping, setIsTyping] = useState(false);
 
@@ -90,7 +90,8 @@ function ConversationDetail() {
         </div>
       </div>
       <div className="mt-4 grow overflow-y-auto">
-        <div ref={ref} style={{ height: "20px" }}>
+        <div ref={inViewRef} style={{ height: "20px" }}>
+          {/* //TODO: Should be localized spinner */}
           {isFetchingNextPage && <Loader />}
         </div>
         {pages?.map((page, index) => (

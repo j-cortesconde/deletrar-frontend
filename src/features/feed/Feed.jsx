@@ -13,7 +13,7 @@ function Feed() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useFeed();
 
-  const { ref, inView } = useInView();
+  const { ref: inViewRef, inView } = useInView();
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -59,7 +59,7 @@ function Feed() {
         ))}
 
         {/* // TODO: Mejorar el look de esto */}
-        <div ref={ref} style={{ height: "20px" }}>
+        <div ref={inViewRef} style={{ height: "20px" }}>
           {isFetchingNextPage && <Loader />}
           {!hasNextPage && (
             <p>
