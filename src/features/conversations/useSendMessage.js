@@ -6,14 +6,18 @@ export function useSendMesssage() {
 
   const { mutate: sendMessage, isPending: isSending } = useMutation({
     mutationFn: ({ addressee, message }) => sendMessageAPI(addressee, message),
-    onSuccess: ({ conversation, addressee, newMessage }) => {
+    onSuccess: ({
+      conversation: updatedConversation,
+      addressee,
+      newMessage,
+    }) => {
       queryClient.setQueryData(["conversation", addressee], (oldData) => {
         const { pages: oldPages, pageParams: oldPageParams } = oldData;
 
         const newPages = [
           {
             ...oldPages[0],
-            conversation,
+            conversation: updatedConversation,
             messages: [...(oldPages?.[0]?.messages || []), newMessage],
           },
           ...oldPages.slice(1),
@@ -25,17 +29,23 @@ export function useSendMesssage() {
       });
 
       queryClient.setQueryData(["conversations"], (oldData) => {
-        const { totalCount, hasNextPage, nextPage } = oldData;
+        const { pages, pageParams } = oldData;
 
-        const filteredConversations = oldData?.conversations?.filter(
-          (oldConversation) => oldConversation._id !== conversation._id,
-        );
+        // Access al 'conversations' arrays and filter them. Modify the arrays and each page containing them.
+        const updatedPages = pages.map((page) => {
+          const filteredConversations = page.conversations?.filter(
+            (conv) => conv._id !== updatedConversation._id,
+          );
+          return { ...page, conversations: filteredConversations };
+        });
 
-        conversation.lastMessage = newMessage;
+        // Insert the updated conversation into the 'conversations' array of the first page
+        updatedPages[0].conversations = [
+          updatedConversation,
+          ...(updatedPages[0]?.conversations || []),
+        ];
 
-        const conversations = [conversation, ...(filteredConversations || [])];
-
-        return { totalCount, hasNextPage, nextPage, conversations };
+        return { pages: updatedPages, pageParams };
       });
     },
   });

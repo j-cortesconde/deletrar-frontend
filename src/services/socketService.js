@@ -60,19 +60,26 @@ class SocketService {
       );
 
       queryClient.setQueryData(["conversations"], (oldData) => {
-        const { totalCount, hasNextPage, nextPage } = oldData;
+        const { pages, pageParams } = oldData;
 
-        const filteredConversations = oldData?.conversations?.filter(
-          (conversation) => conversation._id !== updatedConversation._id,
-        );
+        // Access al 'conversations' arrays and filter them. Modify the arrays and each page containing them.
+        const updatedPages = pages.map((page) => {
+          const filteredConversations = page.conversations?.filter(
+            (conv) => conv._id !== updatedConversation._id,
+          );
+          return { ...page, conversations: filteredConversations };
+        });
 
-        updatedConversation.lastMessage.read = true;
+        // Insert the updated conversation into the 'conversations' array of the first page
+        updatedPages[0].conversations = [
+          updatedConversation,
+          ...(updatedPages[0]?.conversations || []),
+        ];
 
-        const conversations = [updatedConversation, ...filteredConversations];
+        // Mark the last message of the updated conversation as read (since this is onNewConversationMessage)
+        updatedPages[0].conversations[0].lastMessage.read = true;
 
-        conversations[0].lastMessage.read = true;
-
-        return { totalCount, hasNextPage, nextPage, conversations };
+        return { pages: updatedPages, pageParams };
       });
 
       this.markAsRead(updatedConversation._id, newMessage._id);
@@ -97,15 +104,23 @@ class SocketService {
       if (updatedConversationIsSelected) return;
 
       queryClient.setQueryData(["conversations"], (oldData) => {
-        const { totalCount, hasNextPage, nextPage } = oldData;
+        const { pages, pageParams } = oldData;
 
-        const filteredConversations = oldData?.conversations?.filter(
-          (conversation) => conversation._id !== updatedConversation._id,
-        );
+        // Access al 'conversations' arrays and filter them. Modify the arrays and each page containing them.
+        const updatedPages = pages.map((page) => {
+          const filteredConversations = page.conversations?.filter(
+            (conv) => conv._id !== updatedConversation._id,
+          );
+          return { ...page, conversations: filteredConversations };
+        });
 
-        const conversations = [updatedConversation, ...filteredConversations];
+        // Insert the updated conversation into the 'conversations' array of the first page
+        updatedPages[0].conversations = [
+          updatedConversation,
+          ...(updatedPages[0]?.conversations || []),
+        ];
 
-        return { totalCount, hasNextPage, nextPage, conversations };
+        return { pages: updatedPages, pageParams };
       });
     };
 
@@ -135,25 +150,31 @@ class SocketService {
   onRead(queryClient) {
     const callBack = (conversationId, messageId) => {
       queryClient.setQueryData(["conversations"], (oldData) => {
-        const { totalCount, hasNextPage, nextPage } = oldData;
+        const { pages, pageParams } = oldData;
 
-        const conversations = oldData.conversations.map((conversation) => {
-          if (conversation._id === conversationId) {
-            return {
-              ...conversation,
-              lastMessage: {
-                ...conversation.lastMessage,
-                read:
-                  conversation.lastMessage._id === messageId
-                    ? true
-                    : conversation.lastMessage.read,
-              },
-            };
-          }
-          return conversation;
+        // Access al 'conversations' arrays and mark the read conversation as read. Modify  each page containing the conversations array.
+        const updatedPages = pages.map((page) => {
+          const modifiedConversations = page.conversations?.map(
+            (conversation) => {
+              if (conversation._id === conversationId) {
+                return {
+                  ...conversation,
+                  lastMessage: {
+                    ...conversation.lastMessage,
+                    read:
+                      conversation.lastMessage._id === messageId
+                        ? true
+                        : conversation.lastMessage.read,
+                  },
+                };
+              }
+              return conversation;
+            },
+          );
+          return { ...page, conversations: modifiedConversations };
         });
 
-        return { totalCount, hasNextPage, nextPage, conversations };
+        return { pages: updatedPages, pageParams };
       });
     };
 

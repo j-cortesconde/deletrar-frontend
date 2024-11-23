@@ -33,12 +33,6 @@ function ConversationSelection() {
   }, []);
 
   useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage]);
-
-  useEffect(() => {
     if (!isLoading) {
       socketService.onNewUserMessage(queryClient, addresseeUsername);
       socketService.onRead(queryClient);
@@ -49,6 +43,12 @@ function ConversationSelection() {
       };
     }
   }, [queryClient, isLoading, addresseeUsername]);
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   function handleSelect(addressee) {
     queryClient.refetchQueries({
@@ -84,10 +84,17 @@ function ConversationSelection() {
             ))}
           </React.Fragment>
         ))}
-      <div ref={inViewRef} className="h-5">
-        {/* //TODO: Should be localized spinner */}
-        {isFetchingNextPage && <Loader />}
-      </div>
+      {/* <div ref={inViewRef} className="h-5"> */}
+      {/* //TODO: Should be localized spinner */}
+      {/* {isFetchingNextPage && <Loader />} */}
+      {/* </div> */}
+      <button
+        onClick={() => {
+          if (hasNextPage) fetchNextPage();
+        }}
+      >
+        More
+      </button>
     </div>
   );
 }
