@@ -3,7 +3,6 @@
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useInView } from "react-intersection-observer";
 
 import { useUser } from "../users/useUser";
 import { useConversation } from "./useConversation";
@@ -11,11 +10,10 @@ import socketService from "../../services/socketService";
 
 import Loader from "../../ui/Loader";
 import ConversationMessageSend from "./ConversationMessageSend";
-import ConversationMessage from "./ConversationMessage";
+import ConversationMessages from "./ConversationMessages";
 
 function ConversationDetail() {
   const queryClient = useQueryClient();
-  const { ref: inViewRef, inView } = useInView();
   const { addresseeUsername } = useParams();
   const [isTyping, setIsTyping] = useState(false);
 
@@ -65,18 +63,15 @@ function ConversationDetail() {
     }
   }, [addresseeUsername, conversation]);
 
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage]);
-
   //TODO: Should be localized spinner
   if (isLoading1 || isLoading2) return <Loader />;
 
   return (
+    // {/* <!-- Main Chat Area --> */}
+    // <div className="flex-1">
     <div className="flex h-full flex-col">
-      <div className="mx-10 flex items-center justify-start gap-2 border-b-2 border-slate-400 border-opacity-50 pb-2">
+      {/* <!-- Chat Header --> */}
+      <header className="mx-10 flex items-center justify-start gap-2 border-b-2 border-slate-400 border-opacity-50 pb-2 pt-5">
         <img
           className="h-20 w-20 rounded-full"
           src={`/users/${addressee.photo}`}
@@ -88,25 +83,17 @@ function ConversationDetail() {
             {isTyping ? "Escribiendo..." : addressee.username}
           </p>
         </div>
-      </div>
-      <div className="mt-4 grow overflow-y-auto">
-        <div ref={inViewRef} className="h-5">
-          {/* //TODO: Should be localized spinner */}
-          {isFetchingNextPage && <Loader />}
-        </div>
-        {pages?.map((page, index) => (
-          <React.Fragment key={index}>
-            {page.messages?.map((message, i) => (
-              <ConversationMessage
-                key={message._id}
-                message={message}
-                addressee={addressee}
-                previousMessageTime={page.messages[i - 1]?.timestamp}
-              />
-            ))}
-          </React.Fragment>
-        ))}
-      </div>
+      </header>
+
+      {/* <!-- Chat Messages List --> */}
+      <ConversationMessages
+        pages={pages}
+        addressee={addressee}
+        hasNextPage={hasNextPage}
+        fetchNextPage={fetchNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
+
       <ConversationMessageSend
         conversationId={conversationId}
         addresseeUsername={addresseeUsername}

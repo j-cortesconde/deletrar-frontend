@@ -51,7 +51,7 @@ function ConversationMessageSend({ conversationId, addresseeUsername }) {
   }
 
   return (
-    <div className="w-full rounded-2xl bg-slate-400">
+    <div className="w-full  bg-slate-400 p-4">
       <form className="flex w-full items-center justify-center gap-2 p-4">
         <TextareaAutosize
           placeholder="Aa"

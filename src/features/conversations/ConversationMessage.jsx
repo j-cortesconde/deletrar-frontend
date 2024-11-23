@@ -1,6 +1,11 @@
 import { shortDate, time } from "../../utils/dateFormat";
 
-function ConversationMessage({ message, addressee, previousMessageTime }) {
+function ConversationMessage({
+  message,
+  addressee,
+  previousMessageTime,
+  previousMessageMessenger,
+}) {
   const isMessengerAddressee = message.messenger === addressee.username;
   const isNewDay = !(
     shortDate(message.timestamp) === shortDate(previousMessageTime)
@@ -16,6 +21,17 @@ function ConversationMessage({ message, addressee, previousMessageTime }) {
       <div
         className={`flex w-full ${isMessengerAddressee ? "justify-start" : "justify-end"}`}
       >
+        {isMessengerAddressee && (
+          <div className="mr-2 flex h-12 w-12 items-center justify-center rounded-full">
+            {previousMessageMessenger !== message.messenger && (
+              <img
+                src={`/users/${addressee.photo}`}
+                alt="Friend's Initial"
+                className="h-10 w-10 rounded-full"
+              />
+            )}
+          </div>
+        )}
         <div
           className={`max-w-[80%] rounded-xl ${isMessengerAddressee ? "bg-slate-200" : "bg-slate-500"}`}
         >
