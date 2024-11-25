@@ -74,6 +74,7 @@ function UserSettings() {
             register={{
               ...register("description"),
             }}
+            handleSubmit={handleSubmit(onSubmit)}
           />
         </FormRow>
 

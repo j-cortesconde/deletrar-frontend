@@ -38,6 +38,13 @@ function ShareModal({ children, sharedComment }) {
     });
   }
 
+  function handleKeyDown(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSubmit();
+    }
+  }
+
   return (
     <div className="flex items-center justify-center">
       {/* Open modal button */}
@@ -76,6 +83,7 @@ function ShareModal({ children, sharedComment }) {
               <TextareaAutosize
                 autoFocus
                 value={content}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setContent(e.target.value)}
                 minRows={1}
                 maxLength={400}

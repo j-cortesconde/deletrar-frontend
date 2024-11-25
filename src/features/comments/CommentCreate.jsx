@@ -43,11 +43,19 @@ function CommentCreate({ repliedComment, handleClose, handleCreate }) {
     handleClose();
   }
 
+  function handleKeyDown(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSubmit();
+    }
+  }
+
   return (
     <div className="flex w-3/4 flex-col gap-3 p-4">
       <TextareaAutosize
         autoFocus
         value={content}
+        onKeyDown={handleKeyDown}
         onChange={(e) => setContent(e.target.value)}
         minRows={repliedComment ? 1 : 4}
         maxLength={400}

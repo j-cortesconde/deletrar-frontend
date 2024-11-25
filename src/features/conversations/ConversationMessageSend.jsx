@@ -50,6 +50,13 @@ function ConversationMessageSend({ conversationId, addresseeUsername }) {
     );
   }
 
+  function handleKeyDown(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSend(event);
+    }
+  }
+
   return (
     <div className="w-full  bg-slate-400 p-4">
       <form className="flex w-full items-center justify-center gap-2 p-4">
@@ -60,6 +67,7 @@ function ConversationMessageSend({ conversationId, addresseeUsername }) {
           maxRows={8}
           autoFocus
           value={messageContent}
+          onKeyDown={handleKeyDown}
           onChange={handleType}
         />
         <button onClick={handleSend}>

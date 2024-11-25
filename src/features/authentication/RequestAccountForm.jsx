@@ -59,6 +59,7 @@ function RequestAccountForm() {
               required: "Este campo es obligatorio",
             }),
           }}
+          handleSubmit={handleSubmit(onSubmit)}
         />
       </FormRow>
       <FormRow
