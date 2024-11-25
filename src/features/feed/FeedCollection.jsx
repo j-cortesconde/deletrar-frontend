@@ -39,7 +39,7 @@ function FeedCollection({ collection }) {
             className="h-20 w-20 flex-shrink-0"
           >
             <img
-              src={`/users/${collection.collector.photo}`}
+              src={collection.collector.photo}
               alt="User Avatar"
               className="h-20 w-20 rounded-full"
             />
@@ -101,7 +101,7 @@ function FeedCollection({ collection }) {
             className="flex justify-center"
           >
             <img
-              src={`/collections/${collection.coverImage}`}
+              src={collection.coverImage}
               alt="Collection Cover"
               className="h-48 w-full rounded-md object-cover"
             />

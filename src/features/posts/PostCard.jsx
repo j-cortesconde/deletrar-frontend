@@ -24,7 +24,7 @@ function PostCard({ post, collectionId, shouldBePosted = true }) {
     >
       <div className="my-8 flex items-start justify-center">
         <img
-          src={`/posts/${post.coverImage}`}
+          src={post.coverImage}
           alt={`${post.title}'s cover`}
           className="max-w-[20%]"
         />

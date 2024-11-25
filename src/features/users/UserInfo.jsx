@@ -46,7 +46,7 @@ function UserInfo() {
   return (
     <div className="my-4 flex items-start justify-between gap-8">
       <div className="w-52 flex-shrink-0">
-        <img src={`/users/${user.photo}`} alt={user.name} className="w-52" />
+        <img src={user.photo} alt={user.name} className="w-52" />
       </div>
       <div className="flex-grow">
         <div className="flex justify-between">

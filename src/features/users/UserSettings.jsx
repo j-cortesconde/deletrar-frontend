@@ -53,7 +53,7 @@ function UserSettings() {
   return (
     <div className="m-auto flex w-3/4 flex-col">
       <h1 className="text-left">Editar Perfil</h1>
-      <img src={`/users/${user.photo}`} alt={user.name} className="w-52" />
+      <img src={user.photo} alt={user.name} className="w-52" />
 
       <Form appLayout="internal" onSubmit={handleSubmit(onSubmit)}>
         <FormRow label="Nombre" error={errors?.name?.message}>

@@ -23,7 +23,7 @@ function FeedPost({ post, fromCollection }) {
             className="h-20 w-20 flex-shrink-0"
           >
             <img
-              src={`/users/${post.author.photo}`}
+              src={post.author.photo}
               alt="User Avatar"
               className="h-20 w-20 rounded-full"
             />
@@ -97,7 +97,7 @@ function FeedPost({ post, fromCollection }) {
         <div className="mb-4">
           <Link to={`/post/${post._id}`} className="flex justify-center">
             <img
-              src={`/posts/${post.coverImage}`}
+              src={post.coverImage}
               alt="Post Cover"
               className="h-48 w-full rounded-md object-cover"
             />

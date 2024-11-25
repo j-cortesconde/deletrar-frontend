@@ -29,7 +29,7 @@ function ConversationCard({ conversation, handleSelect }) {
     >
       <img
         className="h-20 w-20 rounded-full"
-        src={`/users/${addressee.photo}`}
+        src={addressee.photo}
         alt={addressee.name}
       />
       <div className="flex w-full min-w-0 flex-col gap-2">

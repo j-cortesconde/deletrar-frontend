@@ -18,7 +18,7 @@ function FeedShared({ shared }) {
             className="h-20 w-20 flex-shrink-0"
           >
             <img
-              src={`/users/${shared.sharer.photo}`}
+              src={shared.sharer.photo}
               alt="User Avatar"
               className="h-20 w-20 rounded-full"
             />

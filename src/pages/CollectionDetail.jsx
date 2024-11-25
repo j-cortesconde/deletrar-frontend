@@ -30,7 +30,7 @@ function CollectionDetail() {
     <div className="mx-auto w-3/4">
       <div className="mb-10 flex items-center justify-center gap-10 border-b-2 border-stone-300 pb-4">
         <img
-          src={`/collections/${collection?.coverImage}`}
+          src={collection?.coverImage}
           alt="Collection Cover"
           className="w-40"
         />

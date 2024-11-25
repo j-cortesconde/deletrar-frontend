@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
 import TruncatedText from "../../ui/TruncatedText";
 
 function FeedComment({ comment }) {
+  const navigate = useNavigate();
+  const isAnonymousComment = !comment.author;
+
   if (comment.status !== "posted") {
     return (
       <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 py-4 text-start shadow-xl">
@@ -16,26 +19,26 @@ function FeedComment({ comment }) {
       {/* <!-- User Info with Three-Dot Menu --> */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex h-full w-full items-start gap-2 truncate">
-          <Link
-            to={`/user/${comment.author.username}`}
-            className="h-20 w-20 flex-shrink-0"
-          >
-            <img
-              src={`/users/${comment.author.photo}`}
-              alt="User Avatar"
-              className="h-20 w-20 rounded-full"
-            />
-          </Link>
+          <img
+            onClick={() => {
+              if (isAnonymousComment) return;
+              return navigate(`/user/${comment?.author?.username}`);
+            }}
+            src={comment?.author?.photo || "/users/anonymous.png"}
+            alt={comment?.author?.username || "Lector Anónimo"}
+            className="h-20 w-20 rounded-full"
+          />
           <div className="flex w-full flex-col justify-between gap-1 truncate">
             <div className="truncate">
-              <Link
-                to={`/user/${comment.author.username}`}
-                className="truncate"
+              <p
+                onClick={() => {
+                  if (isAnonymousComment) return;
+                  return navigate(`/user/${comment?.author?.username}`);
+                }}
+                className=" inline truncate font-semibold text-gray-800"
               >
-                <p className=" inline truncate font-semibold text-gray-800">
-                  {comment.author.name}
-                </p>
-              </Link>
+                {comment?.author?.name || "Lector Anónimo"}
+              </p>
             </div>
 
             <Link to={`/comment/${comment._id}`}>
@@ -72,7 +75,8 @@ function FeedComment({ comment }) {
         {comment.replyingTo && (
           <div className="truncate break-words text-xl text-gray-500">
             <p className="truncate">
-              En respuesta a {comment.replyingTo.author.name}
+              En respuesta a{" "}
+              {comment.replyingTo.author?.name || "Lector Anónimo"}
             </p>
           </div>
         )}

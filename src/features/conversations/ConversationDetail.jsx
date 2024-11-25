@@ -74,7 +74,7 @@ function ConversationDetail() {
       <header className="mx-10 flex items-center justify-start gap-2 border-b-2 border-slate-400 border-opacity-50 pb-2 pt-5">
         <img
           className="h-20 w-20 rounded-full"
-          src={`/users/${addressee.photo}`}
+          src={addressee.photo}
           alt={`${addressee.username}`}
         />
         <div className="grid grid-rows-[3fr_2fr] items-end text-start">

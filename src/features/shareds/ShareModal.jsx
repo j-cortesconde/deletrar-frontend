@@ -64,7 +64,7 @@ function ShareModal({ children, sharedComment }) {
               <div className="flex gap-4 ">
                 <img
                   className="h-20 w-20 rounded-full"
-                  src={`/users/${ownUser.photo}`}
+                  src={ownUser.photo}
                   alt={ownUser.username}
                 />
 

@@ -18,7 +18,7 @@ function CollectionCard({ collection }) {
     >
       <div className="my-8 flex items-start justify-center">
         <img
-          src={`/collections/${collection.coverImage}`}
+          src={collection.coverImage}
           alt={`${collection.title}'s cover`}
           className="max-w-[20%]"
         />

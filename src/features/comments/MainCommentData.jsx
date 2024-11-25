@@ -15,7 +15,7 @@ function MainCommentData({ comment }) {
             return navigate(`/user/${comment?.author.username}`);
           }}
           className="h-28 w-28 rounded-full hover:cursor-pointer"
-          src={`/users/${comment?.author?.photo || "anonymous.png"}`}
+          src={comment?.author?.photo || "/users/anonymous.png"}
           alt={comment?.author?.username || "Lector Anónimo"}
         />
 

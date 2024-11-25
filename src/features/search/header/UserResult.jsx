@@ -8,7 +8,7 @@ function UserResult({ selected = false, to, result }) {
     <ScrollableLi selected={selected} onClick={() => navigate(to)}>
       <Link to={to} className="m-2 flex items-center gap-3 align-middle">
         <img
-          src={`/users/${result.photo}`}
+          src={result.photo}
           alt={result.name}
           className="w-16 rounded-full"
         />

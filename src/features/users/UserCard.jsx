@@ -9,7 +9,7 @@ function UserCard({ user }) {
     >
       <div className="my-14 flex items-center justify-end gap-10">
         <img
-          src={`/users/${user.photo}`}
+          src={user.photo}
           alt={`${user.name}`}
           className="max-w-[20%] rounded-full"
         />
