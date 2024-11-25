@@ -16,7 +16,9 @@ function UserCard({ user }) {
         <div className="mx-10 w-[60%] text-left">
           <p className="text-4xl font-semibold">{user.name}</p>
           <p className="text-2xl">{user.username}</p>
-          <p className="text-2xl">{user.description}</p>
+          <p className="flex-wrap whitespace-pre-wrap text-2xl">
+            {user.description}
+          </p>
         </div>
       </div>
     </li>

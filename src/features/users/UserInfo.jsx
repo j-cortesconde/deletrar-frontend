@@ -96,7 +96,9 @@ function UserInfo() {
           </div>
         </div>
 
-        <p className="mt-1 text-left text-3xl">{user.description}</p>
+        <p className="mt-1 flex-wrap whitespace-pre-wrap text-left text-3xl">
+          {user.description}
+        </p>
       </div>
     </div>
   );

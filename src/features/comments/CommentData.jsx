@@ -43,7 +43,9 @@ function CommentData({ comment }) {
       </div>
 
       <div className="mx-2 mb-2 pl-20">
-        <p className="select-text break-words text-left">{comment?.content}</p>
+        <p className="select-text flex-wrap whitespace-pre-wrap break-words text-left">
+          {comment?.content}
+        </p>
       </div>
     </div>
   );

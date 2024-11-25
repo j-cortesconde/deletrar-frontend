@@ -46,7 +46,9 @@ function PostCard({ post, collectionId, shouldBePosted = true }) {
               (Actualizado el {shortDate(post.updatedAt)})
             </p>
           )}
-          <p className="mt-1 text-2xl">{post.summary}</p>
+          <p className="mt-1 flex-wrap whitespace-pre-wrap text-2xl">
+            {post.summary}
+          </p>
         </div>
       </div>
     </li>

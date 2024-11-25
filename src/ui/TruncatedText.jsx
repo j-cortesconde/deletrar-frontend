@@ -30,7 +30,7 @@ const TruncatedText = ({
     <div>
       <p
         ref={textRef}
-        className={`overflow-hidden break-words text-justify text-gray-800 ${isExpanded ? "" : `line-clamp-${maxLines}`}`}
+        className={`flex-wrap overflow-hidden whitespace-pre-wrap break-words text-justify text-gray-800 ${isExpanded ? "" : `line-clamp-${maxLines}`}`}
       >
         {text}
       </p>

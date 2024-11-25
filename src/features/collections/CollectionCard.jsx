@@ -41,7 +41,9 @@ function CollectionCard({ collection }) {
                 (Actualizada el {shortDate(collection.updatedAt)})
               </p>
             )}
-          <p className="mt-1 text-2xl">{collection.summary}</p>
+          <p className="mt-1 flex-wrap whitespace-pre-wrap text-2xl">
+            {collection.summary}
+          </p>
         </div>
       </div>
     </li>
