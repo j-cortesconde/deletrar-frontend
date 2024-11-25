@@ -1,11 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useCreateShared } from "./useCreateShared";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
 import toast from "react-hot-toast";
 
 function ShareModal({ children, sharedComment }) {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState();
@@ -32,6 +33,7 @@ function ShareModal({ children, sharedComment }) {
         toast.success("Compartido exitosamente");
         closeModal();
         setContent();
+        navigate(`/user/${ownUser.username}/shared`);
       },
     });
   }
