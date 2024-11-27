@@ -1,5 +1,6 @@
 // TODO: See of setting maxLength to summary (and adding a way to load other post fields, like coverImage or subtitle)
 // TODO: Must reject (redirect) any collections with status === "deleted" to wherever they are reactivated (collectionDetail probably)
+// TODO: REFACTOR THIS MESS
 
 import "react-quill/dist/quill.snow.css";
 import toast from "react-hot-toast";
@@ -19,7 +20,6 @@ import EditorButtons from "../ui/EditorButtons";
 
 function CollectionCreate() {
   const navigate = useNavigate();
-
   const { collectionId } = useParams();
 
   const {
@@ -36,12 +36,14 @@ function CollectionCreate() {
   const [subtitle, setSubtitle] = useState("");
   const [summary, setSummary] = useState("");
   const [posts, setPosts] = useState([]);
+  const [image, setImage] = useState(null);
+  const [imageError, setImageError] = useState("");
 
   const [autoSaveEnabled, setAutoSaveEnabled] = useState(false);
 
   const newCollection = {
     title: title || "Colección sin título",
-    summary: summary || "Resumen...",
+    summary: summary || "Resumen de la colección",
     subtitle,
     posts,
     status: "editing",
@@ -82,6 +84,10 @@ function CollectionCreate() {
   }
 
   function onSave(isSharing = false) {
+    if (imageError) {
+      return toast.error(imageError);
+    }
+
     if (title === "" || summary === "") {
       return toast.error("La colección debe tener un título y un resumen");
     }
@@ -94,7 +100,14 @@ function CollectionCreate() {
       else newCollection.status = "posted";
     }
 
-    updateCollection({ collectionId, newCollection });
+    updateCollection(
+      { collectionId, newCollection, image },
+      {
+        onSuccess: () => {
+          setImage(null);
+        },
+      },
+    );
   }
 
   function onCopy() {
@@ -109,8 +122,30 @@ function CollectionCreate() {
       status: "editing",
     };
 
-    createCollection(copyCollection);
+    if (image) copyCollection.image = image;
+
+    createCollection(copyCollection, {
+      onSuccess: () => {
+        setImage(null);
+      },
+    });
   }
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      if (file.type.startsWith("image/")) {
+        setImage(file);
+        setImageError("");
+      } else {
+        setImage(null);
+        setImageError("Sólo se permiten archivos de imagen.");
+      }
+    } else {
+      setImage(null);
+    }
+  };
 
   if (error) return <div>{error.message}</div>;
 
@@ -124,15 +159,33 @@ function CollectionCreate() {
           placeholder="Título..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="m-2 w-full p-4 text-4xl"
+          className="m-2 w-full border-2 border-stone-400 p-4 text-4xl"
         />
         <textarea
           placeholder="Resumen..."
           rows={3}
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
-          className="m-2 w-full p-4 text-xl"
+          className="m-2 w-full border-2 border-stone-400 p-4 text-xl"
         />
+
+        <div className="m-2 w-full">
+          <div className="flex items-center gap-6">
+            <label htmlFor="image" className="text-4xl">
+              Portada de la Colección:
+            </label>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="flex flex-1 rounded-sm border-2 border-stone-300 bg-stone-50 px-5 py-3 shadow-sm"
+            />
+          </div>
+          <p className="mt-2 w-full text-left text-3xl text-red-700">
+            {imageError}
+          </p>
+        </div>
 
         <CollectionPosts posts={collection?.posts} />
 

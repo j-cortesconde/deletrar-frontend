@@ -61,11 +61,8 @@ export async function createCollection(collection) {
   return response.data.data;
 }
 
-export async function updateCollection(collectionId, collection) {
-  const response = await axiosService.updateCollection(
-    collectionId,
-    collection,
-  );
+export async function updateCollection(collectionId, data) {
+  const response = await axiosService.updateCollection(collectionId, data);
   return response.data.data;
 }
 

@@ -9,8 +9,26 @@ export function useUpdateCollection() {
   const queryClient = useQueryClient();
 
   const { mutate: updateCollection, isPending: isUpdating } = useMutation({
-    mutationFn: ({ collectionId, newCollection }) =>
-      updateCollectionAPI(collectionId, newCollection),
+    mutationFn: ({ collectionId, newCollection, image }) => {
+      const formData = new FormData();
+
+      Object.entries(newCollection).forEach(([key, value]) => {
+        // The way of adding the elements from the posts array
+        if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            formData.append(`${key}[${index}]`, item._id || item);
+          });
+
+          // The way of adding all other properties (which aren't nested)
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      formData.append("image", image);
+
+      return updateCollectionAPI(collectionId, formData);
+    },
     onSuccess: (data) => {
       toast.success("La colección fue guardada exitosamente");
       queryClient.setQueryData(["collection", data._id], data);
@@ -26,8 +44,24 @@ export function useAutoSaveUpdateCollection() {
   const queryClient = useQueryClient();
 
   const { mutate: updateCollection, isPending: isUpdating } = useMutation({
-    mutationFn: ({ collectionId, newCollection }) =>
-      updateCollectionAPI(collectionId, newCollection),
+    mutationFn: ({ collectionId, newCollection }) => {
+      const formData = new FormData();
+
+      Object.entries(newCollection).forEach(([key, value]) => {
+        // The way of adding the elements from the posts array
+        if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            formData.append(`${key}[${index}]`, item._id || item);
+          });
+
+          // The way of adding all other properties (which aren't nested)
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      return updateCollectionAPI(collectionId, formData);
+    },
     onSuccess: (data) => {
       queryClient.setQueryData(["collection", data._id], data);
     },

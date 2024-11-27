@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+
+import { useCurrentUser } from "./useCurrentUser";
+import { useUpdateMe } from "./useUpdateMe";
+
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Loader from "../../ui/Loader";
-import { useCurrentUser } from "./useCurrentUser";
-import { Controller, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import Textarea from "../../ui/Textarea";
-import { useUpdateMe } from "./useUpdateMe";
 
 function UserSettings() {
   const navigate = useNavigate();

@@ -8,7 +8,25 @@ export function useCreateCollection() {
   const navigate = useNavigate();
 
   const { mutate: createCollection, isPending: isCreating } = useMutation({
-    mutationFn: (newCollection) => createCollectionAPI(newCollection),
+    mutationFn: (newCollection) => {
+      const formData = new FormData();
+
+      Object.entries(newCollection).forEach(([key, value]) => {
+        // The way of adding the elements from the posts array
+        if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            formData.append(`${key}[${index}]`, item._id);
+          });
+
+          // The way of adding all other properties (which aren't nested)
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      return createCollectionAPI(formData);
+    },
+
     onSuccess: (data) => {
       queryClient.setQueryData(["collection", data._id], data);
       navigate(`/collection/create/${data._id}`);

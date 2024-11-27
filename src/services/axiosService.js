@@ -304,11 +304,11 @@ class AxiosService {
     });
   }
 
-  updateCollection(collectionId, collection) {
+  updateCollection(collectionId, data) {
     return axios({
       method: "PATCH",
       url: `${API_URL}/collections/id/${collectionId}`,
-      data: collection,
+      data,
     });
   }
 
