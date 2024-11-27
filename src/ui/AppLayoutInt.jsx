@@ -9,7 +9,7 @@ function AppLayoutInt() {
   return (
     <div className="flex h-screen flex-col overflow-auto">
       <Header user={user} />
-      <main className="my-4 h-screen flex-1 overflow-auto px-4 text-center">
+      <main className="my-4 h-screen flex-1 px-4 text-center">
         <Outlet />
         {user ? <CreateNewButton /> : ""}
       </main>
