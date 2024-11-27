@@ -31,6 +31,8 @@ function PostWrite() {
   const [summary, setSummary] = useState(post?.summary || "");
   const [content, setContent] = useState(post?.content || "");
   const [autoSaveEnabled, setAutoSaveEnabled] = useState(false);
+  const [image, setImage] = useState(null);
+  const [imageError, setImageError] = useState("");
 
   const newPost = {
     title: title || "Texto sin título",
@@ -73,13 +75,24 @@ function PostWrite() {
   }
 
   function onSave(isPosting = false) {
+    if (imageError) {
+      return toast.error(imageError);
+    }
+
     if (title === "" || summary === "") {
       return toast.error("El texto debe tener un título y un resumen");
     }
 
     if (isPosting) newPost.status = "posted";
 
-    updatePost({ postId, newPost });
+    updatePost(
+      { postId, newPost, image },
+      {
+        onSuccess: () => {
+          setImage(null);
+        },
+      },
+    );
   }
 
   function onCopy() {
@@ -92,31 +105,70 @@ function PostWrite() {
       content,
       status: "editing",
     };
+    if (image) copyPost.image = image;
 
-    createPost(copyPost);
+    createPost(copyPost, {
+      onSuccess: () => {
+        setImage(null);
+      },
+    });
   }
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      if (file.type.startsWith("image/")) {
+        setImage(file);
+        setImageError("");
+      } else {
+        setImage(null);
+        setImageError("Sólo se permiten archivos de imagen.");
+      }
+    } else {
+      setImage(null);
+    }
+  };
 
   if (error) return <div>{error.message}</div>;
 
   return (
     <>
       {isLoading && <Loader />}
-      <div className="flex h-full flex-col items-center">
+      <div className="m-auto flex h-full w-3/4 flex-col items-center">
         <input
           type="text"
           maxLength={40}
           placeholder="Título..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="m-2 w-3/4 p-4 text-4xl"
+          className="m-2 w-full p-4 text-4xl"
         />
         <textarea
           placeholder="Resumen..."
           rows={3}
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
-          className="m-2 w-3/4 p-4 text-xl"
+          className="m-2 w-full p-4 text-xl"
         />
+
+        <div className="m-2 w-full">
+          <div className="flex items-center gap-6">
+            <label htmlFor="image" className="text-4xl">
+              Portada del Texto:
+            </label>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="flex flex-1 rounded-sm border-2 border-stone-300 bg-stone-50 px-5 py-3 shadow-sm"
+            />
+          </div>
+          <p className="mt-2 w-full text-left text-3xl text-red-700">
+            {imageError}
+          </p>
+        </div>
 
         <PostEditor
           quillRef={quillRef}

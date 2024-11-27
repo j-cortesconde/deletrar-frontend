@@ -9,7 +9,21 @@ export function useUpdatePost() {
   const queryClient = useQueryClient();
 
   const { mutate: updatePost, isPending: isUpdating } = useMutation({
-    mutationFn: ({ postId, newPost }) => updatePostAPI(postId, newPost),
+    mutationFn: ({ postId, newPost, image }) => {
+      const formData = new FormData();
+
+      Object.entries(newPost).forEach(([key, value]) => {
+        if (value && typeof value === "object") {
+          formData.append(key, JSON.stringify(value));
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      formData.append("image", image);
+
+      return updatePostAPI(postId, formData);
+    },
     onSuccess: (data) => {
       toast.success("El texto fue guardado exitosamente");
       queryClient.setQueryData(["post", data._id], data);
@@ -25,7 +39,19 @@ export function useAutoSaveUpdatePost() {
   const queryClient = useQueryClient();
 
   const { mutate: updatePost, isPending: isUpdating } = useMutation({
-    mutationFn: ({ postId, newPost }) => updatePostAPI(postId, newPost),
+    mutationFn: ({ postId, newPost }) => {
+      const formData = new FormData();
+
+      Object.entries(newPost).forEach(([key, value]) => {
+        if (value && typeof value === "object") {
+          formData.append(key, JSON.stringify(value));
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      return updatePostAPI(postId, formData);
+    },
     onSuccess: (data) => {
       queryClient.setQueryData(["post", data._id], data);
     },

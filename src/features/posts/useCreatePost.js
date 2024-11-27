@@ -8,7 +8,20 @@ export function useCreatePost() {
   const navigate = useNavigate();
 
   const { mutate: createPost, isPending: isCreating } = useMutation({
-    mutationFn: (newPost) => createPostAPI(newPost),
+    mutationFn: (newPost) => {
+      const formData = new FormData();
+
+      Object.entries(newPost).forEach(([key, value]) => {
+        if (value && typeof value === "object") {
+          formData.append(key, JSON.stringify(value));
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      return createPostAPI(formData);
+    },
+
     onSuccess: (data) => {
       queryClient.setQueryData(["post", data._id], data);
       navigate(`/post/write/${data._id}`);
