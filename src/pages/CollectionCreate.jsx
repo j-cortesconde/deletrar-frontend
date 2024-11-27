@@ -156,6 +156,7 @@ function CollectionCreate() {
         <input
           type="text"
           maxLength={40}
+          autoFocus
           placeholder="Título..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -179,7 +180,7 @@ function CollectionCreate() {
               id="image"
               accept="image/*"
               onChange={handleImageChange}
-              className="flex flex-1 rounded-sm border-2 border-stone-300 bg-stone-50 px-5 py-3 shadow-sm"
+              className="flex flex-1 rounded-sm border-2 border-stone-400 bg-stone-50 px-5 py-3 shadow-sm"
             />
           </div>
           <p className="mt-2 w-full text-left text-3xl text-red-700">

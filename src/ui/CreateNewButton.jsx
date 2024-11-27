@@ -24,7 +24,7 @@ function CreateNewButton() {
     const newPost = {
       title: "Texto sin título",
       summary: "Resumen...",
-      content: "",
+      content: {},
       status: "editing",
     };
     createPost(newPost);

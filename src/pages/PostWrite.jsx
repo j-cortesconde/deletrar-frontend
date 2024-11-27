@@ -139,17 +139,18 @@ function PostWrite() {
         <input
           type="text"
           maxLength={40}
+          autoFocus
           placeholder="Título..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="m-2 w-full p-4 text-4xl"
+          className="m-2 w-full border-2 border-stone-400 p-4 text-4xl"
         />
         <textarea
           placeholder="Resumen..."
           rows={3}
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
-          className="m-2 w-full p-4 text-xl"
+          className="m-2 min-h-[7.65rem] w-full border-2 border-stone-400 p-4 text-xl"
         />
 
         <div className="m-2 w-full">
@@ -162,7 +163,7 @@ function PostWrite() {
               id="image"
               accept="image/*"
               onChange={handleImageChange}
-              className="flex flex-1 rounded-sm border-2 border-stone-300 bg-stone-50 px-5 py-3 shadow-sm"
+              className="flex flex-1 rounded-sm border-2 border-stone-400 bg-stone-50 px-5 py-3 shadow-sm"
             />
           </div>
           <p className="mt-2 w-full text-left text-3xl text-red-700">
@@ -174,7 +175,7 @@ function PostWrite() {
           quillRef={quillRef}
           value={content}
           handleChange={handleChange}
-          className="m-2 flex h-full w-3/4 flex-1 flex-col"
+          className="m-2 flex w-full flex-grow flex-col"
         />
 
         <EditorButtons
