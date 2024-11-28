@@ -9,7 +9,7 @@ export function useInviteFriend() {
       toast.success(data.message);
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error(err.response.data.message);
     },
   });
 

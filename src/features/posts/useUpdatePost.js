@@ -29,7 +29,7 @@ export function useUpdatePost() {
       queryClient.setQueryData(["post", data._id], data);
       if (data.status === "posted") navigate(`/post/${data._id}`);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(err.response.data.message),
   });
 
   return { updatePost, isUpdating };
@@ -55,7 +55,7 @@ export function useAutoSaveUpdatePost() {
     onSuccess: (data) => {
       queryClient.setQueryData(["post", data._id], data);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(err.response.data.message),
   });
 
   return { updatePost, isUpdating };

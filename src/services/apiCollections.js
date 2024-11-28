@@ -10,50 +10,34 @@ export async function searchCollections(query) {
 }
 
 export async function getCollection(collectionId) {
-  try {
-    if (!collectionId) return null;
+  if (!collectionId) return null;
 
-    const response = await axiosService.getCollection(collectionId);
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  const response = await axiosService.getCollection(collectionId);
+  return response.data.data;
 }
 
 export async function getCollections(collectorUsername, queryString) {
-  try {
-    const response = await axiosService.getCollections(
-      collectorUsername,
-      queryString,
-    );
+  const response = await axiosService.getCollections(
+    collectorUsername,
+    queryString,
+  );
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 export async function getOwnHiddenCollections(queryString) {
-  try {
-    const response = await axiosService.getOwnHiddenCollections(queryString);
+  const response = await axiosService.getOwnHiddenCollections(queryString);
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 export async function getSavedCollections(username, queryString) {
-  try {
-    const response = await axiosService.getSavedCollections(
-      username,
-      queryString,
-    );
+  const response = await axiosService.getSavedCollections(
+    username,
+    queryString,
+  );
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 export async function createCollection(collection) {

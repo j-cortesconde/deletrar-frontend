@@ -10,44 +10,28 @@ export async function searchPosts(query) {
 }
 
 export async function getPost(postId) {
-  try {
-    if (!postId) return null;
+  if (!postId) return null;
 
-    const response = await axiosService.getPost(postId);
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  const response = await axiosService.getPost(postId);
+  return response.data.data;
 }
 
 export async function getPosts(authorUsername, queryString) {
-  try {
-    const response = await axiosService.getPosts(authorUsername, queryString);
+  const response = await axiosService.getPosts(authorUsername, queryString);
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 export async function getOwnHiddenPosts(queryString) {
-  try {
-    const response = await axiosService.getOwnHiddenPosts(queryString);
+  const response = await axiosService.getOwnHiddenPosts(queryString);
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 export async function getSavedPosts(username, queryString) {
-  try {
-    const response = await axiosService.getSavedPosts(username, queryString);
+  const response = await axiosService.getSavedPosts(username, queryString);
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 export async function createPost(post) {

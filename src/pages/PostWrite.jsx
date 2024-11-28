@@ -130,7 +130,7 @@ function PostWrite() {
     }
   };
 
-  if (error) return <div>{error.message}</div>;
+  if (error) return <div>{error.response.data.message}</div>;
 
   return (
     <>

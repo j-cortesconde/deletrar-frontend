@@ -16,7 +16,7 @@ export function useDeletePost() {
       queryClient.removeQueries(["post", data._id]);
       navigate("/home", { replace: true });
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(err.response.data.message),
   });
 
   return { deletePost, isDeleting };

@@ -1,84 +1,60 @@
 import axiosService from "./axiosService";
 
 export async function login({ email, password }) {
-  try {
-    const response = await axiosService.login({ email, password });
+  const response = await axiosService.login({ email, password });
 
-    localStorage.setItem("jwt", response.data.token);
+  localStorage.setItem("jwt", response.data.token);
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error("Invalid credentials");
-  }
+  return response.data.data;
 }
 
 export async function logout() {
-  try {
-    await axiosService.logout();
+  await axiosService.logout();
 
-    localStorage.removeItem("jwt");
-  } catch (err) {
-    throw new Error(err.message);
-  }
+  localStorage.removeItem("jwt");
 }
 
 export async function requestAccount({ name, email, request, friendUsername }) {
-  try {
-    const toWhom = {
-      isUser: friendUsername !== "",
-      username: friendUsername,
-    };
+  const toWhom = {
+    isUser: friendUsername !== "",
+    username: friendUsername,
+  };
 
-    const response = await axiosService.requestAccount({
-      name,
-      email,
-      request,
-      toWhom,
-    });
+  const response = await axiosService.requestAccount({
+    name,
+    email,
+    request,
+    toWhom,
+  });
 
-    return response.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data;
 }
 
 export async function inviteFriend({ name, email }) {
-  try {
-    const response = await axiosService.inviteFriend({
-      name,
-      email,
-    });
+  const response = await axiosService.inviteFriend({
+    name,
+    email,
+  });
 
-    return response.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data;
 }
 
 export async function forgotPassword({ email }) {
-  try {
-    const response = await axiosService.forgotPassword({ email });
+  const response = await axiosService.forgotPassword({ email });
 
-    return response.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data;
 }
 
 export async function resetPassword({ password, passwordConfirm, token }) {
-  try {
-    const response = await axiosService.resetPassword({
-      password,
-      passwordConfirm,
-      token,
-    });
+  const response = await axiosService.resetPassword({
+    password,
+    passwordConfirm,
+    token,
+  });
 
-    localStorage.setItem("jwt", response.data.token);
+  localStorage.setItem("jwt", response.data.token);
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 // export async function updateCurrentUser({ password, fullName, avatar }) {

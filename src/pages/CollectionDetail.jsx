@@ -23,7 +23,7 @@ function CollectionDetail() {
 
   const { isntOwnCollection, isLoggedIn } = useIsntOwnCollection(collection);
 
-  if (error) return <div>{error.message}</div>;
+  if (error) return <div>{error.response.data.message}</div>;
   if (isLoading) return <Loader />;
 
   return (

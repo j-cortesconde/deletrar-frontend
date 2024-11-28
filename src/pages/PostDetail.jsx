@@ -27,7 +27,7 @@ function PostDetail() {
 
   const isntOwnPost = useIsntOwnPost(post);
 
-  if (error) return <div>{error.message}</div>;
+  if (error) return <div>{error.response.data.message}</div>;
   if (isLoading) return <Loader />;
 
   return (

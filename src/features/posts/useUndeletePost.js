@@ -17,7 +17,7 @@ export function useUndeletePost() {
       queryClient.setQueryData(["post", data._id], data);
       navigate(`/post/write/${data._id}`);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(err.response.data.message),
   });
 
   return { undeletePost, isUndeleting };

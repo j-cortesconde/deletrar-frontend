@@ -12,13 +12,9 @@ import axiosService from "./axiosService";
 // }
 
 export async function getShareds({ sharerUsername, pageParam = 1 }) {
-  try {
-    const response = await axiosService.getShareds(sharerUsername, pageParam);
+  const response = await axiosService.getShareds(sharerUsername, pageParam);
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 export async function createShared(newShared) {

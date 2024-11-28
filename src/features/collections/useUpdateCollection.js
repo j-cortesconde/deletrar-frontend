@@ -34,7 +34,7 @@ export function useUpdateCollection() {
       queryClient.setQueryData(["collection", data._id], data);
       if (data.status === "posted") navigate(`/collection/${data._id}`);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(err.response.data.message),
   });
 
   return { updateCollection, isUpdating };
@@ -65,7 +65,7 @@ export function useAutoSaveUpdateCollection() {
     onSuccess: (data) => {
       queryClient.setQueryData(["collection", data._id], data);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(err.response.data.message),
   });
 
   return { updateCollection, isUpdating };

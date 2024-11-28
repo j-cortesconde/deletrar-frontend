@@ -1,4 +1,4 @@
-// TODO: Should actually redirect to error page (that take in as prop an err.message)
+// TODO: Should actually redirect to error page (that take in as prop an err.response.data.message)
 import { useQueryClient } from "@tanstack/react-query";
 
 export function useIsntOwnCollection(collection) {

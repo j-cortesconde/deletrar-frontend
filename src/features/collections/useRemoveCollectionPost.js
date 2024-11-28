@@ -15,7 +15,7 @@ export function useRemoveCollectionPost() {
       toast.success("El texto fue quitado exitosamente");
       queryClient.setQueryData(["collection", data._id], data);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(err.response.data.message),
   });
 
   return { removeCollectionPost, isRemoving };

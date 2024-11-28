@@ -23,7 +23,7 @@ export function useSaveUnsavePostCollection() {
       toast.success("Modificación exitosa.");
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error(err.response.data.message);
     },
   });
 

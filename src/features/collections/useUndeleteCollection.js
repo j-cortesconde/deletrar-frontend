@@ -16,7 +16,7 @@ export function useUndeleteCollection() {
       queryClient.setQueryData(["collection", data._id], data);
       navigate(`/collection/create/${data._id}`);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(err.response.data.message),
   });
 
   return { undeleteCollection, isUndeleting };

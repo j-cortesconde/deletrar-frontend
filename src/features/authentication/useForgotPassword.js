@@ -13,7 +13,7 @@ function useForgotPassword() {
       setTimeout(() => navigate("/home", { replace: false }), 1000);
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error(err.response.data.message);
     },
   });
 

@@ -16,7 +16,7 @@ export function useResetPassword() {
       navigate("/home", { replace: true });
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error(err.response.data.message);
     },
   });
 

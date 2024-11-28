@@ -1,24 +1,16 @@
 import axiosService from "./axiosService";
 
 export async function getComment(commentId) {
-  try {
-    if (!commentId) return null;
+  if (!commentId) return null;
 
-    const response = await axiosService.getComment(commentId);
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  const response = await axiosService.getComment(commentId);
+  return response.data.data;
 }
 
 export async function getComments(type, id, page) {
-  try {
-    const response = await axiosService.getComments(type, id, page);
+  const response = await axiosService.getComments(type, id, page);
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 export async function createComment(comment) {
@@ -32,12 +24,8 @@ export async function updateComment(commentId, comment) {
 }
 
 export async function getCommentThread(commentId) {
-  try {
-    if (!commentId) return null;
+  if (!commentId) return null;
 
-    const response = await axiosService.getCommentThread(commentId);
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  const response = await axiosService.getCommentThread(commentId);
+  return response.data.data;
 }

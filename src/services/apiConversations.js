@@ -1,22 +1,14 @@
 import axiosService from "./axiosService";
 
 export async function getConversation(username, pageParam = 1) {
-  try {
-    const response = await axiosService.getConversation(username, pageParam);
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  const response = await axiosService.getConversation(username, pageParam);
+  return response.data.data;
 }
 
 export async function getConversations({ pageParam = 1 }) {
-  try {
-    const response = await axiosService.getConversations(pageParam);
+  const response = await axiosService.getConversations(pageParam);
 
-    return response.data.data;
-  } catch (err) {
-    throw new Error(err.response.data.message);
-  }
+  return response.data.data;
 }
 
 export async function sendMessage(addressee, message) {

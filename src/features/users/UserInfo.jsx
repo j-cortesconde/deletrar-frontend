@@ -41,7 +41,7 @@ function UserInfo() {
   }
 
   if (isLoadingUser) return <Loader />;
-  if (error) return <p>{error.message}</p>;
+  if (error) return <p>{error.response.data.message}</p>;
 
   return (
     <div className="my-4 flex items-start justify-between gap-8">

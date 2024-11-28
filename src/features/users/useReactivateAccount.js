@@ -15,7 +15,7 @@ export function useReactivateAccount() {
       navigate("/home", { replace: true });
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error(err.response.data.message);
     },
   });
 

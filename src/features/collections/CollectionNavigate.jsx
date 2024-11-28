@@ -23,7 +23,7 @@ function CollectionNavigate() {
       ? collection?.posts[postCollectionIndex + 1]._id
       : null;
 
-  if (error) return <div>{error.message}</div>;
+  if (error) return <div>{error.response.data.message}</div>;
   if (isLoading) return <Loader />;
 
   return (

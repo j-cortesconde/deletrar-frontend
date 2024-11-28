@@ -15,7 +15,7 @@ export function useMoveCollectionPost() {
     onSuccess: (data) => {
       queryClient.setQueryData(["collection", data._id], data);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(err.response.data.message),
   });
 
   return { moveCollectionPost, isMoving };
