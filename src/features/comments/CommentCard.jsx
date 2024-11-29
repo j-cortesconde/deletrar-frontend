@@ -13,7 +13,7 @@ function CommentCard({
   comment,
   isReply = false,
   isMainComment = false,
-  isThread = false,
+  isThreadComment = false,
   liRef,
 }) {
   const navigate = useNavigate();
@@ -24,13 +24,13 @@ function CommentCard({
   );
 
   function handleAddReply() {
-    if (isThread) return navigate(`/comment/${comment._id}`);
+    if (isThreadComment) return navigate(`/comment/${comment._id}`);
     setShowReply(false);
     setShowReplies(true);
   }
 
   function handleShowReplies() {
-    if (isThread) return navigate(`/comment/${comment._id}`);
+    if (isThreadComment) return navigate(`/comment/${comment._id}`);
     if (comment.replies === 0) return;
     if (comment.replies === 1 && !isReply && !isMainComment)
       setShowReply((prev) => !prev);
@@ -40,9 +40,7 @@ function CommentCard({
     }
   }
 
-  if (comment.status === "deleted" && isThread) return <DeletedComment />;
-
-  if (comment.status === "deleted") return;
+  if (comment.status !== "posted" && isThreadComment) return <DeletedComment />;
 
   return (
     <li ref={liRef} className="relative m-4 select-none pl-2">

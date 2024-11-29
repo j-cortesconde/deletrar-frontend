@@ -42,7 +42,7 @@ function CommentDetail() {
         className="flex select-none items-center gap-4 hover:cursor-pointer"
       >
         <FaArrowLeftLong />
-        <p>Volver {originalDocumentType} de la discusión</p>
+        <p>Ir {originalDocumentType} de la discusión</p>
       </div>
       <CommentThread commentThread={commentThread} mainComment={comment} />
     </div>

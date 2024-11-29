@@ -4,9 +4,9 @@ import TruncatedText from "../../ui/TruncatedText";
 
 function FeedComment({ comment }) {
   const navigate = useNavigate();
-  const isAnonymousComment = !comment.author;
+  const isAnonymousComment = !comment?.author;
 
-  if (comment.status !== "posted") {
+  if (comment?.status !== "posted") {
     return (
       <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 py-4 text-start shadow-xl">
         <p className="italic ">Este comentario ya no está disponible</p>
@@ -21,8 +21,8 @@ function FeedComment({ comment }) {
         <div className="flex h-full w-full items-start gap-2 truncate">
           <img
             onClick={() => {
-              if (isAnonymousComment) return;
-              return navigate(`/user/${comment?.author?.username}`);
+              if (!isAnonymousComment)
+                return navigate(`/user/${comment?.author?.username}`);
             }}
             src={comment?.author?.photo || "/users/anonymous.png"}
             alt={comment?.author?.username || "Lector Anónimo"}
@@ -41,9 +41,9 @@ function FeedComment({ comment }) {
               </p>
             </div>
 
-            <Link to={`/comment/${comment._id}`}>
+            <Link to={`/comment/${comment?._id}`}>
               <p className="text-xl text-gray-500">
-                Escrito {dateDistance(comment.postedAt)}
+                Escrito {dateDistance(comment?.postedAt)}
               </p>
             </Link>
           </div>
@@ -70,9 +70,9 @@ function FeedComment({ comment }) {
         </div>
       </div>
 
-      <Link to={`/comment/${comment._id}`}>
+      <Link to={`/comment/${comment?._id}`}>
         {/* <!-- Comment Origin --> */}
-        {comment.replyingTo && (
+        {comment?.replyingTo && (
           <div className="truncate break-words text-xl text-gray-500">
             <p className="truncate">
               En respuesta a{" "}
@@ -82,13 +82,13 @@ function FeedComment({ comment }) {
         )}
         <p className="mb-2 line-clamp-2 break-words text-xl text-gray-500">
           <span>En el marco</span>
-          {comment.targetPost && (
+          {comment?.targetPost && (
             <>
               <span> del texto </span>
               <span className="font-medium">{comment.targetPost.title}</span>
             </>
           )}
-          {comment.targetCollection && (
+          {comment?.targetCollection && (
             <>
               <span> de la colección </span>
               <span className="font-medium">
@@ -98,7 +98,7 @@ function FeedComment({ comment }) {
           )}
         </p>
         {/* <!-- Content--> */}
-        {comment.content && (
+        {comment?.content && (
           <TruncatedText text={comment.content} maxLines={4} />
         )}
       </Link>
