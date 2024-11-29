@@ -7,7 +7,7 @@ import TruncatedText from "../../ui/TruncatedText";
 
 function FeedCollection({ collection }) {
   const [showAllPosts, setShowAllPosts] = useState(false);
-  const [shownPosts, setShownPosts] = useState(collection.posts.slice(0, 3));
+  const [shownPosts, setShownPosts] = useState(collection?.posts?.slice(0, 3));
 
   const handleShowAll = () => {
     setShowAllPosts((prev) => !prev);
@@ -15,13 +15,13 @@ function FeedCollection({ collection }) {
 
   useEffect(() => {
     if (showAllPosts) {
-      setShownPosts(collection.posts);
+      setShownPosts(collection?.posts);
     } else {
-      setShownPosts(collection.posts.slice(0, 3));
+      setShownPosts(collection?.posts?.slice(0, 3));
     }
-  }, [showAllPosts, collection.posts]);
+  }, [showAllPosts, collection?.posts]);
 
-  if (collection.status !== "posted") {
+  if (collection?.status !== "posted") {
     return (
       <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 py-4 text-start shadow-xl">
         <p className="italic ">Esta colección ya no está disponible</p>
@@ -35,11 +35,11 @@ function FeedCollection({ collection }) {
       <div className="mb-4 flex items-start justify-between">
         <div className="flex h-full w-full items-start gap-2 truncate">
           <Link
-            to={`/user/${collection.collector.username}`}
+            to={`/user/${collection?.collector.username}`}
             className="h-20 w-20 flex-shrink-0"
           >
             <img
-              src={collection.collector.photo}
+              src={collection?.collector.photo}
               alt="User Avatar"
               className="h-20 w-20 rounded-full"
             />
@@ -47,16 +47,16 @@ function FeedCollection({ collection }) {
           <div className="flex w-full flex-col justify-between gap-1 truncate">
             <div className="truncate">
               <Link
-                to={`/user/${collection.collector.username}`}
+                to={`/user/${collection?.collector.username}`}
                 className="truncate"
               >
                 <p className=" inline truncate font-semibold text-gray-800">
-                  {collection.collector.name}
+                  {collection?.collector.name}
                 </p>
               </Link>
             </div>
             <p className="text-xl text-gray-500">
-              Publicado {dateDistance(collection.postedAt)}
+              Publicado {dateDistance(collection?.postedAt)}
             </p>
           </div>
         </div>
@@ -83,25 +83,25 @@ function FeedCollection({ collection }) {
       </div>
       {/* <!-- Title --> */}
       <div className="mb-4">
-        <Link to={`/collection/${collection._id}`}>
+        <Link to={`/collection/${collection?._id}`}>
           <p className="inline break-words font-medium text-gray-800 underline underline-offset-2">
-            {collection.title}
+            {collection?.title}
           </p>
         </Link>
         {/* <!-- Subtitle --> */}
-        {collection.subtitle && (
-          <p className="break-words text-gray-800">{collection.subtitle}</p>
+        {collection?.subtitle && (
+          <p className="break-words text-gray-800">{collection?.subtitle}</p>
         )}
       </div>
       {/* <!-- Image --> */}
-      {collection.coverImage && (
+      {collection?.coverImage && (
         <div className="mb-4">
           <Link
-            to={`/collection/${collection._id}`}
+            to={`/collection/${collection?._id}`}
             className="flex justify-center"
           >
             <img
-              src={collection.coverImage}
+              src={collection?.coverImage}
               alt="Collection Cover"
               className="h-48 w-full rounded-md object-cover"
             />
@@ -109,28 +109,28 @@ function FeedCollection({ collection }) {
         </div>
       )}
       {/* <!-- Summary --> */}
-      {collection.summary && (
-        <TruncatedText text={collection.summary} maxLines={4} />
+      {collection?.summary && (
+        <TruncatedText text={collection?.summary} maxLines={4} />
       )}
       {/* <!-- Posts --> */}
       <div className="mt-4 text-gray-800">
         <p>Textos de esta colección:</p>
         <ul className="indent-4">
-          {shownPosts.map((post) => (
-            <li key={post._id} className="mb-1">
+          {shownPosts?.map((post) => (
+            <li key={post?._id} className="mb-1">
               <div className="line-clamp-2">
-                <Link to={`/post/${post._id}`} className=" font-semibold">
-                  - {post.title}
+                <Link to={`/post/${post?._id}`} className=" font-semibold">
+                  - {post?.title}
                 </Link>
                 <span> de </span>
-                <Link to={`/user/${post.author.username}`} className="italic">
-                  {post.author.name}
+                <Link to={`/user/${post?.author.username}`} className="italic">
+                  {post?.author.name}
                 </Link>
               </div>
             </li>
           ))}
         </ul>
-        {collection.posts.length > 3 && (
+        {collection?.posts?.length > 3 && (
           <p
             onClick={handleShowAll}
             className="ml-10 inline underline hover:cursor-pointer"

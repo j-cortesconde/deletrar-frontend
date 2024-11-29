@@ -5,7 +5,7 @@ import { dateDistance } from "../../utils/dateFormat";
 import TruncatedText from "../../ui/TruncatedText";
 
 function FeedPost({ post, fromCollection }) {
-  if (post.status !== "posted") {
+  if (post?.status !== "posted") {
     return (
       <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 py-4 text-start shadow-xl">
         <p className="italic ">Este texto ya no está disponible</p>
@@ -19,25 +19,25 @@ function FeedPost({ post, fromCollection }) {
       <div className="mb-4 flex items-start justify-between">
         <div className="flex h-full w-full items-start gap-2 truncate">
           <Link
-            to={`/user/${post.author.username}`}
+            to={`/user/${post?.author.username}`}
             className="h-20 w-20 flex-shrink-0"
           >
             <img
-              src={post.author.photo}
+              src={post?.author.photo}
               alt="User Avatar"
               className="h-20 w-20 rounded-full"
             />
           </Link>
           <div className="flex w-full flex-col justify-between gap-1 truncate">
             <div className="truncate">
-              <Link to={`/user/${post.author.username}`} className="truncate">
+              <Link to={`/user/${post?.author.username}`} className="truncate">
                 <p className=" inline truncate font-semibold text-gray-800">
-                  {post.author.name}
+                  {post?.author.name}
                 </p>
               </Link>
             </div>
             <p className="text-xl text-gray-500">
-              Publicado {dateDistance(post.postedAt)}
+              Publicado {dateDistance(post?.postedAt)}
             </p>
           </div>
         </div>
@@ -64,9 +64,9 @@ function FeedPost({ post, fromCollection }) {
       </div>
       {/* <!-- Title --> */}
       <div className="mb-4">
-        <Link to={`/post/${post._id}`}>
+        <Link to={`/post/${post?._id}`}>
           <p className="inline break-words font-medium text-gray-800 underline underline-offset-2">
-            {post.title}
+            {post?.title}
           </p>
         </Link>
         {/* <!-- Post's Collection --> */}
@@ -93,11 +93,11 @@ function FeedPost({ post, fromCollection }) {
         )}
       </div>
       {/* <!-- Image --> */}
-      {post.coverImage && (
+      {post?.coverImage && (
         <div className="mb-4">
-          <Link to={`/post/${post._id}`} className="flex justify-center">
+          <Link to={`/post/${post?._id}`} className="flex justify-center">
             <img
-              src={post.coverImage}
+              src={post?.coverImage}
               alt="Post Cover"
               className="h-48 w-full rounded-md object-cover"
             />
@@ -105,7 +105,7 @@ function FeedPost({ post, fromCollection }) {
         </div>
       )}
       {/* <!-- Summary --> */}
-      {post.summary && <TruncatedText text={post.summary} maxLines={4} />}
+      {post?.summary && <TruncatedText text={post?.summary} maxLines={4} />}
 
       {/* <!-- Like and Comment Section --> */}
       {/* <div className="flex items-center justify-between text-gray-500">
