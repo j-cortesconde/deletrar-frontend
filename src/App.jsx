@@ -38,6 +38,7 @@ import ConversationPlaceholder from "./features/conversations/ConversationPlaceh
 import LoggedInProtection from "./ui/LoggedInProtection";
 import UserShared from "./features/users/UserShared";
 import UserSettings from "./features/users/UserSettings";
+import PageNotFound from "./pages/PageNotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -127,6 +128,7 @@ function App() {
               />
             </Route>
           </Route>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
 
