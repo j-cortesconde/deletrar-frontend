@@ -1,13 +1,10 @@
-//FIXME: How does one connect the images from the frontend to the backend?
-// TODO: Should redirect to an error page that recieves as a prop an error message
-// TODO: Should do this not only here. Also in other "if (error)" and many navigates that redirect home or elsewhere
-
 import { longDate } from "../utils/dateFormat";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { usePost } from "../features/posts/usePost";
 import { useIsntOwnPost } from "../features/posts/useIsntOwnPost";
 import { useQueryClient } from "@tanstack/react-query";
+import { useErrorHandler } from "../hooks/useErrorHandler";
 
 import HTMLParser from "../features/posts/HTMLParser";
 import PostOwnerOptions from "../features/posts/PostOwnerOptions";
@@ -24,10 +21,10 @@ function PostDetail() {
   const isLoggedIn = !!ownUser;
 
   const { isLoading, post, error } = usePost(postId);
+  useErrorHandler(error);
 
   const isntOwnPost = useIsntOwnPost(post);
 
-  if (error) return <div>{error.response.data.message}</div>;
   if (isLoading) return <Loader />;
 
   return (

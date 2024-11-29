@@ -6,7 +6,7 @@ function ConversationMessage({
   previousMessageTime,
   previousMessageMessenger,
 }) {
-  const isMessengerAddressee = message.messenger === addressee.username;
+  const isMessengerAddressee = message.messenger === addressee?.username;
   const isNewDay = !(
     shortDate(message.timestamp) === shortDate(previousMessageTime)
   );
@@ -25,7 +25,7 @@ function ConversationMessage({
           <div className="mr-2 flex h-12 w-12 items-center justify-center rounded-full">
             {previousMessageMessenger !== message.messenger && (
               <img
-                src={addressee.photo}
+                src={addressee?.photo}
                 alt="Friend's Initial"
                 className="h-10 w-10 rounded-full"
               />

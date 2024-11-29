@@ -11,6 +11,7 @@ import { useDeletePost } from "../features/posts/useDeletePost";
 import { useCreatePost } from "../features/posts/useCreatePost";
 import { useAutoSavePost } from "../features/posts/useAutoSavePost";
 import { useIsntOwnPost } from "../features/posts/useIsntOwnPost";
+import { useErrorHandler } from "../hooks/useErrorHandler";
 
 import Loader from "../ui/Loader";
 import PostEditor from "../features/posts/PostEditor";
@@ -23,6 +24,8 @@ function PostWrite() {
   const { postId } = useParams();
 
   const { post, isLoading: isGetting, error } = usePost(postId);
+  useErrorHandler(error);
+
   const { updatePost, isUpdating } = useUpdatePost();
   const { deletePost, isDeleting } = useDeletePost();
   const { createPost, isCreating } = useCreatePost();
@@ -48,7 +51,12 @@ function PostWrite() {
   const isntOwnPost = useIsntOwnPost(post);
 
   useEffect(() => {
-    if (isntOwnPost) navigate("/home", { replace: true });
+    if (isntOwnPost) {
+      toast.error(
+        "No sos propietario del texto que estás intentando modificar.",
+      );
+      navigate("/home", { replace: true });
+    }
   }, [isntOwnPost, navigate]);
 
   useEffect(() => {
@@ -129,8 +137,6 @@ function PostWrite() {
       setImage(null);
     }
   };
-
-  if (error) return <div>{error.response.data.message}</div>;
 
   return (
     <>

@@ -2,12 +2,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useCollection } from "./useCollection";
 import Loader from "../../ui/Loader";
 import { BiDownArrow, BiLeftArrow, BiRightArrow } from "react-icons/bi";
+import { useErrorHandler } from "../../hooks/useErrorHandler";
 
 function CollectionNavigate() {
   const navigate = useNavigate();
   const { collectionId, postId } = useParams();
 
   const { isLoading, collection, error } = useCollection(collectionId);
+  useErrorHandler(error);
 
   const postCollectionIndex = collection?.posts?.findIndex(
     (post) => post._id === postId,
@@ -23,7 +25,6 @@ function CollectionNavigate() {
       ? collection?.posts[postCollectionIndex + 1]._id
       : null;
 
-  if (error) return <div>{error.response.data.message}</div>;
   if (isLoading) return <Loader />;
 
   return (

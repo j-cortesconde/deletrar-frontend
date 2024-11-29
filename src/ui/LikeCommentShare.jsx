@@ -19,7 +19,7 @@ function LikeCommentShare({ docId, docType, isLoggedIn }) {
   const [isCommenting, setIsCommenting] = useState(false);
 
   const { isPending, saveUnsavePostCollection } = useSaveUnsavePostCollection();
-  const { isLoading, haveSaved, error } = useHaveSaved(docId, docType);
+  const { isLoading, haveSaved } = useHaveSaved(docId, docType);
 
   function handleSaveUnsave() {
     saveUnsavePostCollection({ docId, docType, unsave: haveSaved });

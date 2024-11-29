@@ -10,10 +10,10 @@ function CollectionOwnerOptions({ collection }) {
   const { undeleteCollection, isUndeleting } = useUndeleteCollection();
 
   function handleClick() {
-    if (collection.status === "deleted") {
-      undeleteCollection(collection._id);
+    if (collection?.status === "deleted") {
+      undeleteCollection(collection?._id);
     } else {
-      navigate(`/collection/create/${collection._id}`);
+      navigate(`/collection/create/${collection?._id}`);
     }
   }
 

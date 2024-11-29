@@ -1,13 +1,11 @@
 // FIXME: Como manejo la despublicacion de un texto incluido en una coleccion? Notificacion al colector? (esto ultimo 2.0)
-//FIXME: How does one connect the images from the frontend to the backend?
-// TODO: Should redirect to an error page that recieves as a prop an error message
-// TODO: Should do this not only here. Also in other "if (error)" and many navigates that redirect home or elsewhere
 
 import { longDate } from "../utils/dateFormat";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useCollection } from "../features/collections/useCollection";
 import { useIsntOwnCollection } from "../features/collections/useIsntOwnCollection";
+import { useErrorHandler } from "../hooks/useErrorHandler";
 
 import CollectionOwnerOptions from "../features/collections/CollectionOwnerOptions";
 import Loader from "../ui/Loader";
@@ -20,10 +18,10 @@ function CollectionDetail() {
   const { collectionId } = useParams();
 
   const { isLoading, collection, error } = useCollection(collectionId);
+  useErrorHandler(error);
 
   const { isntOwnCollection, isLoggedIn } = useIsntOwnCollection(collection);
 
-  if (error) return <div>{error.response.data.message}</div>;
   if (isLoading) return <Loader />;
 
   return (
@@ -62,7 +60,7 @@ function CollectionDetail() {
       <p className="m-6 text-6xl">{collection?.title}</p>
 
       <ul className="m-auto w-3/5">
-        {collection.posts?.map((post) => (
+        {collection?.posts?.map((post) => (
           <PostCard key={post._id} post={post} collectionId={collection._id} />
         ))}
       </ul>

@@ -13,6 +13,7 @@ import { useDeleteCollection } from "../features/collections/useDeleteCollection
 import { useUpdateCollection } from "../features/collections/useUpdateCollection";
 import { useAutoSaveCollection } from "../features/collections/useAutoSaveCollection";
 import { useIsntOwnCollection } from "../features/collections/useIsntOwnCollection";
+import { useErrorHandler } from "../hooks/useErrorHandler";
 
 import Loader from "../ui/Loader";
 import CollectionPosts from "../features/collections/CollectionPosts";
@@ -27,6 +28,7 @@ function CollectionCreate() {
     isLoading: isGetting,
     error,
   } = useCollection(collectionId);
+  useErrorHandler(error);
 
   const { updateCollection, isUpdating } = useUpdateCollection();
   const { deleteCollection, isDeleting } = useDeleteCollection();
@@ -61,6 +63,9 @@ function CollectionCreate() {
 
   useEffect(() => {
     if (isntOwnCollection) {
+      toast.error(
+        "No sos propietario de la colección que estás intentando modificar.",
+      );
       navigate("/home", { replace: true });
     }
   }, [isntOwnCollection, navigate]);

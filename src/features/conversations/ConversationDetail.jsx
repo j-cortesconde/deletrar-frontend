@@ -11,6 +11,7 @@ import socketService from "../../services/socketService";
 import Loader from "../../ui/Loader";
 import ConversationMessageSend from "./ConversationMessageSend";
 import ConversationMessages from "./ConversationMessages";
+import { useErrorHandler } from "../../hooks/useErrorHandler";
 
 function ConversationDetail() {
   const queryClient = useQueryClient();
@@ -20,8 +21,10 @@ function ConversationDetail() {
   const {
     user: addressee,
     isLoading: isLoading1,
-    error: error1,
+    error,
   } = useUser(addresseeUsername);
+  useErrorHandler(error);
+
   const {
     conversation,
     pages,
@@ -29,7 +32,6 @@ function ConversationDetail() {
     fetchNextPage,
     hasNextPage,
     isLoading: isLoading2,
-    error: error2,
   } = useConversation(addresseeUsername);
 
   const conversationId = conversation?._id;
@@ -74,13 +76,13 @@ function ConversationDetail() {
       <header className="mx-10 flex items-center justify-start gap-2 border-b-2 border-slate-400 border-opacity-50 pb-2 pt-5">
         <img
           className="h-20 w-20 rounded-full"
-          src={addressee.photo}
-          alt={`${addressee.username}`}
+          src={addressee?.photo}
+          alt={`${addressee?.username}`}
         />
         <div className="grid grid-rows-[3fr_2fr] items-end text-start">
-          <p className="">{addressee.name}</p>
+          <p className="">{addressee?.name}</p>
           <p className="text-xl">
-            {isTyping ? "Escribiendo..." : addressee.username}
+            {isTyping ? "Escribiendo..." : addressee?.username}
           </p>
         </div>
       </header>

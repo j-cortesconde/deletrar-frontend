@@ -10,10 +10,10 @@ function PostOwnerOptions({ post }) {
   const { undeletePost, isUndeleting } = useUndeletePost();
 
   function handleClick() {
-    if (post.status === "deleted") {
-      undeletePost(post._id);
+    if (post?.status === "deleted") {
+      undeletePost(post?._id);
     } else {
-      navigate(`/post/write/${post._id}`);
+      navigate(`/post/write/${post?._id}`);
     }
   }
 
