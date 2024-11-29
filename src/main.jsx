@@ -6,9 +6,16 @@ import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
+import { ErrorBoundary } from "react-error-boundary";
+import GlobalErrorFallback from "./ui/GlobalErrorFallback.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary
+      FallbackComponent={GlobalErrorFallback}
+      onReset={() => window.location.replace("/")}
+    >
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 );
