@@ -9,6 +9,10 @@ function FeedCollection({ collection }) {
   const [showAllPosts, setShowAllPosts] = useState(false);
   const [shownPosts, setShownPosts] = useState(collection?.posts?.slice(0, 3));
 
+  const postedPosts = collection?.posts?.reduce((count, post) => {
+    return post.status === "posted" ? count + 1 : count;
+  }, 0);
+
   const handleShowAll = () => {
     setShowAllPosts((prev) => !prev);
   };
@@ -116,21 +120,27 @@ function FeedCollection({ collection }) {
       <div className="mt-4 text-gray-800">
         <p>Textos de esta colección:</p>
         <ul className="indent-4">
-          {shownPosts?.map((post) => (
-            <li key={post?._id} className="mb-1">
-              <div className="line-clamp-2">
-                <Link to={`/post/${post?._id}`} className=" font-semibold">
-                  - {post?.title}
-                </Link>
-                <span> de </span>
-                <Link to={`/user/${post?.author.username}`} className="italic">
-                  {post?.author.name}
-                </Link>
-              </div>
-            </li>
-          ))}
+          {shownPosts?.map(
+            (post) =>
+              post?.status === "posted" && (
+                <li key={post?._id} className="mb-1">
+                  <div className="line-clamp-2">
+                    <Link to={`/post/${post?._id}`} className=" font-semibold">
+                      - {post?.title}
+                    </Link>
+                    <span> de </span>
+                    <Link
+                      to={`/user/${post?.author.username}`}
+                      className="italic"
+                    >
+                      {post?.author.name}
+                    </Link>
+                  </div>
+                </li>
+              ),
+          )}
         </ul>
-        {collection?.posts?.length > 3 && (
+        {postedPosts > 3 && (
           <p
             onClick={handleShowAll}
             className="ml-10 inline underline hover:cursor-pointer"
