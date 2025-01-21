@@ -66,10 +66,12 @@ function ShareModal({ children, sharedComment }) {
           {/* Modal Content */}
           <div className="z-50 w-full scale-100 transform overflow-hidden rounded-md bg-white shadow-xl transition-transform sm:w-96 md:w-1/2 lg:w-2/3 xl:w-1/3">
             {/* Modal Header */}
-            <div className="flex h-10 justify-between bg-indigo-500 px-4 py-2 text-white"></div>
+            <div className="flex h-14 justify-between bg-indigo-500 px-4 py-2 text-white">
+              Compartiendo
+            </div>
 
             {/* Modal Body */}
-            <div className="p-4 ">
+            <div className="px-4 pt-4 ">
               <div className="flex gap-4 ">
                 <img
                   className="h-20 w-20 rounded-full"
@@ -87,7 +89,7 @@ function ShareModal({ children, sharedComment }) {
                 onChange={(e) => setContent(e.target.value)}
                 minRows={1}
                 maxLength={400}
-                className="w-full resize-none rounded-md py-4 text-2xl transition duration-150 ease-in-out focus:outline-none"
+                className="w-full resize-none rounded-md pt-4 text-2xl transition duration-150 ease-in-out focus:outline-none"
                 placeholder="Hacé un comentario..."
               />
             </div>
@@ -96,7 +98,7 @@ function ShareModal({ children, sharedComment }) {
             <div className="flex justify-end px-4 py-2">
               <button
                 onClick={handleSubmit}
-                className="w-full rounded-md bg-indigo-500 px-3 py-1 text-white sm:w-auto"
+                className="mb-2 w-full rounded-md bg-indigo-500 px-3 py-1 text-white sm:w-auto"
               >
                 {isCreating ? "Compartiendo..." : "Compartir"}
               </button>
