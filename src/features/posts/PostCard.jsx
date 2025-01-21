@@ -31,12 +31,12 @@ function PostCard({ post, collectionId, shouldBePosted = true }) {
   return (
     <li
       onClick={() => navigate(navigateLink)}
-      className={`my-6 select-none break-inside-avoid break-words  rounded-md border-2 border-neutral-400 bg-white hover:cursor-pointer`}
+      className={`my-6 select-none break-inside-avoid hyphens-auto break-words rounded-md border-2 border-neutral-400 bg-white hover:cursor-pointer`}
     >
       {/* <div className="my-8 flex items-start justify-center"> */}
       <div className="mx-6 my-4 flex flex-col items-center gap-4 text-center">
         <div>
-          <p className="hyphens-auto break-words text-4xl font-semibold underline">
+          <p className="break-words text-4xl font-semibold underline">
             {post.title} {statusMessage}
           </p>
           {post.author?.name && (
