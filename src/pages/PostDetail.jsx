@@ -29,27 +29,34 @@ function PostDetail() {
 
   return (
     <div className="mx-auto w-3/4">
-      <div className="flex items-center justify-center gap-10 pb-4">
-        <img src={post?.coverImage} alt="Post Cover" className="w-40" />
+      <img
+        src={post?.coverImage}
+        alt="Post Cover"
+        className="object mx-auto my-3 h-96 min-w-[100%] max-w-full rounded-lg object-cover"
+      />
 
-        <div className="max-w-[60%] flex-col text-justify">
-          {post?.status === "posted" && (
-            <div>
-              <span>Publicado por </span>
-              <span
-                onClick={() => navigate(`/user/${post?.author.username}`)}
-                className="font-bold text-stone-900 hover:cursor-pointer"
-              >
-                {post?.author.name}
-              </span>
-              <span> el {longDate(post?.postedAt)}</span>
-            </div>
-          )}
+      <div className="grid grid-cols-5 gap-4 pb-4">
+        <div className="col-span-3 col-start-2 flex justify-center">
+          <div className="flex-col text-center">
+            {post?.status === "posted" && (
+              <div>
+                <span>Publicado por </span>
+                <span
+                  onClick={() => navigate(`/user/${post?.author.username}`)}
+                  className="font-bold text-stone-900 hover:cursor-pointer"
+                >
+                  {post?.author.name}
+                </span>
+                <p> el {longDate(post?.postedAt)}</p>
+              </div>
+            )}
 
-          <p className="flex-wrap whitespace-pre-wrap">{post?.summary}</p>
+            <p className="flex-wrap whitespace-pre-wrap">{post?.summary}</p>
+          </div>
         </div>
-
-        {!isntOwnPost && <PostOwnerOptions post={post} />}
+        <div className="flex items-end justify-center">
+          {!isntOwnPost && <PostOwnerOptions post={post} />}
+        </div>
       </div>
       <HTMLParser delta={post?.content} title={post?.title} />
 
