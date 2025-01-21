@@ -33,7 +33,7 @@ function UserHeader({ user }) {
         <img
           src={user.photo}
           alt={user.name}
-          className="aspect-square w-24 rounded-full"
+          className="aspect-square w-24 overflow-hidden rounded-full object-cover"
         />
       </Link>
 
