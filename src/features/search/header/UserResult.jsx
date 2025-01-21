@@ -10,7 +10,7 @@ function UserResult({ selected = false, to, result }) {
         <img
           src={result.photo}
           alt={result.name}
-          className="w-16 rounded-full"
+          className="aspect-square w-16 overflow-hidden rounded-full object-cover"
         />
         <div className="flex items-center gap-2">
           <p>{result.name}</p>
