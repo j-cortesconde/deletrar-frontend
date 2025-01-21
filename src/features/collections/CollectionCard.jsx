@@ -31,7 +31,7 @@ function CollectionCard({ collection }) {
 
       <div className="mx-6 my-4 flex flex-col items-center gap-4 text-center">
         <div>
-          <p className="text-4xl font-semibold">
+          <p className="text-4xl font-semibold underline">
             {collection.title} {statusMessage}
           </p>
           {collection.collector?.name && (
