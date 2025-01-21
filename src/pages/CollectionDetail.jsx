@@ -63,7 +63,7 @@ function CollectionDetail() {
         </div>
       </div>
 
-      <p className="m-6 text-6xl">{collection?.title}</p>
+      <p className="m-6 text-6xl font-semibold">{collection?.title}</p>
 
       <ul className="m-auto w-3/5">
         {collection?.posts?.map((post) => (
