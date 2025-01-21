@@ -13,7 +13,7 @@ function Logo({ size = "medium" }) {
 
   return (
     <div
-      className="text-center hover:cursor-pointer"
+      className="col-span-1 flex justify-start text-center hover:cursor-pointer"
       onClick={() => navigate("/")}
     >
       <img src={src} alt="Logo" className={style} />

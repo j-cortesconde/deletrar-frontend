@@ -51,7 +51,7 @@ function CommentCreate({ repliedComment, handleClose, handleCreate }) {
   }
 
   return (
-    <div className="flex w-3/4 flex-col gap-3 p-4">
+    <div className="flex w-full flex-col gap-3 p-4">
       <TextareaAutosize
         autoFocus
         value={content}

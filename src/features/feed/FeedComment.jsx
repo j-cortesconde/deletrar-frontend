@@ -52,7 +52,7 @@ function FeedComment({ comment }) {
 
             <Link to={`/comment/${comment?._id}`}>
               <p className="text-xl text-gray-500">
-                Escrito {dateDistance(comment?.postedAt)}
+                Comentado {dateDistance(comment?.postedAt)}
               </p>
             </Link>
           </div>

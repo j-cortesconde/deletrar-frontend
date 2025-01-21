@@ -5,7 +5,7 @@ import NonUserHeader from "../features/users/NonUserHeader";
 
 function Header({ user }) {
   return (
-    <header className="flex items-center justify-between bg-slate-200 px-10 py-4">
+    <header className="grid grid-cols-4 items-center bg-slate-200 px-10 py-4">
       <Logo />
       <SearchBar />
       {user ? <UserHeader user={user} /> : <NonUserHeader />}

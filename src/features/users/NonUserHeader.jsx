@@ -4,7 +4,7 @@ import Button from "../../ui/Button";
 function NonUserHeader() {
   const navigate = useNavigate();
   return (
-    <div className="flex items-center gap-10">
+    <div className="col-span-1 flex items-center justify-end gap-10">
       <Link to="/account/request" className="text-center text-2xl">
         Request account
       </Link>

@@ -28,9 +28,13 @@ function UserHeader({ user }) {
   }, [elementRef]);
 
   return (
-    <div className="flex items-center justify-between gap-5">
+    <div className="col-span-1 flex items-center justify-end gap-5">
       <Link to={`/user/${user.username}`}>
-        <img src={user.photo} alt={user.name} className="w-24 rounded-full" />
+        <img
+          src={user.photo}
+          alt={user.name}
+          className="aspect-square w-24 rounded-full"
+        />
       </Link>
 
       <div className="relative">

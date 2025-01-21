@@ -48,7 +48,7 @@ function SearchBar() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative col-span-2 flex justify-center">
       <input
         ref={elementRef}
         type="text"
