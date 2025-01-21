@@ -2,7 +2,7 @@
 
 export const API_URL = "http://localhost:3001/api/v1";
 
-export const SEARCH_RESULTS = 4;
+export const SEARCH_RESULTS = 2;
 
 export const POST_SORT_OPTIONS = [
   {

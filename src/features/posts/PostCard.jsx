@@ -5,37 +5,47 @@ import DeletedPost from "./DeletedPost";
 function PostCard({ post, collectionId, shouldBePosted = true }) {
   const navigate = useNavigate();
 
+  let statusMessage;
+
+  switch (post.status) {
+    case "posted":
+      statusMessage = "";
+      break;
+    case "deleted":
+      statusMessage = "[eliminado]";
+      break;
+    case "editing":
+      statusMessage = "[editando]";
+      break;
+    default:
+      statusMessage = "[inédito]";
+      break;
+  }
+
   const navigateLink = collectionId
     ? `/collection/${collectionId}/post/${post._id}`
     : `/post/${post._id}`;
-
-  const statusStyle = {
-    posted: "border-slate-400 bg-slate-300",
-    editing: "border-amber-400 bg-amber-300",
-    deleted: "border-red-400 bg-red-300",
-  };
 
   if (!(post.status === "posted") && shouldBePosted) return <DeletedPost />;
 
   return (
     <li
       onClick={() => navigate(navigateLink)}
-      className={`m-5 select-none break-words rounded-md border-2 hover:cursor-pointer ${statusStyle[post.status || "posted"]}`}
+      className={`my-6 select-none break-inside-avoid break-words  rounded-md border-2 border-neutral-400 bg-white hover:cursor-pointer`}
     >
-      <div className="my-8 flex items-start justify-center">
-        <img
-          src={post.coverImage}
-          alt={`${post.title}'s cover`}
-          className="max-w-[20%]"
-        />
-        <div className="mx-6 w-[60%] text-justify">
-          <p className="text-4xl font-semibold">{post.title}</p>
+      {/* <div className="my-8 flex items-start justify-center"> */}
+      <div className="mx-6 my-4 flex flex-col items-center gap-4 text-center">
+        <div>
+          <p className="hyphens-auto break-words text-4xl font-semibold underline">
+            {post.title} {statusMessage}
+          </p>
           {post.author?.name && (
-            <p className="mt-1 text-2xl">
-              Un texto escrito por {post.author.name}
+            <p className="text-2xl">
+              Un texto escrito por{" "}
+              <span className="font-semibold">{post.author.name}</span>
             </p>
           )}
-          <p className="mt-1 text-2xl">
+          <p className="text-2xl">
             {post.postedAt
               ? `Publicado el ${longDate(post.postedAt)}`
               : "Texto inédito"}
@@ -46,10 +56,17 @@ function PostCard({ post, collectionId, shouldBePosted = true }) {
               (Actualizado el {shortDate(post.updatedAt)})
             </p>
           )}
-          <p className="mt-1 flex-wrap whitespace-pre-wrap text-2xl">
-            {post.summary}
-          </p>
         </div>
+
+        <img
+          src={post.coverImage}
+          alt={`${post.title}'s cover`}
+          className="max-h-40 w-full overflow-hidden object-cover"
+        />
+
+        <p className="mt-1 flex-wrap whitespace-pre-wrap text-2xl">
+          {post.summary}
+        </p>
       </div>
     </li>
   );

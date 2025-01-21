@@ -1,7 +1,7 @@
 function DeletedPost() {
   return (
-    <div className="m-5 rounded-md border-2 border-slate-400 bg-slate-300 px-4 py-2 select-none">
-      <p className="text-center">
+    <div className="m-5 select-none rounded-md border-2 border-neutral-400 bg-white px-4 py-2">
+      <p className="text-center font-semibold">
         Este espacio lo ocupaba un texto que ya no está disponible.
       </p>
     </div>
