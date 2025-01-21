@@ -26,35 +26,41 @@ function CollectionDetail() {
 
   return (
     <div className="mx-auto w-3/4">
-      <div className="mb-10 flex items-center justify-center gap-10 border-b-2 border-stone-300 pb-4">
-        <img
-          src={collection?.coverImage}
-          alt="Collection Cover"
-          className="w-40"
-        />
+      <img
+        src={collection?.coverImage}
+        alt="Collection Cover"
+        className="object mx-auto my-3 h-96 min-w-[100%] max-w-full rounded-lg object-cover"
+      />
 
-        <div className="max-w-[60%] flex-col text-justify">
-          {collection?.status === "posted" && (
-            <div>
-              <span>Publicada por </span>
-              <span
-                onClick={() =>
-                  navigate(`/user/${collection?.collector.username}`)
-                }
-                className="font-bold text-stone-900 hover:cursor-pointer"
-              >
-                {collection?.collector.name}
-              </span>
-              <span> el {longDate(collection?.postedAt)}</span>
-            </div>
-          )}
+      <div className="grid grid-cols-5 gap-4 border-b-2 border-stone-300 pb-4">
+        <div className="col-span-3 col-start-2 flex justify-center">
+          <div className="flex-col text-center">
+            {collection?.status === "posted" && (
+              <div>
+                <span>Publicada por </span>
+                <span
+                  onClick={() =>
+                    navigate(`/user/${collection?.collector.username}`)
+                  }
+                  className="font-bold text-stone-900 hover:cursor-pointer"
+                >
+                  {collection?.collector.name}
+                </span>
+                <p> el {longDate(collection?.postedAt)}</p>
+              </div>
+            )}
 
-          <p className="flex-wrap whitespace-pre-wrap">{collection?.summary}</p>
+            <p className="flex-wrap whitespace-pre-wrap">
+              {collection?.summary}
+            </p>
+          </div>
         </div>
 
-        {!isntOwnCollection && (
-          <CollectionOwnerOptions collection={collection} />
-        )}
+        <div className="flex items-end justify-center">
+          {!isntOwnCollection && (
+            <CollectionOwnerOptions collection={collection} />
+          )}
+        </div>
       </div>
 
       <p className="m-6 text-6xl">{collection?.title}</p>
