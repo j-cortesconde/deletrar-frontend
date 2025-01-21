@@ -11,6 +11,7 @@ export function useHaveSaved(docId, docType) {
   } = useQuery({
     queryKey: ["haveSaved", docId],
     queryFn: () => haveSavedApi(docId, docType),
+    retry: false,
   });
 
   return { isLoading, error, haveSaved };
