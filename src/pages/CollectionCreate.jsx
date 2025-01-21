@@ -188,7 +188,7 @@ function CollectionCreate() {
               className="flex flex-1 rounded-sm border-2 border-stone-400 bg-stone-50 px-5 py-3 shadow-sm"
             />
           </div>
-          <p className="mt-2 w-full text-left text-3xl text-red-700">
+          <p className="mt-2 w-full text-justify text-3xl text-red-700">
             {imageError}
           </p>
         </div>

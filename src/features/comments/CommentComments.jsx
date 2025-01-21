@@ -26,7 +26,7 @@ function CommentComments({ commentId }) {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="">
+    <>
       <ul>
         {comments?.map((comment) => (
           <CommentCard key={comment._id} comment={comment} isReply={true} />
@@ -51,7 +51,7 @@ function CommentComments({ commentId }) {
           disabledLinkClassName="hover:cursor-not-allowed"
         />
       )}
-    </div>
+    </>
   );
 }
 

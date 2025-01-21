@@ -15,7 +15,7 @@ function ConversationUserResults({
   if (isFetching)
     return (
       <div className="flex items-center justify-start gap-2">
-        <p className="text-left">Estamos buscando</p>
+        <p className="text-justify">Estamos buscando</p>
         <BiLoaderAlt className="animate-spin" />
       </div>
     );
@@ -23,14 +23,14 @@ function ConversationUserResults({
   if (users?.length === 0)
     return (
       <div>
-        <p className="text-left">Tu búsqueda no devolvió resultados.</p>
+        <p className="text-justify">Tu búsqueda no devolvió resultados.</p>
       </div>
     );
 
   return (
     // When something's found
     <ul ref={listRef} className="flex flex-col gap-2">
-      <p className="border-b-2 border-slate-400 text-left font-semibold">
+      <p className="border-b-2 border-slate-400 text-justify font-semibold">
         Usuarios
       </p>
       {users?.map((user, index) => (

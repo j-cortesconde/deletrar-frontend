@@ -18,7 +18,7 @@ function CommentThread({ commentThread, mainComment }) {
   }, [commentThread, mainComment]);
 
   return (
-    <ul>
+    <ul className="">
       {fullCommentThread?.map((comment, i) => (
         <CommentCard
           // Complex key so re-render on new CommentDetail so it will re-initialize states like showReply and showReplies which were causing issues

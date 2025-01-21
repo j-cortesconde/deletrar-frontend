@@ -22,7 +22,7 @@ function CollectionCard({ collection }) {
           alt={`${collection.title}'s cover`}
           className="max-w-[20%]"
         />
-        <div className="mx-6 w-[60%] text-left">
+        <div className="mx-6 w-[60%] text-justify">
           <p className="text-4xl font-semibold">{collection.title}</p>
           {collection.collector?.name && (
             <p className="mt-1 text-2xl">

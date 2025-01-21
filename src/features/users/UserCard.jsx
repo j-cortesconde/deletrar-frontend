@@ -13,7 +13,7 @@ function UserCard({ user }) {
           alt={`${user.name}`}
           className="max-w-[20%] rounded-full"
         />
-        <div className="mx-10 w-[60%] text-left">
+        <div className="mx-10 w-[60%] text-justify">
           <p className="text-4xl font-semibold">{user.name}</p>
           <p className="text-2xl">{user.username}</p>
           <p className="flex-wrap whitespace-pre-wrap text-2xl">

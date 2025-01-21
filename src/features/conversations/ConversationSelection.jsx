@@ -61,7 +61,7 @@ function ConversationSelection() {
   return (
     <div className="flex w-1/4 flex-col justify-start gap-2 bg-slate-200 p-5">
       <header className="">
-        <h1 className="text-left text-2xl font-semibold">Conversaciones</h1>
+        <h1 className="text-justify text-2xl font-semibold">Conversaciones</h1>
         <ConversationSearch
           query={query}
           setQuery={setQuery}
@@ -74,7 +74,7 @@ function ConversationSelection() {
       <div className="h-full overflow-y-auto p-3">
         {debouncedQuery === "" &&
           data?.pages?.[0]?.conversations?.length === 0 && (
-            <p className="text-left">No hay conversaciones aún</p>
+            <p className="text-justify">No hay conversaciones aún</p>
           )}
 
         {debouncedQuery === "" &&

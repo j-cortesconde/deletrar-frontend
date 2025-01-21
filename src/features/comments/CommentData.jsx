@@ -33,7 +33,7 @@ function CommentData({ comment }) {
               if (isAnonymousComment) return;
               return navigate(`/user/${comment?.author?.username}`);
             }}
-            className="text-left hover:cursor-pointer"
+            className="text-justify hover:cursor-pointer"
           >
             {comment?.author?.name || "Lector Anónimo"}
             {!isAnonymousComment && (
@@ -43,7 +43,7 @@ function CommentData({ comment }) {
 
           <p
             onClick={() => navigate(`/comment/${comment?._id}`)}
-            className="text-left text-xl first-letter:capitalize hover:cursor-pointer"
+            className="text-justify text-xl first-letter:capitalize hover:cursor-pointer"
           >
             {dateDistance(comment?.postedAt)}
           </p>
@@ -51,7 +51,7 @@ function CommentData({ comment }) {
       </div>
 
       <div className="mx-2 mb-2 pl-20">
-        <p className="select-text flex-wrap whitespace-pre-wrap break-words text-left">
+        <p className="max-w-[490px] select-text flex-wrap whitespace-pre-wrap break-words text-justify">
           {comment?.content}
         </p>
       </div>

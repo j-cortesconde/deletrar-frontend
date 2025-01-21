@@ -33,7 +33,7 @@ function CollectionDetail() {
           className="w-40"
         />
 
-        <div className="max-w-[60%] flex-col text-left">
+        <div className="max-w-[60%] flex-col text-justify">
           {collection?.status === "posted" && (
             <div>
               <span>Publicada por </span>

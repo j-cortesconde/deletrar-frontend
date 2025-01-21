@@ -1,5 +1,5 @@
 // TODO: Perhaps add a distinctive if the commenter is also the author
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import CommentCreate from "./CommentCreate";
@@ -43,7 +43,7 @@ function CommentCard({
   if (comment.status !== "posted" && isThreadComment) return <DeletedComment />;
 
   return (
-    <li ref={liRef} className="relative m-4 select-none pl-2">
+    <li ref={liRef} className="relative m-4 max-w-full select-none pl-2">
       <div
         className={`absolute bottom-0 left-0 z-0 border-l-2 ${isMainComment ? "top-14 border-stone-400" : "top-10 border-stone-300"}`}
       ></div>
@@ -71,7 +71,7 @@ function CommentCard({
         </div>
       )}
 
-      <ul className="pl-4">
+      <div className="pl-4">
         {showReply && !showReplies && (
           <CommentCard comment={comment.reply} isReply={true} />
         )}
@@ -79,7 +79,7 @@ function CommentCard({
         {showReplies && !showReply && (
           <CommentComments commentId={comment._id} />
         )}
-      </ul>
+      </div>
     </li>
   );
 }

@@ -12,12 +12,12 @@ function CollectionPost({ post, index, dragHandleProps }) {
       </div>
 
       <div className="flex flex-col items-start">
-        <p className="text-left font-semibold">{post?.title}</p>
-        <p className="text-left">
+        <p className="text-justify font-semibold">{post?.title}</p>
+        <p className="text-justify">
           Escrito por {post?.author?.name} - {post?.author?.username}
         </p>
         {!(post.status === "posted") && (
-          <p className="text-left text-xl font-semibold text-red-400">
+          <p className="text-justify text-xl font-semibold text-red-400">
             De momento este texto no se encuentra disponible
           </p>
         )}

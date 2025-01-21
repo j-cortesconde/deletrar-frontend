@@ -38,7 +38,7 @@ function ConversationMessage({
           <div
             className={`flex items-end gap-4 p-3 ${isMessengerAddressee ? "" : "text-slate-50"}`}
           >
-            <p className="flex-wrap overflow-auto whitespace-pre-wrap break-words text-left">
+            <p className="flex-wrap overflow-auto whitespace-pre-wrap break-words text-justify">
               {message.content}
             </p>
             <p className="text-lg">{time(message.timestamp)}</p>

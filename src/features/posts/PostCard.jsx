@@ -28,7 +28,7 @@ function PostCard({ post, collectionId, shouldBePosted = true }) {
           alt={`${post.title}'s cover`}
           className="max-w-[20%]"
         />
-        <div className="mx-6 w-[60%] text-left">
+        <div className="mx-6 w-[60%] text-justify">
           <p className="text-4xl font-semibold">{post.title}</p>
           {post.author?.name && (
             <p className="mt-1 text-2xl">

@@ -32,7 +32,7 @@ function PostDetail() {
       <div className="flex items-center justify-center gap-10 pb-4">
         <img src={post?.coverImage} alt="Post Cover" className="w-40" />
 
-        <div className="max-w-[60%] flex-col text-left">
+        <div className="max-w-[60%] flex-col text-justify">
           {post?.status === "posted" && (
             <div>
               <span>Publicado por </span>

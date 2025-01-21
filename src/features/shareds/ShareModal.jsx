@@ -77,7 +77,7 @@ function ShareModal({ children, sharedComment }) {
                   alt={ownUser.username}
                 />
 
-                <p className="text-left">{ownUser.name}</p>
+                <p className="text-justify">{ownUser.name}</p>
               </div>
 
               <TextareaAutosize

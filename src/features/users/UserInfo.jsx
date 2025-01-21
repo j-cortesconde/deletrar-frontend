@@ -50,7 +50,7 @@ function UserInfo() {
       <div className="flex-grow">
         <div className="flex justify-between">
           <div className="flex flex-grow justify-start">
-            <div className="flex flex-col flex-wrap items-start text-left">
+            <div className="flex flex-col flex-wrap items-start text-justify">
               <p className="text-6xl font-semibold">{user?.name}</p>
               <p className="mt-1 text-xl">
                 {user?.followerAmount || "Aún no tiene"} suscriptor
@@ -95,7 +95,7 @@ function UserInfo() {
           </div>
         </div>
 
-        <p className="mt-1 flex-wrap whitespace-pre-wrap text-left text-3xl">
+        <p className="mt-1 flex-wrap whitespace-pre-wrap text-justify text-3xl">
           {user?.description}
         </p>
       </div>

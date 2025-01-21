@@ -34,7 +34,7 @@ function ConversationCard({ conversation, handleSelect }) {
       />
       <div className="flex w-full min-w-0 flex-col gap-2">
         <div className="flex w-full items-baseline justify-between gap-2">
-          <p className="truncate text-left text-2xl">{addressee.name}</p>
+          <p className="truncate text-justify text-2xl">{addressee.name}</p>
           <p className="text-xl capitalize">
             {minimumRelativeDate(conversation.lastMessage.timestamp)}
           </p>
@@ -47,7 +47,7 @@ function ConversationCard({ conversation, handleSelect }) {
               ) : (
                 <IoCheckmarkDoneOutline className="w-8" />
               ))}
-            <p className="truncate text-left text-2xl">
+            <p className="truncate text-justify text-2xl">
               {conversation.lastMessage.content}
             </p>
           </div>

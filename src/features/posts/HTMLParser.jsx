@@ -10,7 +10,7 @@ function HTMLParser({ delta, title }) {
   return (
     <div className="border-t-2 border-stone-300 p-10">
       <p className="text-center text-6xl font-semibold">{title}</p>
-      <div className="text-left first-letter:text-6xl">{parse(html)}</div>
+      <div className="text-justify first-letter:text-6xl">{parse(html)}</div>
     </div>
   );
 }

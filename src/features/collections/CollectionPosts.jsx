@@ -31,7 +31,7 @@ function CollectionPosts({ posts }) {
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
-            <p className="text-left text-4xl">Textos</p>
+            <p className="text-justify text-4xl">Textos</p>
 
             {posts?.map((post, index) => (
               <Draggable key={post?.id} draggableId={post?.id} index={index}>
@@ -53,7 +53,7 @@ function CollectionPosts({ posts }) {
             {provided.placeholder}
 
             {posts?.length === 0 && (
-              <p className="text-left text-3xl">
+              <p className="text-justify text-3xl">
                 Esta colección aún no tiene textos
               </p>
             )}

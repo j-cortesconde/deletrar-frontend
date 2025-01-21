@@ -6,8 +6,6 @@ function MainCommentData({ comment }) {
   const navigate = useNavigate();
   const isAnonymousComment = !comment.author;
 
-  console.log(comment.content);
-
   return (
     <div>
       <Tooltip
@@ -34,7 +32,7 @@ function MainCommentData({ comment }) {
               if (isAnonymousComment) return;
               return navigate(`/user/${comment?.author.username}`);
             }}
-            className="text-left text-4xl hover:cursor-pointer"
+            className="text-justify text-4xl hover:cursor-pointer"
           >
             {comment?.author?.name || "Lector Anónimo"}
           </p>
@@ -45,7 +43,7 @@ function MainCommentData({ comment }) {
                 if (isAnonymousComment) return;
                 return navigate(`/user/${comment?.author.username}`);
               }}
-              className="text-left text-2xl hover:cursor-pointer"
+              className="text-justify text-2xl hover:cursor-pointer"
             >
               {comment?.author.username}
             </p>
@@ -54,12 +52,12 @@ function MainCommentData({ comment }) {
       </div>
 
       <div className="mx-2 my-4 pl-2">
-        <p className="select-text flex-wrap whitespace-pre-wrap break-words text-left text-4xl">
+        <p className="select-text flex-wrap whitespace-pre-wrap break-words text-justify text-4xl">
           {comment?.content}
         </p>
       </div>
       <div className="mx-2 my-2 pl-2">
-        <p className="text-left text-2xl first-letter:capitalize">
+        <p className="text-justify text-2xl first-letter:capitalize">
           {timeDate(comment?.postedAt)}
         </p>
       </div>
