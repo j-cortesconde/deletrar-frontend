@@ -1,15 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { timeDate } from "../../utils/dateFormat";
+import { Tooltip } from "react-tooltip";
 
 function MainCommentData({ comment }) {
   const navigate = useNavigate();
-
   const isAnonymousComment = !comment.author;
+
+  console.log(comment.content);
 
   return (
     <div>
+      <Tooltip
+        id="tooltip"
+        render={() => <p>Este lector no ha creado una cuenta en Deletrar.</p>}
+      />
+
       <div className="flex gap-6">
         <img
+          data-tooltip-id={isAnonymousComment && "tooltip"}
           onClick={() => {
             if (isAnonymousComment) return;
             return navigate(`/user/${comment?.author.username}`);
@@ -21,6 +29,7 @@ function MainCommentData({ comment }) {
 
         <div className="pt-2">
           <p
+            data-tooltip-id={isAnonymousComment && "tooltip"}
             onClick={() => {
               if (isAnonymousComment) return;
               return navigate(`/user/${comment?.author.username}`);

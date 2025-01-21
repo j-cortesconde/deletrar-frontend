@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
+import { Tooltip } from "react-tooltip";
 
 function CommentData({ comment }) {
   const navigate = useNavigate();
@@ -8,8 +9,14 @@ function CommentData({ comment }) {
 
   return (
     <div>
+      <Tooltip
+        id="tooltip"
+        render={() => <p>Este lector no ha creado una cuenta en Deletrar.</p>}
+      />
+
       <div className="flex gap-4">
         <img
+          data-tooltip-id={isAnonymousComment && "tooltip"}
           onClick={() => {
             if (isAnonymousComment) return;
             return navigate(`/user/${comment?.author?.username}`);
@@ -21,6 +28,7 @@ function CommentData({ comment }) {
 
         <div>
           <p
+            data-tooltip-id={isAnonymousComment && "tooltip"}
             onClick={() => {
               if (isAnonymousComment) return;
               return navigate(`/user/${comment?.author?.username}`);

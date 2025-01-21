@@ -49,22 +49,19 @@ function Feed() {
                 return (
                   <FeedComment key={feedElement._id} comment={feedElement} />
                 );
-              return (
-                <p
-                  key={feedElement._id}
-                >{`Acá va un ${feedElement.documentType}`}</p>
-              );
+
+              return <></>;
             })}
           </React.Fragment>
         ))}
 
-        {/* // TODO: Mejorar el look de esto */}
-        <div ref={inViewRef} className="h-5">
+        <div ref={inViewRef} className="mb-5 min-h-5">
           {isFetchingNextPage && <Loader />}
           {!hasNextPage && (
-            <p>
-              De momento no hay más publicaciones que mostrar. Volvé más tarde.
-            </p>
+            <>
+              <p>De momento no hay más publicaciones que mostrar.</p>
+              <p>Volvé más tarde.</p>
+            </>
           )}
         </div>
       </ul>

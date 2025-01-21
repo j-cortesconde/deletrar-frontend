@@ -26,7 +26,7 @@ function UserHeaderOptions({ user, onCloseDisplayOptions }) {
         Conversaciones
       </ScrollableLi>
       <ScrollableLi
-        onClick={() => navigate(`/settings`)}
+        onClick={() => navigate(`/user/settings`)}
         selected={selectedIndex === 1}
       >
         Settings

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { dateDistance } from "../../utils/dateFormat";
 import TruncatedText from "../../ui/TruncatedText";
+import { Tooltip } from "react-tooltip";
 
 function FeedComment({ comment }) {
   const navigate = useNavigate();
@@ -16,10 +17,16 @@ function FeedComment({ comment }) {
 
   return (
     <div className="w-full rounded-lg border-2 border-neutral-400 bg-white px-8 pb-4 pt-8 text-start shadow-xl">
+      <Tooltip
+        id="tooltip"
+        render={() => <p>Este lector no ha creado una cuenta en Deletrar.</p>}
+      />
+
       {/* <!-- User Info with Three-Dot Menu --> */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex h-full w-full items-start gap-2 truncate">
           <img
+            data-tooltip-id={isAnonymousComment && "tooltip"}
             onClick={() => {
               if (!isAnonymousComment)
                 return navigate(`/user/${comment?.author?.username}`);
@@ -28,9 +35,11 @@ function FeedComment({ comment }) {
             alt={comment?.author?.username || "Lector Anónimo"}
             className="h-20 w-20 rounded-full"
           />
+
           <div className="flex w-full flex-col justify-between gap-1 truncate">
             <div className="truncate">
               <p
+                data-tooltip-id={isAnonymousComment && "tooltip"}
                 onClick={() => {
                   if (isAnonymousComment) return;
                   return navigate(`/user/${comment?.author?.username}`);

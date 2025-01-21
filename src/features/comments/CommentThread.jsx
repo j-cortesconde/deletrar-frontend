@@ -5,8 +5,8 @@ import CommentCard from "./CommentCard";
 function CommentThread({ commentThread, mainComment }) {
   const lastItemRef = useRef(null);
 
-  const reversedCommentThread = commentThread?.slice().reverse();
-  if (mainComment) reversedCommentThread.push(mainComment);
+  const fullCommentThread = commentThread?.slice();
+  if (mainComment) fullCommentThread.push(mainComment);
 
   useEffect(() => {
     if (lastItemRef.current) {
@@ -19,16 +19,14 @@ function CommentThread({ commentThread, mainComment }) {
 
   return (
     <ul>
-      {reversedCommentThread?.map((comment, i) => (
+      {fullCommentThread?.map((comment, i) => (
         <CommentCard
           // Complex key so re-render on new CommentDetail so it will re-initialize states like showReply and showReplies which were causing issues
           key={`${comment?._id}${mainComment?._id}`}
           comment={comment}
-          isMainComment={i === reversedCommentThread.length - 1}
-          isThreadComment={
-            i === reversedCommentThread.length - 1 ? false : true
-          }
-          liRef={i === reversedCommentThread.length - 1 ? lastItemRef : null}
+          isMainComment={i === fullCommentThread.length - 1}
+          isThreadComment={i === fullCommentThread.length - 1 ? false : true}
+          liRef={i === fullCommentThread.length - 1 ? lastItemRef : null}
         />
       ))}
     </ul>

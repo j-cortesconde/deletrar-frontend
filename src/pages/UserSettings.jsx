@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 
-import { useCurrentUser } from "./useCurrentUser";
-import { useUpdateMe } from "./useUpdateMe";
+import { useCurrentUser } from "../features/users/useCurrentUser";
+import { useUpdateMe } from "../features/users/useUpdateMe";
 
-import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
-import Input from "../../ui/Input";
-import Loader from "../../ui/Loader";
-import Button from "../../ui/Button";
-import Textarea from "../../ui/Textarea";
+import Form from "../ui/Form";
+import FormRow from "../ui/FormRow";
+import Input from "../ui/Input";
+import Loader from "../ui/Loader";
+import Button from "../ui/Button";
+import Textarea from "../ui/Textarea";
 
 function UserSettings() {
   const navigate = useNavigate();
@@ -54,10 +54,9 @@ function UserSettings() {
 
   return (
     <div className="m-auto flex w-3/4 flex-col">
-      <h1 className="text-left">Editar Perfil</h1>
-      <img src={user.photo} alt={user.name} className="w-52" />
-
       <Form appLayout="internal" onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="text-center text-4xl">Información</h1>
+
         <FormRow label="Nombre" error={errors?.name?.message}>
           <Input
             type="text"
@@ -111,6 +110,8 @@ function UserSettings() {
           />
         </FormRow>
 
+        <h1 className="mt-6 text-center text-4xl">Configuración</h1>
+
         <FormRow
           label="Visibilidad de Cuenta"
           error={errors?.publicAccount?.message}
@@ -126,6 +127,7 @@ function UserSettings() {
               visibles?
             </p>
             <input
+              className="h-8"
               type="checkbox"
               id="publicAccount"
               disabled={isUpdating}
@@ -147,6 +149,7 @@ function UserSettings() {
               para quien posea su enlace?
             </p>
             <input
+              className="h-8"
               type="checkbox"
               id="publicEditing"
               disabled={isUpdating}
@@ -168,6 +171,7 @@ function UserSettings() {
               invitación para crearse una cuenta?
             </p>
             <input
+              className="h-8"
               type="checkbox"
               id="receivingInvitationRequests"
               disabled={isUpdating}

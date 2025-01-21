@@ -37,7 +37,7 @@ import ConversationDetail from "./features/conversations/ConversationDetail";
 import ConversationPlaceholder from "./features/conversations/ConversationPlaceholder";
 import LoggedInProtection from "./ui/LoggedInProtection";
 import UserShared from "./features/users/UserShared";
-import UserSettings from "./features/users/UserSettings";
+import UserSettings from "./pages/UserSettings";
 import PageNotFound from "./pages/PageNotFound";
 
 const queryClient = new QueryClient({
