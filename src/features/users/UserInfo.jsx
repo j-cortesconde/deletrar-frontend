@@ -58,7 +58,7 @@ function UserInfo() {
               <p className="text-6xl font-semibold">{user?.name}</p>
               <p className="mt-1 text-xl">
                 {user?.followerAmount || "Aún no tiene"} suscriptor
-                {user?.followerAmount > 1 && "es"}
+                {user?.followerAmount !== 1 && "es"}
                 {isLoggedIn && isFollower && <span> | Es un suscriptor</span>}
               </p>
             </div>
