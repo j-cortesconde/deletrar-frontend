@@ -38,7 +38,7 @@ function PostDetail() {
       <div className="grid grid-cols-5 gap-4 pb-4">
         <div className="col-span-3 col-start-2 flex justify-center">
           <div className="flex-col text-center">
-            {post?.status === "posted" && (
+            {post?.postedAt && (
               <div>
                 <span>Publicado por </span>
                 <span

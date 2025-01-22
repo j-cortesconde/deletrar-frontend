@@ -35,7 +35,7 @@ function CollectionDetail() {
       <div className="grid grid-cols-5 gap-4 border-b-2 border-stone-300 pb-4">
         <div className="col-span-3 col-start-2 flex justify-center">
           <div className="flex-col text-center">
-            {collection?.status === "posted" && (
+            {collection?.postedAt && (
               <div>
                 <span>Publicada por </span>
                 <span
