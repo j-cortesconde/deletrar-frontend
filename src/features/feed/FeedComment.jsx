@@ -33,7 +33,7 @@ function FeedComment({ comment }) {
             }}
             src={comment?.author?.photo || "/users/anonymous.png"}
             alt={comment?.author?.username || "Lector Anónimo"}
-            className="h-20 w-20 rounded-full"
+            className="h-20 w-20 rounded-full object-cover"
           />
 
           <div className="flex w-full flex-col justify-between gap-1 truncate">

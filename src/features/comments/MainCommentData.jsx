@@ -20,7 +20,7 @@ function MainCommentData({ comment }) {
             if (isAnonymousComment) return;
             return navigate(`/user/${comment?.author.username}`);
           }}
-          className="h-28 w-28 rounded-full hover:cursor-pointer"
+          className="h-28 w-28 rounded-full object-cover hover:cursor-pointer"
           src={comment?.author?.photo || "/users/anonymous.png"}
           alt={comment?.author?.username || "Lector Anónimo"}
         />

@@ -45,7 +45,7 @@ function FeedCollection({ collection }) {
             <img
               src={collection?.collector.photo}
               alt="User Avatar"
-              className="h-20 w-20 rounded-full"
+              className="h-20 w-20 rounded-full object-cover"
             />
           </Link>
           <div className="flex w-full flex-col justify-between gap-1 truncate">
