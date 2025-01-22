@@ -58,7 +58,7 @@ function PostDetail() {
           {!isntOwnPost && <PostOwnerOptions post={post} />}
         </div>
       </div>
-      <HTMLParser delta={post?.content} title={post?.title} />
+      <HTMLParser delta={JSON.parse(post?.content)} title={post?.title} />
 
       <CollectionNavigate />
 
