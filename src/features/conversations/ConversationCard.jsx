@@ -28,7 +28,7 @@ function ConversationCard({ conversation, handleSelect }) {
       className="flex w-full select-none items-center justify-start gap-2 rounded-3xl p-2 hover:cursor-pointer hover:bg-slate-300"
     >
       <img
-        className="h-20 w-20 rounded-full"
+        className="aspect-square w-20 rounded-full object-cover"
         src={addressee.photo}
         alt={addressee.name}
       />

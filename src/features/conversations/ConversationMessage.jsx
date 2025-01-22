@@ -3,10 +3,12 @@ import { shortDate, time } from "../../utils/dateFormat";
 function ConversationMessage({
   message,
   addressee,
+  self,
   previousMessageTime,
   previousMessageMessenger,
 }) {
-  const isMessengerAddressee = message.messenger === addressee?.username;
+  const isMessengerSelf = message.messenger === self;
+
   const isNewDay = !(
     shortDate(message.timestamp) === shortDate(previousMessageTime)
   );
@@ -19,24 +21,24 @@ function ConversationMessage({
         </div>
       )}
       <div
-        className={`flex w-full ${isMessengerAddressee ? "justify-start" : "justify-end"}`}
+        className={`flex w-full ${isMessengerSelf ? "justify-end" : "justify-start"}`}
       >
-        {isMessengerAddressee && (
+        {!isMessengerSelf && (
           <div className="mr-2 flex h-12 w-12 items-center justify-center rounded-full">
             {previousMessageMessenger !== message.messenger && (
               <img
-                src={addressee?.photo}
-                alt="Friend's Initial"
-                className="h-10 w-10 rounded-full"
+                src={addressee?.photo || "/users/anonymous.png"}
+                alt={addressee?.name || "Lector Anónimo"}
+                className="h-12 w-12 rounded-full object-cover"
               />
             )}
           </div>
         )}
         <div
-          className={`max-w-[80%] rounded-xl ${isMessengerAddressee ? "bg-slate-200" : "bg-slate-500"}`}
+          className={`max-w-[80%] rounded-xl ${isMessengerSelf ? "bg-slate-500" : "bg-slate-200"}`}
         >
           <div
-            className={`flex items-end gap-4 p-3 ${isMessengerAddressee ? "" : "text-slate-50"}`}
+            className={`flex items-end gap-4 p-3 ${isMessengerSelf ? "text-slate-50" : ""}`}
           >
             <p className="flex-wrap overflow-auto whitespace-pre-wrap break-words text-justify">
               {message.content}

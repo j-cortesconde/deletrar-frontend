@@ -6,6 +6,7 @@ import Loader from "../../ui/Loader";
 
 function ConversationMessages({
   addressee,
+  self,
   pages,
   hasNextPage,
   fetchNextPage,
@@ -57,6 +58,7 @@ function ConversationMessages({
               key={message._id}
               message={message}
               addressee={addressee}
+              self={self}
               previousMessageTime={page.messages[i - 1]?.timestamp}
               previousMessageMessenger={page.messages[i - 1]?.messenger}
             />
