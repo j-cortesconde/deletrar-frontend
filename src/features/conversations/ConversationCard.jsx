@@ -3,6 +3,7 @@ import { minimumRelativeDate } from "../../utils/dateFormat";
 import { IoCheckmarkDoneOutline, IoCheckmarkDoneSharp } from "react-icons/io5";
 import { SiGooglemessages } from "react-icons/si";
 import { useEffect, useState } from "react";
+import { Tooltip } from "react-tooltip";
 
 function ConversationCard({ conversation, handleSelect }) {
   const [isRead, setIsRead] = useState(conversation.lastMessage.read);
@@ -12,6 +13,7 @@ function ConversationCard({ conversation, handleSelect }) {
   const addressee = conversation.participants.find(
     (participant) => participant.username !== ownUser.username,
   );
+  const isAddresseeInactive = !addressee.active;
 
   function handleClick() {
     setIsRead(true);
@@ -24,17 +26,25 @@ function ConversationCard({ conversation, handleSelect }) {
 
   return (
     <div
+      data-tooltip-id={isAddresseeInactive && "tooltip"}
       onClick={handleClick}
       className="flex w-full select-none items-center justify-start gap-2 rounded-3xl p-2 hover:cursor-pointer hover:bg-slate-300"
     >
+      <Tooltip
+        id="tooltip"
+        render={() => <p>Este lector no existe o ha borrado su cuenta.</p>}
+      />
+
       <img
         className="aspect-square w-20 rounded-full object-cover"
-        src={addressee.photo}
-        alt={addressee.name}
+        src={isAddresseeInactive ? "/users/anonymous.png" : addressee?.photo}
+        alt={isAddresseeInactive ? "Lector Anónimo" : addressee?.name}
       />
       <div className="flex w-full min-w-0 flex-col gap-2">
         <div className="flex w-full items-baseline justify-between gap-2">
-          <p className="truncate text-justify text-2xl">{addressee.name}</p>
+          <p className="truncate text-justify text-2xl">
+            {isAddresseeInactive ? "Lector Anónimo" : addressee?.name}
+          </p>
           <p className="text-xl capitalize">
             {minimumRelativeDate(conversation.lastMessage.timestamp)}
           </p>
