@@ -52,7 +52,7 @@ function UserInfo() {
         />
       </div>
       <div className="flex-grow">
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-8">
           <div className="flex flex-grow justify-start">
             <div className="flex flex-col flex-wrap items-start text-justify">
               <p className="text-6xl font-semibold">{user?.name}</p>
