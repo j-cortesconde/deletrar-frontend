@@ -39,6 +39,7 @@ import LoggedInProtection from "./ui/LoggedInProtection";
 import UserShared from "./features/users/UserShared";
 import UserSettings from "./pages/UserSettings";
 import PageNotFound from "./pages/PageNotFound";
+import DeactivateAccount from "./pages/DeactivateAccount";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -116,6 +117,10 @@ function App() {
               <Route
                 path="account/initialize"
                 element={<InitializeAccount />}
+              />
+              <Route
+                path="account/deactivate"
+                element={<DeactivateAccount />}
               />
             </Route>
             <Route element={<LoggedInProtection />}>

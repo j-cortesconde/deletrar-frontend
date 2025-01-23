@@ -53,7 +53,7 @@ function UserSettings() {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="m-auto flex w-3/4 flex-col">
+    <div className="m-auto flex w-3/4 flex-col pb-4">
       <Form appLayout="internal" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-center text-4xl">Información</h1>
 
@@ -180,18 +180,29 @@ function UserSettings() {
           </div>
         </FormRow>
 
-        <FormRow orientation="horizontal">
+        <FormRow orientation="vertical">
+          <FormRow orientation="horizontal">
+            <Button
+              type="button"
+              size="large"
+              variation="secondary"
+              disabled={isUpdating}
+              onClick={() => navigate(-1)}
+            >
+              Cancelar
+            </Button>
+            <Button size="wide" disabled={isUpdating || !isValid}>
+              {!isUpdating ? "Actualizar información" : "Esperar"}
+            </Button>
+          </FormRow>
+
           <Button
-            type="button"
-            size="large"
-            variation="secondary"
+            size="wide"
+            variation="danger"
             disabled={isUpdating}
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/account/deactivate")}
           >
-            Cancelar
-          </Button>
-          <Button size="wide" disabled={isUpdating || !isValid}>
-            {!isUpdating ? "Actualizar información" : "Esperar"}
+            Desactivar cuenta
           </Button>
         </FormRow>
       </Form>

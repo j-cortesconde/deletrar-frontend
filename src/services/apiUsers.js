@@ -28,6 +28,14 @@ export async function reactivateAccount() {
   return response.data.data;
 }
 
+export async function deactivateAccount() {
+  const response = await axiosService.deactivateAccount();
+
+  localStorage.removeItem("jwt");
+
+  return response.data.data;
+}
+
 export async function initializeAccount({ username }) {
   const response = await axiosService.initializeAccount({ username });
   return response.data.data;

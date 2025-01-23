@@ -137,6 +137,19 @@ class AxiosService {
     });
   }
 
+  async deactivateAccount() {
+    const response = await axios({
+      method: "PATCH",
+      url: `${API_URL}/users/deactivateMe`,
+    });
+
+    this.#jwt = undefined;
+
+    this.#clearAuthHeader();
+
+    return response;
+  }
+
   initializeAccount({ username }) {
     return axios({
       method: "PATCH",
