@@ -29,9 +29,9 @@ function CommentDetail() {
     : "a la colección";
   const originalDocumentLink = comment?.targetPost
     ? comment?.targetCollection
-      ? `/collection/${comment?.targetCollection?._id}/post/${comment?.targetPost?.id}`
-      : `/post/${comment?.targetPost?.id}`
-    : `/collection/${comment?.targetCollection?._id}`;
+      ? `/collection/${comment?.targetCollection}/post/${comment?.targetPost}`
+      : `/post/${comment?.targetPost}`
+    : `/collection/${comment?.targetCollection}`;
 
   if (isLoading1 || isLoading2) return <Loader />;
 
