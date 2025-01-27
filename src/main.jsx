@@ -8,6 +8,8 @@ import App from "./App.jsx";
 import "./index.css";
 import { ErrorBoundary } from "react-error-boundary";
 import GlobalErrorFallback from "./pages/GlobalErrorFallback.jsx";
+import dotenv from "dotenv";
+dotenv.config();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>

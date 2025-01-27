@@ -5,7 +5,8 @@
 // FIXME: Esta estructura de servicio es inaceptable. Resolver
 // TODO: Un logic delete, va como PATCH o como qué?
 import axios from "axios";
-import { API_URL } from "../utils/constants";
+
+const API_URL = process.env.API_URL;
 
 class AxiosService {
   #jwt;

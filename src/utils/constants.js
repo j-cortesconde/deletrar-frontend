@@ -1,8 +1,6 @@
 // TODO: As of now there are limit constants here and in backend. Maybe there should be only in backend and from there communicated here (in response, for example) so you can do paging here. See solutions
 
-export const API_URL = "http://localhost:3001/api/v1";
-
-export const SEARCH_RESULTS = 2;
+export const SEARCH_RESULTS = 3;
 
 export const POST_SORT_OPTIONS = [
   {
