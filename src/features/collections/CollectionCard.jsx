@@ -54,11 +54,13 @@ function CollectionCard({ collection }) {
             )}
         </div>
 
-        <img
-          src={collection.coverImage}
-          alt={`${collection.title}'s cover`}
-          className="max-h-40 w-full overflow-hidden object-cover"
-        />
+        {collection?.coverImage && (
+          <img
+            src={collection.coverImage}
+            alt={`${collection.title}'s cover`}
+            className="max-h-40 w-full overflow-hidden object-cover"
+          />
+        )}
 
         <p className="mt-1 flex-wrap whitespace-pre-wrap text-2xl">
           {collection.summary}

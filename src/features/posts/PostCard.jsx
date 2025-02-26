@@ -58,11 +58,13 @@ function PostCard({ post, collectionId, shouldBePosted = true }) {
           )}
         </div>
 
-        <img
-          src={post.coverImage}
-          alt={`${post.title}'s cover`}
-          className="max-h-40 w-full overflow-hidden object-cover"
-        />
+        {post?.coverImage && (
+          <img
+            src={post.coverImage}
+            alt={`${post.title}'s cover`}
+            className="max-h-40 w-full overflow-hidden object-cover"
+          />
+        )}
 
         <p className="mt-1 flex-wrap whitespace-pre-wrap text-2xl">
           {post.summary}

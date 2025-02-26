@@ -29,11 +29,13 @@ function PostDetail() {
 
   return (
     <div className="mx-auto w-3/4">
-      <img
-        src={post?.coverImage}
-        alt="Post Cover"
-        className="object mx-auto my-3 h-96 min-w-[100%] max-w-full rounded-lg object-cover"
-      />
+      {post?.coverImage && (
+        <img
+          src={post?.coverImage}
+          alt="Post Cover"
+          className="object mx-auto my-3 h-96 min-w-[100%] max-w-full rounded-lg object-cover"
+        />
+      )}
 
       <div className="grid grid-cols-5 gap-4 pb-4">
         <div className="col-span-3 col-start-2 flex justify-center">
